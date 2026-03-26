@@ -1,0 +1,278 @@
+{
+  "general": {
+    "password_page": {
+      "opening_soon": "Opening Soon",
+      "spread_the_word": "Spread the word",
+      "login_page_title": "Store Login",
+      "submit": "Enter"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "Share on Facebook",
+        "share_on_twitter": "Share on X",
+        "share_on_pinterest": "Pin on Pinterest",
+        "share_on_whatsapp": "Share on WhatsApp"
+      },
+      "links": {
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "youtube": "YouTube",
+        "pinterest": "Pinterest",
+        "twitter": "X (Twitter)",
+        "whatsapp": "WhatsApp"
+      }
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "home_link_title": "Back to the home page"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you were looking for does not exist.",
+      "link": "Continue shopping"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search our sacred collection...",
+      "submit": "Search",
+      "no_results": "No results found for \"{{ terms }}\". Check the spelling or try a different search.",
+      "results_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      }
+    },
+    "newsletter": {
+      "heading": "Join the Divine Arts Family",
+      "body": "Subscribe for sacred stories, new arrivals, and exclusive offers from Haridwar.",
+      "email_placeholder": "Your email address",
+      "submit": "Subscribe",
+      "success": "Namaste! You have been added to our mailing list.",
+      "error": "Something went wrong. Please try again."
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "unit_price_separator": "per",
+      "vendor": "Vendor:",
+      "error": "Error",
+      "refresh_page": "Choosing a selection results in a full page refresh.",
+      "link_messages": {
+        "new_window": "Opens in a new window.",
+        "external": "Opens external website."
+      }
+    }
+  },
+  "header": {
+    "navigation": {
+      "menu": "Menu",
+      "close_menu": "Close menu"
+    },
+    "cart": {
+      "title": "Cart",
+      "item_count": {
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
+      }
+    },
+    "account": {
+      "login": "Log in",
+      "logout": "Log out",
+      "register": "Create account"
+    },
+    "search": "Search",
+    "announcement": {
+      "close": "Close announcement"
+    }
+  },
+  "footer": {
+    "payment_methods": "Payment methods",
+    "copyright": "{{ year }} {{ shop_name }}. All rights reserved.",
+    "crafted_in": "Handcrafted in Haridwar, India"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "added_to_cart": "Added!",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "price": {
+        "from": "From {{ price }}",
+        "regular": "Regular price",
+        "sale": "Sale price",
+        "unit_price": "Unit price"
+      },
+      "quantity": {
+        "label": "Quantity",
+        "increase": "Increase quantity for {{ title }}",
+        "decrease": "Decrease quantity for {{ title }}",
+        "input_label": "Quantity for {{ title }}"
+      },
+      "variant": {
+        "label": "Variant",
+        "select": "Select {{ option_name }}"
+      },
+      "description": "Description",
+      "details": "Details",
+      "share": "Share this murti",
+      "view_full_details": "View full details",
+      "sku": "SKU",
+      "vendor": "Artisan",
+      "type": "Type",
+      "tags": "Tags",
+      "on_sale": "Sale",
+      "new": "New",
+      "shipping_note": "Ships from Haridwar"
+    },
+    "collection": {
+      "title": "Collection",
+      "all": "All Products",
+      "empty": "No products found in this collection.",
+      "filter": {
+        "title": "Filter",
+        "clear": "Clear all",
+        "apply": "Apply",
+        "sort_by": "Sort by",
+        "sort_options": {
+          "featured": "Featured",
+          "best_selling": "Best selling",
+          "title_asc": "Alphabetically, A-Z",
+          "title_desc": "Alphabetically, Z-A",
+          "price_asc": "Price, low to high",
+          "price_desc": "Price, high to low",
+          "date_desc": "Date, new to old",
+          "date_asc": "Date, old to new"
+        }
+      },
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page {{ number }}"
+      }
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue Shopping",
+      "subtotal": "Subtotal",
+      "taxes_and_shipping": "Taxes and shipping calculated at checkout",
+      "checkout": "Proceed to Checkout",
+      "note": "Order note",
+      "note_placeholder": "Special instructions (e.g., gift wrapping, puja purpose)"
+    },
+    "items": {
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "remove": "Remove",
+      "remove_title": "Remove {{ title }}"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My Account",
+      "details": "Account Details",
+      "view_addresses": "View Addresses",
+      "return": "Return to Account Details"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign In",
+      "guest_title": "Continue as Guest",
+      "guest_continue": "Continue"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create"
+    },
+    "orders": {
+      "title": "Order History",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment Status",
+      "fulfillment_status": "Fulfillment Status",
+      "total": "Total",
+      "none": "You have not placed any orders yet."
+    },
+    "addresses": {
+      "title": "Your Addresses",
+      "add_new": "Add a New Address",
+      "edit_address": "Edit address",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address",
+      "address2": "Apartment, suite, etc.",
+      "city": "City",
+      "country": "Country / Region",
+      "province": "State",
+      "zip": "PIN Code",
+      "phone": "Phone",
+      "set_default": "Set as default address",
+      "update": "Update Address",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "delete_confirm": "Are you sure you wish to delete this address?"
+    }
+  },
+  "sections": {
+    "hero": {
+      "shop_now": "Shop Now",
+      "explore": "Explore Collection"
+    },
+    "featured_collection": {
+      "view_all": "View All"
+    },
+    "testimonials": {
+      "title": "What Our Devotees Say"
+    },
+    "about": {
+      "title": "Our Story",
+      "read_more": "Read More"
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Thank you for reaching out. We will get back to you soon."
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Your Gift Card",
+      "subtext": "Your gift card for {{ shop }}",
+      "gift_card_code": "Gift card code",
+      "shop_link": "Continue shopping",
+      "remaining_html": "Remaining {{ balance }}",
+      "add_to_apple_wallet": "Add to Apple Wallet",
+      "qr_image_alt": "QR code",
+      "copy_code": "Copy code",
+      "expired": "Expired",
+      "copy_code_success": "Code copied successfully"
+    }
+  },
+  "theme": {
+    "name": "Kala",
+    "dark_mode": {
+      "toggle": "Toggle dark mode",
+      "light": "Light mode",
+      "dark": "Dark mode"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{%- comment -%}
+  Guide CTA — "Which Energy is Your Home Missing?" call to action.
+{%- endcomment -%}
+
+<section class="da-section da-bg-linen da-texture" data-section-id="{{ section.id }}">
+  <div class="da-container da-container--narrow">
+    <div class="da-text-center da-reveal">
+      {%- render 'ornament' -%}
+      <h2 class="da-display da-display-lg da-mb-2">
+        {{ section.settings.heading | default: "Which Energy is Your Home Missing?" }}
+      </h2>
+      <p class="da-body-sm da-mb-3" style="max-width:500px;margin-left:auto;margin-right:auto;">
+        {{ section.settings.description | default: "You don't need to guess. Whether you seek the stability of the Root Chakra or the flow of the Water element, our guide will match your current life stage with the correct deity." }}
+      </p>
+      <a href="{{ section.settings.cta_url | default: '/pages/guide' }}" class="da-btn da-btn--primary">
+        {{ section.settings.cta_text | default: "Take the Guide" }}
+      </a>
+      {%- render 'ornament' -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Guide CTA",
+  "class": "da-guide-cta-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Which Energy is Your Home Missing?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "You don't need to guess. Whether you seek the stability of the Root Chakra or the flow of the Water element, our guide will match your current life stage with the correct deity."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Take the Guide"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Guide CTA"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,457 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Warm bright palette ───────────────────── */
+    --night:     42 40% 97%;       /* #FBF8F1 — warm cream bg */
+    --night-mid: 36 30% 93%;      /* #F2EADC — warm linen surface */
+    --dusk:      40 35% 98%;      /* #FEFCF7 — near-white cards */
+    --ember:     32 20% 83%;      /* #DBD0C2 — warm borders */
+    --copper:    30 75% 38%;      /* #A96D15 — rich brass accent */
+    --gold:      38 85% 48%;      /* #E3A310 — bright gold */
+    --ivory:     20 55% 10%;      /* #271306 — deep espresso text */
+    --stone:     24 14% 46%;      /* #877465 — warm muted text */
+    --cinnabar:  12 65% 48%;      /* #C94425 — warm red accent */
+
+    /* ── Accent tones for warmth/depth ──────── */
+    --saffron:   32 50% 90%;      /* warm parchment tint */
+    --honey:     35 55% 85%;      /* deeper warm for accent bgs */
+    --radius: 2px;
+  }
+
+  * { box-sizing: border-box; border-color: hsl(var(--ember) / 0.5); }
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-night text-ivory font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 { @apply font-display; }
+
+  ::selection { background: hsl(var(--copper) / 0.2); color: hsl(var(--ivory)); }
+}
+
+@layer utilities {
+
+  /* ══════════════════════════════════════════════
+     WARM TEXTURES & SURFACES
+     ══════════════════════════════════════════════ */
+
+  /* Subtle paper grain texture — gives white space warmth and life */
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px;
+  }
+
+  /* Warm gradient overlays for sections */
+  .bg-warm-gradient {
+    background: linear-gradient(180deg,
+      hsl(42 40% 97%) 0%,
+      hsl(36 35% 95%) 50%,
+      hsl(34 30% 93%) 100%
+    );
+  }
+
+  .bg-warm-center {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      hsl(36 40% 95%) 0%,
+      hsl(42 40% 97%) 100%
+    );
+  }
+
+  /* Parchment section — deep warm tint */
+  .bg-parchment {
+    background: linear-gradient(175deg,
+      hsl(36 35% 94%) 0%,
+      hsl(34 30% 91%) 40%,
+      hsl(36 35% 94%) 100%
+    );
+  }
+
+  /* Honey-tinted feature sections */
+  .bg-honey-tint {
+    background: linear-gradient(135deg,
+      hsl(35 40% 93%) 0%,
+      hsl(32 35% 91%) 50%,
+      hsl(35 40% 93%) 100%
+    );
+  }
+
+  /* ── Brass filigree pattern (decorative background) ── */
+  .bg-filigree {
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23A96D15' stroke-width='0.5' opacity='0.06'%3E%3Ccircle cx='40' cy='40' r='20'/%3E%3Ccircle cx='40' cy='40' r='12'/%3E%3Cpath d='M40 20 L40 60 M20 40 L60 40' /%3E%3Cpath d='M26 26 L54 54 M54 26 L26 54' /%3E%3C/g%3E%3C/svg%3E");
+    background-size: 80px 80px;
+  }
+
+  /* Small cross pattern (original, refined) */
+  .bg-cross-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23A96D15' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+
+  /* ══════════════════════════════════════════════
+     COPPER TEXT GRADIENT
+     ══════════════════════════════════════════════ */
+  .text-copper-gradient {
+    background: linear-gradient(135deg, hsl(var(--copper)), hsl(var(--gold)), hsl(var(--copper)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 100%;
+  }
+
+
+  /* ══════════════════════════════════════════════
+     DECORATIVE COPPER RULES & DIVIDERS
+     ══════════════════════════════════════════════ */
+
+  /* Classic straight copper rule */
+  .copper-rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--copper) / 0.25) 20%,
+      hsl(var(--copper) / 0.6) 50%,
+      hsl(var(--copper) / 0.25) 80%,
+      transparent 100%
+    );
+  }
+
+  /* Decorative section break with lotus motif */
+  .divider-ornament {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 0;
+  }
+  .divider-ornament::before,
+  .divider-ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--copper) / 0.3), transparent);
+  }
+
+  /* Wavy organic divider */
+  .divider-wave {
+    height: 24px;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 12 Q150 0 300 12 Q450 24 600 12 Q750 0 900 12 Q1050 24 1200 12' stroke='%23A96D15' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3C/svg%3E");
+    background-size: 1200px 24px;
+    background-repeat: repeat-x;
+    background-position: center;
+  }
+
+
+  /* ══════════════════════════════════════════════
+     CARDS & SURFACES
+     ══════════════════════════════════════════════ */
+
+  /* Warm editorial card */
+  .card-rasa {
+    @apply border border-ember/50 transition-all duration-300 bg-dusk;
+    box-shadow: 0 1px 4px hsl(30 30% 50% / 0.04);
+  }
+  .card-rasa:hover {
+    border-color: hsl(var(--copper) / 0.5);
+    box-shadow:
+      0 8px 32px hsl(var(--copper) / 0.08),
+      0 2px 8px hsl(30 30% 50% / 0.06);
+    transform: translateY(-2px);
+  }
+
+  /* Warm float card — for feature highlights */
+  .card-warm {
+    @apply bg-dusk border border-ember/40;
+    box-shadow:
+      0 4px 16px hsl(30 30% 50% / 0.06),
+      0 1px 4px hsl(30 30% 50% / 0.04);
+    transition: all 0.3s ease;
+  }
+  .card-warm:hover {
+    box-shadow:
+      0 8px 32px hsl(var(--copper) / 0.1),
+      0 2px 8px hsl(30 30% 50% / 0.06);
+    transform: translateY(-3px);
+    border-color: hsl(var(--copper) / 0.4);
+  }
+
+  /* Accent card — warm tinted background */
+  .card-accent {
+    background: linear-gradient(135deg,
+      hsl(36 35% 95%) 0%,
+      hsl(34 30% 93%) 100%
+    );
+    @apply border border-copper/20;
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.7);
+  }
+
+
+  /* ══════════════════════════════════════════════
+     IMAGE OVERLAYS
+     ══════════════════════════════════════════════ */
+  .img-overlay-wrap {
+    @apply relative overflow-hidden;
+  }
+  .img-overlay-wrap .img-overlay-text {
+    @apply absolute bottom-0 left-0 right-0 translate-y-full transition-transform duration-500;
+    background: linear-gradient(to top, rgba(20, 14, 8, 0.92) 0%, rgba(20, 14, 8, 0.55) 70%, transparent 100%);
+  }
+  .img-overlay-wrap:hover .img-overlay-text {
+    @apply translate-y-0;
+  }
+  .img-overlay-wrap img {
+    @apply transition-transform duration-700;
+  }
+  .img-overlay-wrap:hover img {
+    @apply scale-105;
+  }
+
+  /* Warm-tinted image wrapper */
+  .img-warm-tint {
+    position: relative;
+  }
+  .img-warm-tint::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+      transparent 60%,
+      hsl(32 40% 50% / 0.08) 100%
+    );
+    pointer-events: none;
+  }
+
+
+  /* ══════════════════════════════════════════════
+     ANIMATIONS
+     ══════════════════════════════════════════════ */
+
+  /* Marquee */
+  @keyframes marquee-rasa {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee-rasa 45s linear infinite; }
+
+  /* Float */
+  @keyframes float-rasa {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+  }
+  .animate-float        { animation: float-rasa 6s ease-in-out infinite; }
+  .animate-float-delay  { animation: float-rasa 6s ease-in-out 2s infinite; }
+
+  /* Pulse glow */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--copper) / 0); }
+    50%       { box-shadow: 0 0 20px 4px hsl(var(--copper) / 0.15); }
+  }
+  .animate-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+  /* Gentle breathing scale */
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50%      { transform: scale(1.05); opacity: 1; }
+  }
+  .animate-breathe { animation: breathe 4s ease-in-out infinite; }
+
+  /* Floating ember particles */
+  @keyframes ember-rise {
+    0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-120px) translateX(30px) scale(0.3); opacity: 0; }
+  }
+  .ember-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: hsl(var(--gold));
+    animation: ember-rise 4s ease-out infinite;
+    pointer-events: none;
+  }
+
+  /* Subtle shimmer on copper elements */
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    background: linear-gradient(90deg,
+      hsl(var(--copper)) 0%,
+      hsl(var(--gold)) 40%,
+      hsl(var(--copper)) 60%,
+      hsl(var(--gold)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Slow spin for decorative elements */
+  @keyframes slow-spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .animate-slow-spin { animation: slow-spin 40s linear infinite; }
+
+  /* Diya flame flicker */
+  @keyframes flame-flicker {
+    0%, 100% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+    25%      { transform: scaleY(1.1) scaleX(0.95); opacity: 1; }
+    50%      { transform: scaleY(0.95) scaleX(1.05); opacity: 0.85; }
+    75%      { transform: scaleY(1.05) scaleX(0.98); opacity: 1; }
+  }
+  .animate-flame { animation: flame-flicker 1.5s ease-in-out infinite; }
+
+
+  /* ══════════════════════════════════════════════
+     BUTTONS
+     ══════════════════════════════════════════════ */
+  .btn-copper {
+    @apply bg-copper text-white font-body text-xs tracking-[0.2em] uppercase
+           px-7 py-3.5 transition-all duration-300;
+    background: linear-gradient(135deg, hsl(var(--copper)), hsl(30 70% 42%));
+    box-shadow: 0 2px 8px hsl(var(--copper) / 0.2);
+  }
+  .btn-copper:hover {
+    background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--copper)));
+    box-shadow: 0 4px 16px hsl(var(--copper) / 0.3);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline-copper {
+    @apply border border-copper/50 text-copper font-body text-xs tracking-[0.2em] uppercase
+           px-7 py-3.5 transition-all duration-300 hover:border-copper;
+    background: transparent;
+  }
+  .btn-outline-copper:hover {
+    background: hsl(var(--copper) / 0.06);
+    box-shadow: 0 2px 12px hsl(var(--copper) / 0.08);
+  }
+
+  .btn-ghost-ivory {
+    @apply border border-ivory/15 text-ivory/60 font-body text-xs tracking-[0.2em] uppercase
+           px-7 py-3.5 transition-all duration-200 hover:border-ivory/40 hover:text-ivory;
+  }
+
+
+  /* ══════════════════════════════════════════════
+     TYPOGRAPHY UTILITIES
+     ══════════════════════════════════════════════ */
+
+  .section-label {
+    @apply font-body text-[10px] tracking-[0.32em] text-copper uppercase;
+  }
+
+  .num-label {
+    @apply font-body text-xs tracking-[0.3em] text-copper/60 tabular-nums;
+  }
+
+  /* Large display number — for hero stats */
+  .display-number {
+    @apply font-display text-5xl text-copper font-light;
+    line-height: 1;
+  }
+
+  /* Quote typography */
+  .quote-display {
+    @apply font-display text-2xl md:text-3xl text-ivory/70 italic leading-relaxed;
+  }
+
+  /* Animated link underline */
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: hsl(var(--copper));
+    transition: width 0.3s ease;
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+
+  /* ══════════════════════════════════════════════
+     TAB SYSTEM
+     ══════════════════════════════════════════════ */
+  .tab-rasa-active   { @apply text-copper border-b-2 border-copper pb-3; }
+  .tab-rasa-inactive { @apply text-stone/60 border-b border-transparent pb-3 hover:text-stone transition-colors; }
+
+
+  /* ══════════════════════════════════════════════
+     SCROLLBAR
+     ══════════════════════════════════════════════ */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--night-mid)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--ember)); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--copper) / 0.5); }
+
+
+  /* ══════════════════════════════════════════════
+     FOCUS
+     ══════════════════════════════════════════════ */
+  *:focus-visible { outline: 1px solid hsl(var(--copper) / 0.6); outline-offset: 3px; }
+
+
+  /* ══════════════════════════════════════════════
+     CHAKRA COLOURS
+     ══════════════════════════════════════════════ */
+  .chakra-root      { background: #DC2626; }
+  .chakra-sacral    { background: #EA580C; }
+  .chakra-solar     { background: #CA8A04; }
+  .chakra-heart     { background: #16A34A; }
+  .chakra-throat    { background: #2563EB; }
+  .chakra-third-eye { background: #4338CA; }
+  .chakra-crown     { background: #7C3AED; }
+
+
+  /* ══════════════════════════════════════════════
+     DECORATIVE BRAND ELEMENTS
+     ══════════════════════════════════════════════ */
+
+  /* Diya flame icon (SVG-based, reusable) */
+  .diya-flame::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 18px;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 0C6 0 2 5 2 9C2 12 4 14 6 14C8 14 10 12 10 9C10 5 6 0 6 0Z' fill='%23E3A310' opacity='0.8'/%3E%3Cpath d='M6 4C6 4 4 7 4 9.5C4 11 5 12 6 12C7 12 8 11 8 9.5C8 7 6 4 6 4Z' fill='%23F5C842' opacity='0.9'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+
+  /* Mandala decoration for section backgrounds */
+  .mandala-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23A96D15' opacity='0.04'%3E%3Ccircle cx='200' cy='200' r='60' stroke-width='0.5'/%3E%3Ccircle cx='200' cy='200' r='90' stroke-width='0.5'/%3E%3Ccircle cx='200' cy='200' r='120' stroke-width='0.5'/%3E%3Ccircle cx='200' cy='200' r='150' stroke-width='0.5'/%3E%3Ccircle cx='200' cy='200' r='180' stroke-width='0.5'/%3E%3Cpath d='M200 20 L200 380 M20 200 L380 200' stroke-width='0.5'/%3E%3Cpath d='M72 72 L328 328 M328 72 L72 328' stroke-width='0.5'/%3E%3Cpath d='M200 20 Q260 100 200 200 Q140 100 200 20' stroke-width='0.5'/%3E%3Cpath d='M200 380 Q140 300 200 200 Q260 300 200 380' stroke-width='0.5'/%3E%3Cpath d='M20 200 Q100 140 200 200 Q100 260 20 200' stroke-width='0.5'/%3E%3Cpath d='M380 200 Q300 260 200 200 Q300 140 380 200' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 500px;
+  }
+
+  /* Diamond ornament */
+  .ornament-diamond {
+    @apply text-copper/30 text-xs;
+  }
+  .ornament-diamond::before {
+    content: '◆';
+  }
+}

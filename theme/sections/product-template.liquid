@@ -1,0 +1,344 @@
+{%- comment -%}
+  Product Template Section — Full product detail page.
+{%- endcomment -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_image = product.featured_image
+-%}
+
+<section class="da-section da-bg-cream da-product" data-section-id="{{ section.id }}">
+  <div class="da-container">
+
+    {%- comment -%} Back link {%- endcomment -%}
+    <a href="{{ collection.url | default: routes.all_products_collection_url }}" class="da-body-sm" style="display:inline-block;margin-bottom:1.5rem;color:var(--da-text-light);transition:color 0.3s;">
+      &larr; Back to Collection
+    </a>
+
+    <div class="da-product__grid">
+
+      {%- comment -%} ═══ LEFT: Gallery ═══ {%- endcomment -%}
+      <div class="da-product__gallery da-reveal">
+        <div class="da-product__main-image" id="product-main-image">
+          {%- if featured_image -%}
+            <img src="{{ featured_image | image_url: width: 800 }}" alt="{{ featured_image.alt | default: product.title | escape }}" id="product-main-img" width="800" height="800">
+          {%- endif -%}
+        </div>
+
+        {%- if product.images.size > 1 -%}
+          <div class="da-product__thumbnails">
+            {%- for image in product.images -%}
+              <button class="da-product__thumb {% if forloop.first %}is-active{% endif %}" data-image-url="{{ image | image_url: width: 800 }}" data-image-alt="{{ image.alt | escape }}" type="button" aria-label="View image {{ forloop.index }}">
+                <img src="{{ image | image_url: width: 128 }}" alt="{{ image.alt | default: product.title | escape }}" width="60" height="60" loading="lazy">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ═══ RIGHT: Info ═══ {%- endcomment -%}
+      <div class="da-product__info da-reveal da-reveal--delay-1">
+
+        <h1 class="da-product__title">{{ product.title }}</h1>
+
+        {%- if product.metafields.custom.tagline != blank -%}
+          <p class="da-product__tagline">{{ product.metafields.custom.tagline }}</p>
+        {%- endif -%}
+
+        {%- if product.metafields.custom.mantra != blank -%}
+          <p class="da-product__mantra">{{ product.metafields.custom.mantra }}</p>
+        {%- endif -%}
+
+        {%- comment -%} Price {%- endcomment -%}
+        <div class="da-product__price-block">
+          <span class="da-price">{{ current_variant.price | money }}</span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span style="text-decoration:line-through;color:var(--da-text-light);margin-left:0.5rem;font-size:1rem;">{{ current_variant.compare_at_price | money }}</span>
+          {%- endif -%}
+          <p class="da-product__price-note">Price includes shipping</p>
+        </div>
+
+        {%- comment -%} Description {%- endcomment -%}
+        {%- if product.description != blank -%}
+          <div class="da-product__desc">{{ product.description }}</div>
+        {%- endif -%}
+
+        {%- comment -%} Specs grid {%- endcomment -%}
+        <div class="da-product__specs">
+          <div class="da-product__spec">
+            <div class="da-product__spec-label">Material</div>
+            <div class="da-product__spec-value">Solid Brass</div>
+          </div>
+          <div class="da-product__spec">
+            <div class="da-product__spec-label">Finish</div>
+            <div class="da-product__spec-value">Antique Gold</div>
+          </div>
+          <div class="da-product__spec">
+            <div class="da-product__spec-label">Origin</div>
+            <div class="da-product__spec-value">Haridwar, India</div>
+          </div>
+          <div class="da-product__spec">
+            <div class="da-product__spec-label">Crafted</div>
+            <div class="da-product__spec-value">Hand-Cast</div>
+          </div>
+        </div>
+
+        {%- comment -%} Info Tabs (Vastu, Chakra, Element, Care) {%- endcomment -%}
+        <div class="da-mb-3">
+          <div class="da-tabs" id="product-tabs">
+            <button class="da-tabs__btn is-active" data-tab="vastu" type="button">Vastu & Placement</button>
+            <button class="da-tabs__btn" data-tab="chakra" type="button">Chakra</button>
+            <button class="da-tabs__btn" data-tab="element" type="button">Element</button>
+            <button class="da-tabs__btn" data-tab="care" type="button">Care</button>
+          </div>
+
+          <div class="da-tabs__panel is-active" data-panel="vastu">
+            <p class="da-body-sm">{{ product.metafields.custom.vastu_placement | default: "Place in the northeast corner of your worship area, facing east. Elevated position on a clean cloth or wooden platform." }}</p>
+          </div>
+          <div class="da-tabs__panel" data-panel="chakra">
+            {%- if product.metafields.custom.chakra != blank -%}
+              <p class="da-display da-display-sm da-text-copper da-mb-1">{{ product.metafields.custom.chakra }}</p>
+            {%- endif -%}
+            <p class="da-body-sm">
+              {%- if product.metafields.custom.tagline != blank -%}
+                This deity resonates with the {{ product.metafields.custom.chakra | default: "Heart" }} energy center, supporting {{ product.metafields.custom.tagline | downcase }} in your space and within yourself.
+              {%- else -%}
+                This deity resonates with a specific energy center, supporting balance in your space.
+              {%- endif -%}
+            </p>
+          </div>
+          <div class="da-tabs__panel" data-panel="element">
+            {%- if product.metafields.custom.element != blank -%}
+              <p class="da-display da-display-sm da-text-copper da-mb-1">{{ product.metafields.custom.element }}</p>
+            {%- endif -%}
+            <p class="da-body-sm">
+              Connected to the {{ product.metafields.custom.element | default: "Earth" }} element from Panch Tatva. This energy influences the quality of {{ product.metafields.custom.element | default: "earth" | downcase }} in your environment and consciousness.
+            </p>
+          </div>
+          <div class="da-tabs__panel" data-panel="care">
+            <p class="da-body-sm">Dust with a soft cotton cloth. Brass naturally oxidizes over time, acquiring a "living" patina. To restore shine, use a mixture of lemon juice and baking soda, applied gently with a soft cloth.</p>
+          </div>
+        </div>
+
+        {%- comment -%} Add to Cart {%- endcomment -%}
+        {%- form 'product', product, id: 'product-form', data-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+          <button
+            type="submit"
+            class="da-btn da-btn--primary da-add-to-cart"
+            data-variant-id="{{ current_variant.id }}"
+            style="width:100%;margin-bottom:1.5rem;"
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {%- if current_variant.available -%}
+              Add to Altar — {{ current_variant.price | money }}
+            {%- else -%}
+              Sold Out
+            {%- endif -%}
+          </button>
+        {%- endform -%}
+
+        {%- comment -%} Consecration Upsell {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'consecration_upsell' -%}
+            <div class="da-upsell-card" id="consecration-upsell" {{ block.shopify_attributes }}>
+              <div class="da-upsell-card__header">
+                <div class="da-upsell-card__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+                </div>
+                <div>
+                  <div class="da-display" style="font-size:1.125rem;">{{ block.settings.title | default: "Consecration Service — Shuddhi Poojan" }}</div>
+                  <p class="da-body-xs">Added as a separate line item at checkout</p>
+                </div>
+              </div>
+
+              <div class="da-mt-2">
+                <p class="da-body-sm" style="margin-bottom:0.75rem;">
+                  {{ block.settings.description | default: "Before your murti ships, our temple pandit will perform a Prana Pratishtha (Life Infusion) ceremony — the ancient Vedic ritual that transforms brass into a living vessel of divine energy." }}
+                </p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.75rem;color:var(--da-text-light);margin-bottom:1rem;">
+                  <div style="display:flex;gap:0.5rem;align-items:start;">
+                    <span style="color:var(--da-copper);">✦</span>
+                    <span>Full mantra chanting specific to your deity</span>
+                  </div>
+                  <div style="display:flex;gap:0.5rem;align-items:start;">
+                    <span style="color:var(--da-copper);">✦</span>
+                    <span>Ganga Jal abhishekam (sacred water bath)</span>
+                  </div>
+                  <div style="display:flex;gap:0.5rem;align-items:start;">
+                    <span style="color:var(--da-copper);">✦</span>
+                    <span>Flower, kumkum & chandan offerings</span>
+                  </div>
+                  <div style="display:flex;gap:0.5rem;align-items:start;">
+                    <span style="color:var(--da-copper);">✦</span>
+                    <span>Personalized video of the full ceremony</span>
+                  </div>
+                </div>
+              </div>
+
+              {%- assign consecration_product = all_products[block.settings.consecration_product] -%}
+              {%- if consecration_product -%}
+                {%- assign cons_variant = consecration_product.selected_or_first_available_variant -%}
+                <button class="da-upsell-card__toggle da-add-to-cart" data-variant-id="{{ cons_variant.id }}" data-upsell="consecration" type="button">
+                  Add Shuddhi Poojan — {{ cons_variant.price | money }}
+                </button>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Diya Upsell {%- endcomment -%}
+          {%- if block.type == 'diya_upsell' -%}
+            <div class="da-upsell-card da-mt-2" id="diya-upsell" {{ block.shopify_attributes }}>
+              <div class="da-upsell-card__header">
+                <div class="da-upsell-card__icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c1 3 4 5.5 4 8.5a4 4 0 11-8 0c0-3 3-5.5 4-8.5z"/></svg>
+                </div>
+                <div>
+                  <div class="da-display" style="font-size:1.125rem;">{{ block.settings.title | default: "Traditional Brass Diya" }}</div>
+                  <p class="da-body-xs">Complete your altar with a hand-cast brass diya.</p>
+                </div>
+              </div>
+              {%- assign diya_product = all_products[block.settings.diya_product] -%}
+              {%- if diya_product -%}
+                {%- assign diya_variant = diya_product.selected_or_first_available_variant -%}
+                <button class="da-upsell-card__toggle da-add-to-cart" data-variant-id="{{ diya_variant.id }}" data-upsell="diya" type="button">
+                  Add Diya — {{ diya_variant.price | money }}
+                </button>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%} Certificate of Authenticity {%- endcomment -%}
+        <div class="da-certificate da-mt-3">
+          <div class="da-certificate__info">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--da-copper)" stroke-width="1.5" style="margin-bottom:0.75rem;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="da-display" style="font-size:0.9375rem;margin-bottom:0.25rem;">Certificate of Authenticity</div>
+            <p class="da-body-xs">100% original brass · Hand-cast by artisans in Haridwar</p>
+          </div>
+          <div class="da-certificate__image">
+            {%- if section.settings.certificate_image != blank -%}
+              <img src="{{ section.settings.certificate_image | image_url: width: 400 }}" alt="Certificate of Authenticity" loading="lazy">
+            {%- else -%}
+              <div style="width:100%;height:100%;min-height:120px;background:linear-gradient(135deg,var(--da-copper-glow),var(--da-honey));display:flex;align-items:center;justify-content:center;">
+                <span style="font-family:var(--da-font-display);font-size:1.5rem;color:var(--da-copper);opacity:0.5;">✦</span>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- comment -%} Shipping Timeline {%- endcomment -%}
+        <div class="da-timeline">
+          <div class="da-timeline__title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--da-copper)" stroke-width="1.5" style="opacity:0.6;"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Shipping Timeline
+          </div>
+          <div class="da-timeline__step">
+            <div class="da-timeline__dot"></div>
+            <div>
+              <div class="da-timeline__step-title">Processing & Quality Check</div>
+              <div class="da-timeline__step-desc">2–3 business days</div>
+            </div>
+          </div>
+          <div class="da-timeline__step">
+            <div class="da-timeline__dot"></div>
+            <div>
+              <div class="da-timeline__step-title">Secure Packing & Dispatch</div>
+              <div class="da-timeline__step-desc">1–2 business days</div>
+            </div>
+          </div>
+          <div class="da-timeline__step">
+            <div class="da-timeline__dot" style="opacity:0.4;"></div>
+            <div>
+              <div class="da-timeline__step-title">Delivery (with tracking)</div>
+              <div class="da-timeline__step-desc">India: 5–7 days · USA: 10–15 days</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Related Products {%- endcomment -%}
+    {%- if section.settings.show_related -%}
+      {%- assign related = collection.products | where: 'available' -%}
+      {%- assign related_count = 0 -%}
+      <div class="da-mt-4" style="border-top:1px solid var(--da-border);padding-top:3rem;" id="related-products">
+        <h2 class="da-display da-display-md da-text-center da-mb-3">You May Also Like</h2>
+        <div class="da-grid da-grid--3">
+          {%- for p in collection.products limit: 6 -%}
+            {%- unless p.id == product.id or p.tags contains 'addon' -%}
+              {%- if related_count < 3 -%}
+                {% render 'product-card', product: p, index: related_count %}
+                {%- assign related_count = related_count | plus: 1 -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Template",
+  "class": "da-product-template",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "certificate_image",
+      "label": "Certificate background image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show related products",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "consecration_upsell",
+      "name": "Consecration Upsell",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Consecration Service — Shuddhi Poojan"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Before your murti ships, our temple pandit will perform a Prana Pratishtha (Life Infusion) ceremony — the ancient Vedic ritual that transforms brass into a living vessel of divine energy."
+        },
+        {
+          "type": "product",
+          "id": "consecration_product",
+          "label": "Consecration product"
+        }
+      ]
+    },
+    {
+      "type": "diya_upsell",
+      "name": "Diya Upsell",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Traditional Brass Diya"
+        },
+        {
+          "type": "product",
+          "id": "diya_product",
+          "label": "Diya product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

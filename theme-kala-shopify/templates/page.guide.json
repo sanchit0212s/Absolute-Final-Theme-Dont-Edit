@@ -1,0 +1,6 @@
+{
+  "sections": {
+    "deity-quiz": { "type": "deity-quiz", "settings": {} }
+  },
+  "order": ["deity-quiz"]
+}

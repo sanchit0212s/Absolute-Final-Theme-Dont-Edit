@@ -1,0 +1,90 @@
+{%- comment -%}
+  Philosophy — "Our Responsibility" brand statement.
+{%- endcomment -%}
+
+<section class="da-section da-bg-linen da-texture" data-section-id="{{ section.id }}">
+  <div class="da-container da-container--narrow">
+    <div class="da-philosophy da-reveal">
+      {%- render 'ornament' -%}
+
+      <p class="da-section-label da-mb-3">{{ section.settings.label | default: "Our Philosophy" }}</p>
+      <h2 class="da-display da-display-lg da-mb-4">{{ section.settings.heading | default: "Our Responsibility" }}</h2>
+
+      <div class="da-mb-4">
+        <p class="da-philosophy__line">{{ section.settings.line_1 | default: "We do not ask you to know Vastu." }}</p>
+        <p class="da-philosophy__line">{{ section.settings.line_2 | default: "We do not expect you to understand energy." }}</p>
+        <p class="da-philosophy__highlight">{{ section.settings.highlight | default: "That is our responsibility." }}</p>
+      </div>
+
+      <div>
+        <p class="da-body-sm da-mb-1">{{ section.settings.role_intro | default: "Your role is simple:" }}</p>
+        <p class="da-philosophy__cta-line">{{ section.settings.cta_line_1 | default: "Tell us what you are seeking." }}</p>
+        <p class="da-philosophy__cta-sub">{{ section.settings.cta_line_2 | default: "We will tell you what belongs." }}</p>
+      </div>
+
+      {%- render 'ornament' -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Philosophy",
+  "class": "da-philosophy-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Our Philosophy"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Responsibility"
+    },
+    {
+      "type": "text",
+      "id": "line_1",
+      "label": "Line 1",
+      "default": "We do not ask you to know Vastu."
+    },
+    {
+      "type": "text",
+      "id": "line_2",
+      "label": "Line 2",
+      "default": "We do not expect you to understand energy."
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Highlighted line",
+      "default": "That is our responsibility."
+    },
+    {
+      "type": "text",
+      "id": "role_intro",
+      "label": "Role intro",
+      "default": "Your role is simple:"
+    },
+    {
+      "type": "text",
+      "id": "cta_line_1",
+      "label": "CTA line 1",
+      "default": "Tell us what you are seeking."
+    },
+    {
+      "type": "text",
+      "id": "cta_line_2",
+      "label": "CTA line 2",
+      "default": "We will tell you what belongs."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Philosophy"
+    }
+  ]
+}
+{% endschema %}

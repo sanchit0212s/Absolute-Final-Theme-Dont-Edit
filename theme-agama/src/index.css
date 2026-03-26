@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-white text-ink font-body antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: #B8860B33; }
+
+  ::-webkit-scrollbar { width: 0px; }
+}
+
+@layer utilities {
+
+  /* ── Nothing decorative. Everything functional. ───── */
+
+  .label {
+    @apply font-display text-[10px] tracking-[0.35em] uppercase text-graphite font-medium;
+  }
+  .label-brass {
+    @apply font-display text-[10px] tracking-[0.35em] uppercase text-brass font-medium;
+  }
+
+  /* ── Buttons ──────────────────────────────────────── */
+  .btn-brass {
+    @apply inline-flex items-center justify-center gap-2
+           bg-brass text-white font-display text-[11px] tracking-[0.25em] uppercase font-medium
+           px-8 py-4 transition-all duration-200 hover:bg-brass-light;
+  }
+  .btn-black {
+    @apply inline-flex items-center justify-center gap-2
+           bg-ink text-white font-display text-[11px] tracking-[0.25em] uppercase font-medium
+           px-8 py-4 transition-all duration-200 hover:bg-charcoal;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+           border border-ink text-ink font-display text-[11px] tracking-[0.25em] uppercase font-medium
+           px-8 py-4 transition-all duration-200 hover:bg-ink hover:text-white;
+  }
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2
+           bg-[#25D366] text-white font-display text-[11px] tracking-[0.25em] uppercase font-medium
+           px-8 py-4 transition-all duration-200 hover:bg-[#20BD5A];
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 font-display text-[11px] tracking-[0.25em] uppercase
+           text-graphite hover:text-ink transition-colors duration-200;
+  }
+
+  /* ── Path card (the opening question) ─────────────── */
+  .path-card {
+    @apply border border-transparent cursor-pointer transition-all duration-500;
+  }
+  .path-card:hover {
+    border-color: #B8860B;
+  }
+
+  /* ── Full-bleed container escape ──────────────────── */
+  .bleed {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  /* ── Metric display (weight, price) ───────────────── */
+  .metric {
+    @apply font-display font-light text-ink;
+  }
+
+  /* ── Consecration calendar ────────────────────────── */
+  .cal-spot {
+    @apply w-8 h-8 flex items-center justify-center font-display text-xs transition-all;
+  }
+  .cal-spot-open     { @apply text-ink border border-ink/10 hover:border-brass hover:text-brass cursor-pointer; }
+  .cal-spot-booked   { @apply text-graphite/30 line-through cursor-default; }
+  .cal-spot-selected { @apply bg-brass text-white; }
+}

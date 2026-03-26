@@ -1,0 +1,148 @@
+{%- comment -%}
+  Cart Page Section
+  Displays the full cart with line items, quantities, and checkout button
+{%- endcomment -%}
+
+<section class="py-16 px-4" data-section-id="{{ section.id }}" data-section-type="cart">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="font-display text-3xl md:text-4xl text-on-surface text-center mb-2">{{ section.settings.heading | default: 'Your Altar' }}</h1>
+    {%- render 'ornamental-divider' -%}
+
+    {%- if cart.item_count == 0 -%}
+      <div class="text-center py-20">
+        <p class="font-display text-xl text-on-surface-faint mb-3">Your altar is empty</p>
+        <p class="font-body text-sm text-on-surface-faint mb-8">Add a sacred form to begin your journey.</p>
+        <a href="/collections/all" class="btn-primary">Explore the Collection</a>
+      </div>
+
+    {%- else -%}
+      <div class="mt-10">
+        {%- comment -%} Header row {%- endcomment -%}
+        <div class="hidden md:grid grid-cols-12 gap-4 pb-3 border-b border-border text-on-surface-faint font-body text-xs tracking-wider uppercase">
+          <div class="col-span-6">Product</div>
+          <div class="col-span-2 text-center">Quantity</div>
+          <div class="col-span-2 text-right">Price</div>
+          <div class="col-span-2 text-right">Total</div>
+        </div>
+
+        {%- comment -%} Line items {%- endcomment -%}
+        {%- for item in cart.items -%}
+          <div class="grid grid-cols-12 gap-4 py-6 border-b border-border/50 items-center" data-cart-item>
+            {%- comment -%} Product image + info {%- endcomment -%}
+            <div class="col-span-12 md:col-span-6 flex gap-4">
+              <div class="w-20 h-24 rounded-md overflow-hidden bg-surface-2 flex-shrink-0">
+                {%- if item.image -%}
+                  <img
+                    src="{{ item.image | image_url: width: 200 }}"
+                    alt="{{ item.title | escape }}"
+                    loading="lazy"
+                    width="80"
+                    height="96"
+                    class="w-full h-full object-cover"
+                  />
+                {%- endif -%}
+              </div>
+              <div>
+                <a href="{{ item.url }}" class="font-display text-base text-on-surface hover:text-accent transition-colors">
+                  {{ item.product.title }}
+                </a>
+                {%- if item.variant.title != 'Default Title' -%}
+                  <p class="font-body text-xs text-on-surface-faint mt-1">{{ item.variant.title }}</p>
+                {%- endif -%}
+                <p class="font-body text-sm text-accent mt-1 md:hidden">{{ item.original_price | money }}</p>
+              </div>
+            </div>
+
+            {%- comment -%} Quantity {%- endcomment -%}
+            <div class="col-span-4 md:col-span-2 flex justify-center">
+              <div class="flex items-center border border-border rounded-md">
+                <button
+                  type="button"
+                  class="w-8 h-8 flex items-center justify-center text-on-surface-faint hover:text-on-surface transition-colors"
+                  aria-label="Decrease quantity"
+                  onclick="updateCartQuantity({{ forloop.index }}, {{ item.quantity | minus: 1 }})"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <span class="w-10 text-center font-body text-sm text-on-surface">{{ item.quantity }}</span>
+                <button
+                  type="button"
+                  class="w-8 h-8 flex items-center justify-center text-on-surface-faint hover:text-on-surface transition-colors"
+                  aria-label="Increase quantity"
+                  onclick="updateCartQuantity({{ forloop.index }}, {{ item.quantity | plus: 1 }})"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+
+            {%- comment -%} Price {%- endcomment -%}
+            <div class="hidden md:block col-span-2 text-right">
+              <span class="font-body text-sm text-on-surface">{{ item.original_price | money }}</span>
+            </div>
+
+            {%- comment -%} Line total {%- endcomment -%}
+            <div class="col-span-6 md:col-span-2 text-right">
+              <span class="font-body text-sm text-accent">{{ item.final_line_price | money }}</span>
+            </div>
+
+            {%- comment -%} Remove — mobile {%- endcomment -%}
+            <div class="col-span-2 md:hidden text-right">
+              <button
+                type="button"
+                class="text-on-surface-faint hover:text-vermilion transition-colors"
+                aria-label="Remove {{ item.title | escape }}"
+                onclick="updateCartQuantity({{ forloop.index }}, 0)"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+              </button>
+            </div>
+          </div>
+        {%- endfor -%}
+
+        {%- comment -%} Cart footer {%- endcomment -%}
+        <div class="mt-8 flex flex-col items-end">
+          <div class="w-full max-w-sm">
+            <div class="flex items-center justify-between py-3 border-b border-border">
+              <span class="font-body text-sm text-on-surface-muted">Subtotal</span>
+              <span class="font-display text-2xl text-accent">{{ cart.total_price | money }}</span>
+            </div>
+            <p class="font-body text-xs text-on-surface-faint mt-2 mb-4">Shipping & taxes calculated at checkout</p>
+            <a href="/checkout" class="btn-primary w-full justify-center block text-center">
+              Proceed to Checkout
+            </a>
+            <a href="/collections/all" class="btn-ghost w-full justify-center block text-center mt-2">
+              Continue Shopping
+            </a>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  function updateCartQuantity(line, quantity) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ line: line, quantity: Math.max(0, quantity) }),
+    })
+      .then(function () { window.location.reload(); })
+      .catch(function (err) { console.error('Cart update error:', err); });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Altar"
+    }
+  ]
+}
+{% endschema %}

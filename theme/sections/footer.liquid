@@ -1,0 +1,103 @@
+{%- comment -%}
+  Footer — Brand column, shop/learn/support links, newsletter, copyright.
+{%- endcomment -%}
+
+<footer class="da-footer" data-section-id="{{ section.id }}">
+  <div class="da-container da-container--wide">
+    <div class="da-footer__grid">
+
+      {%- comment -%} Brand column {%- endcomment -%}
+      <div>
+        <div class="da-footer__brand-name">{{ section.settings.brand_name | default: shop.name }}</div>
+        <p class="da-footer__brand-desc">
+          {{ section.settings.brand_description | default: "Authentic brass deities from Haridwar for the modern home. Each piece is hand-cast, solid brass, and selected for the role it plays in creating your personal sanctuary." }}
+        </p>
+        <p style="margin-top:1rem;font-size:0.8125rem;color:rgba(250,246,240,0.35);">
+          {{ section.settings.contact_email | default: "contact@divinearts.store" }}
+        </p>
+      </div>
+
+      {%- comment -%} Shop links {%- endcomment -%}
+      <div>
+        <div class="da-footer__heading">Shop</div>
+        <ul class="da-footer__links">
+          <li><a href="/collections/all">Collection</a></li>
+          <li><a href="/pages/guide">The Guide</a></li>
+        </ul>
+      </div>
+
+      {%- comment -%} Learn links {%- endcomment -%}
+      <div>
+        <div class="da-footer__heading">Learn</div>
+        <ul class="da-footer__links">
+          <li><a href="/pages/about">Our Story</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      {%- comment -%} Trust + Newsletter {%- endcomment -%}
+      <div>
+        <div class="da-footer__heading">Trust</div>
+        <ul class="da-footer__links" style="margin-bottom:1.5rem;">
+          <li>Haridwar, Uttarakhand</li>
+          <li>100% Solid Brass</li>
+          <li>Authenticity Certified</li>
+          <li>Global Shipping</li>
+        </ul>
+
+        <div class="da-footer__heading">Newsletter</div>
+        {%- form 'customer', id: 'footer-newsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="da-footer__newsletter">
+            <input type="email" name="contact[email]" placeholder="{{ 'general.newsletter.placeholder' | t }}" required aria-label="Email">
+            <button type="submit">{{ 'general.newsletter.submit' | t }}</button>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+
+    {%- comment -%} Bottom bar {%- endcomment -%}
+    <div class="da-footer__bottom">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+      {%- if section.settings.show_legal_links -%}
+        &nbsp;&middot;&nbsp;
+        <a href="/policies/privacy-policy" style="color:inherit;">Privacy</a>
+        &nbsp;&middot;&nbsp;
+        <a href="/policies/terms-of-service" style="color:inherit;">Terms</a>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "da-footer-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "Divine Arts"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand description",
+      "default": "Authentic brass deities from Haridwar for the modern home. Each piece is hand-cast, solid brass, and selected for the role it plays in creating your personal sanctuary."
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email",
+      "default": "contact@divinearts.store"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_legal_links",
+      "label": "Show Privacy & Terms links",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

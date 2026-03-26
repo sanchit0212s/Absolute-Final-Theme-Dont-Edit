@@ -1,0 +1,108 @@
+{%- comment -%}
+  About Responsibility — pixel-perfect match to React About.tsx "Our Responsibility" section
+  Centered text with large display font statements, accent italic, ornamental divider, closing lines.
+{%- endcomment -%}
+
+<style>
+  .about-resp-fadein {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: aboutRespFadeIn 0.8s ease forwards;
+  }
+  @keyframes aboutRespFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<section class="relative section-a bg-sacred-circles py-24 overflow-hidden">
+  <div class="max-w-3xl mx-auto px-6 relative">
+    <div class="about-resp-fadein text-center">
+
+      <p class="section-label mb-8">{{ section.settings.label | default: "Our Responsibility" }}</p>
+
+      <div class="space-y-4 mb-8">
+        <p class="font-display text-2xl md:text-3xl text-on-surface font-light">
+          {{ section.settings.statement_1 | default: "We do not ask you to know Vastu." }}
+        </p>
+        <p class="font-display text-2xl md:text-3xl text-on-surface font-light">
+          {{ section.settings.statement_2 | default: "We do not expect you to understand energy." }}
+        </p>
+        <p class="font-display text-2xl md:text-3xl text-accent italic">
+          {{ section.settings.statement_accent | default: "That is our responsibility." }}
+        </p>
+      </div>
+
+      <div class="flex items-center justify-center gap-4 my-10">
+        <div class="w-16 h-px bg-gradient-to-r from-transparent to-accent/30"></div>
+        <div class="ornament-diamond"></div>
+        <div class="w-16 h-px bg-gradient-to-l from-transparent to-accent/30"></div>
+      </div>
+
+      <p class="font-body text-on-surface-faint text-sm mb-2">{{ section.settings.closing_prelude | default: "Your role is simple:" }}</p>
+      <p class="font-display text-xl md:text-2xl text-on-surface mb-2">
+        {{ section.settings.closing_line1 | default: "Tell us what you are seeking." }}
+      </p>
+      <p class="font-display text-lg md:text-xl text-accent">
+        {{ section.settings.closing_line2 | default: "We will tell you what belongs." }}
+      </p>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Responsibility",
+  "tag": "section",
+  "class": "about-responsibility-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Our Responsibility"
+    },
+    {
+      "type": "text",
+      "id": "statement_1",
+      "label": "Statement 1",
+      "default": "We do not ask you to know Vastu."
+    },
+    {
+      "type": "text",
+      "id": "statement_2",
+      "label": "Statement 2",
+      "default": "We do not expect you to understand energy."
+    },
+    {
+      "type": "text",
+      "id": "statement_accent",
+      "label": "Accent statement (gold italic)",
+      "default": "That is our responsibility."
+    },
+    {
+      "type": "text",
+      "id": "closing_prelude",
+      "label": "Closing prelude",
+      "default": "Your role is simple:"
+    },
+    {
+      "type": "text",
+      "id": "closing_line1",
+      "label": "Closing line 1",
+      "default": "Tell us what you are seeking."
+    },
+    {
+      "type": "text",
+      "id": "closing_line2",
+      "label": "Closing line 2 (gold)",
+      "default": "We will tell you what belongs."
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Responsibility"
+    }
+  ]
+}
+{% endschema %}

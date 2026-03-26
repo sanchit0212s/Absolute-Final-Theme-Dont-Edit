@@ -1,0 +1,324 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Kala",
+    "theme_version": "1.0.0",
+    "theme_author": "Divine Arts",
+    "theme_documentation_url": "https://www.divinearts.store",
+    "theme_support_url": "https://www.divinearts.store/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Light Mode"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Surface",
+        "default": "#EDE4D4",
+        "info": "Primary background color — warm parchment"
+      },
+      {
+        "type": "color",
+        "id": "color_surface_secondary",
+        "label": "Surface secondary",
+        "default": "#F5F0E8",
+        "info": "Secondary background for cards and sections"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#1A1A1A",
+        "info": "Primary body text color"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Text muted",
+        "default": "#6B5E4F",
+        "info": "Secondary / muted text"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent — Temple Gold",
+        "default": "#B8860B",
+        "info": "Primary accent used for buttons, links, and highlights"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_hover",
+        "label": "Accent hover",
+        "default": "#9A7209",
+        "info": "Darker gold for hover states"
+      },
+      {
+        "type": "color",
+        "id": "color_saffron",
+        "label": "Saffron",
+        "default": "#E8A317",
+        "info": "Sacred saffron — used for badges and highlights"
+      },
+      {
+        "type": "color",
+        "id": "color_vermilion",
+        "label": "Vermilion",
+        "default": "#C94530",
+        "info": "Sindoor vermilion — used for sale tags and alerts"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border",
+        "default": "#D4C4A8",
+        "info": "Border and divider color"
+      },
+      {
+        "type": "header",
+        "content": "Dark Mode"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_surface",
+        "label": "Dark surface",
+        "default": "#1A1410",
+        "info": "Dark mode primary background — obsidian"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_surface_secondary",
+        "label": "Dark surface secondary",
+        "default": "#2A2218",
+        "info": "Dark mode card / section background"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_text",
+        "label": "Dark text",
+        "default": "#EDE4D4",
+        "info": "Dark mode body text — warm parchment"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_text_muted",
+        "label": "Dark text muted",
+        "default": "#A89880",
+        "info": "Dark mode secondary text"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_accent",
+        "label": "Dark accent",
+        "default": "#D4A017",
+        "info": "Brighter gold for dark backgrounds"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_border",
+        "label": "Dark border",
+        "default": "#3D3228",
+        "info": "Dark mode border color"
+      },
+      {
+        "type": "header",
+        "content": "Buttons"
+      },
+      {
+        "type": "color",
+        "id": "color_button_bg",
+        "label": "Button background",
+        "default": "#B8860B"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Button text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_button_secondary_bg",
+        "label": "Secondary button background",
+        "default": "transparent"
+      },
+      {
+        "type": "color",
+        "id": "color_button_secondary_border",
+        "label": "Secondary button border",
+        "default": "#B8860B"
+      },
+      {
+        "type": "color",
+        "id": "color_button_secondary_text",
+        "label": "Secondary button text",
+        "default": "#B8860B"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Display / Heading font",
+        "default": "cormorant_garamond_n4",
+        "info": "Used for headings, hero titles, and display text"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "inter_n4",
+        "info": "Used for body text, navigation, and UI elements"
+      },
+      {
+        "type": "header",
+        "content": "Font sizes"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "label": "Base font size (px)",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "font_size_heading_scale",
+        "label": "Heading size scale",
+        "min": 80,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "info": "Scales all heading sizes relative to the default"
+      },
+      {
+        "type": "header",
+        "content": "Prose style"
+      },
+      {
+        "type": "checkbox",
+        "id": "prose_italic",
+        "label": "Use italic Cormorant Garamond for prose / descriptions",
+        "default": true,
+        "info": "Applies italic serif styling to product descriptions and long-form text"
+      },
+      {
+        "type": "range",
+        "id": "body_line_height",
+        "label": "Body line height",
+        "min": 1.4,
+        "max": 2.0,
+        "step": 0.1,
+        "default": 1.6
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram",
+        "info": "https://www.instagram.com/yourhandle"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook",
+        "info": "https://www.facebook.com/yourpage"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube",
+        "info": "https://www.youtube.com/yourchannel"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "Pinterest",
+        "info": "https://www.pinterest.com/yourprofile"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "X (Twitter)",
+        "info": "https://x.com/yourhandle"
+      },
+      {
+        "type": "text",
+        "id": "social_whatsapp",
+        "label": "WhatsApp number",
+        "info": "Include country code, e.g. +91 98765 43210"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Newsletter popup"
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_enable",
+        "label": "Enable newsletter popup",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "newsletter_heading",
+        "label": "Heading",
+        "default": "Join the Divine Arts Family"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_body",
+        "label": "Body text",
+        "default": "Subscribe for sacred stories, new arrivals, and exclusive offers from Haridwar."
+      },
+      {
+        "type": "text",
+        "id": "newsletter_success_message",
+        "label": "Success message",
+        "default": "Namaste! You have been added to our mailing list."
+      },
+      {
+        "type": "range",
+        "id": "newsletter_delay",
+        "label": "Show after (seconds)",
+        "min": 3,
+        "max": 30,
+        "step": 1,
+        "default": 5,
+        "unit": "s"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_discount_code",
+        "label": "Discount code (optional)",
+        "info": "Shown after successful signup"
+      }
+    ]
+  }
+]

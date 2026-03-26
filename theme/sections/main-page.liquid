@@ -1,0 +1,19 @@
+{%- comment -%}
+  Default page template — renders page title and content.
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream da-pt-6">
+  <div class="da-container da-container--narrow">
+    <h1 class="da-display da-display-lg da-text-center da-mb-3">{{ page.title }}</h1>
+    <div class="da-body-sm">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": []
+}
+{% endschema %}

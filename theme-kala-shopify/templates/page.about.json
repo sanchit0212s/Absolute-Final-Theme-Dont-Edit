@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "about-hero": { "type": "about-hero", "settings": {} },
+    "about-responsibility": { "type": "about-responsibility", "settings": {} },
+    "about-intention": { "type": "about-intention", "settings": {} },
+    "about-chakra": { "type": "about-chakra", "settings": {} },
+    "about-commitments": { "type": "about-commitments", "settings": {} },
+    "about-cta": { "type": "about-cta", "settings": {} }
+  },
+  "order": ["about-hero", "about-responsibility", "about-intention", "about-chakra", "about-commitments", "about-cta"]
+}

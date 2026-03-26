@@ -1,0 +1,85 @@
+{%- comment -%}
+  Vastu Directions — Directional meanings grid.
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream" data-section-id="{{ section.id }}">
+  <div class="da-container" style="max-width:900px;">
+    <div class="da-text-center da-reveal da-mb-4">
+      <p class="da-section-label da-mb-1">{{ section.settings.label | default: "Spatial Wisdom" }}</p>
+      <h2 class="da-display da-display-md da-mb-2">{{ section.settings.heading | default: "Vastu Shastra" }}</h2>
+      <p class="da-body-sm" style="max-width:560px;margin:0 auto;">
+        {{ section.settings.description | default: "The traditional Indian science of space and structure. Every home is a living field of energy shaped by direction, form, light, and flow." }}
+      </p>
+    </div>
+
+    <div class="da-grid da-grid--4 da-reveal">
+      {%- for block in section.blocks -%}
+        <div style="text-align:center;padding:1.25rem;border:1px solid var(--da-border);transition:border-color 0.3s var(--da-ease);"
+          class="da-trust-card"
+          {{ block.shopify_attributes }}>
+          <p class="da-display da-display-sm da-text-copper da-mb-1">{{ block.settings.direction }}</p>
+          <p class="da-body-xs">{{ block.settings.meaning }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vastu Directions",
+  "class": "da-vastu-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Spatial Wisdom"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Vastu Shastra"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "The traditional Indian science of space and structure. Every home is a living field of energy shaped by direction, form, light, and flow."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "direction",
+      "name": "Direction",
+      "settings": [
+        {
+          "type": "text",
+          "id": "direction",
+          "label": "Direction",
+          "default": "East"
+        },
+        {
+          "type": "text",
+          "id": "meaning",
+          "label": "Meaning",
+          "default": "Light & Beginnings"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vastu Directions",
+      "blocks": [
+        { "type": "direction", "settings": { "direction": "East", "meaning": "Light & Beginnings" } },
+        { "type": "direction", "settings": { "direction": "North", "meaning": "Growth & Flow" } },
+        { "type": "direction", "settings": { "direction": "South", "meaning": "Strength & Grounding" } },
+        { "type": "direction", "settings": { "direction": "West", "meaning": "Balance & Rest" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

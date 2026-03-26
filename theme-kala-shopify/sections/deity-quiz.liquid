@@ -1,0 +1,581 @@
+{%- comment -%}
+  Deity Quiz — Divine Arts theme-kala
+  Pixel-perfect 1:1 recreation of React Guide.tsx prototype.
+  Step 1: Intention (7 options with chakra color pill indicators)
+  Step 2: Current state (7 options with element mapping)
+  Step 3: Email input
+  Step 4: Results — matched deities with product images + links
+  All quiz data embedded as JSON. Continuous gradient progress bar at top.
+{%- endcomment -%}
+
+{%- comment -%} Collect product images by searching all products for deity names {%- endcomment -%}
+<script type="application/json" id="DeityProductImages">
+{
+  {%- assign deity_names = "Ganesh,Vishnu,Shiva,Buddha,Shivling,Nandi,Shankh,Ram,Hanuman,Shiv-Parvati,Durga,Krishna,Saraswati" | split: "," -%}
+  {%- assign first_entry = true -%}
+  {%- for dname in deity_names -%}
+    {%- assign dname_lower = dname | downcase -%}
+    {%- for product in collections.all.products -%}
+      {%- assign ptitle_lower = product.title | downcase -%}
+      {%- if ptitle_lower contains dname_lower -%}
+        {%- unless first_entry -%},{%- endunless -%}
+        "{{ dname }}": {
+          "image": "{{ product.featured_image | image_url: width: 240 }}",
+          "url": "{{ product.url }}"
+        }
+        {%- assign first_entry = false -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+}
+</script>
+
+<div class="bg-surface min-h-screen" id="DeityQuiz">
+
+  {%- comment -%} Header {%- endcomment -%}
+  <section class="section-b border-b border-border py-10 relative overflow-hidden">
+    <div class="absolute inset-0 bg-mandala pointer-events-none"></div>
+    <div class="max-w-3xl mx-auto px-6 text-center relative">
+      <p class="section-label mb-2">Sacred Guide</p>
+      <h1 class="font-display text-4xl md:text-5xl text-on-surface font-light mb-3">
+        {{ section.settings.heading | default: "Find Your Deity" }}
+      </h1>
+      <p class="font-body text-sm text-on-surface-faint max-w-md mx-auto">
+        {{ section.settings.subheading | default: "Two questions. Your inner state meets the right sacred form." }}
+      </p>
+    </div>
+  </section>
+
+  {%- comment -%} Progress bar — continuous gradient {%- endcomment -%}
+  <div class="h-1 bg-surface-2">
+    <div id="QuizProgressBar" class="h-full transition-all duration-400 ease-out" style="width: 25%; background: linear-gradient(to right, hsl(var(--temple-gold)), hsl(var(--bright-gold)));"></div>
+  </div>
+
+  {%- comment -%} Quiz area {%- endcomment -%}
+  <div class="max-w-2xl mx-auto px-6 py-16">
+    <div id="QuizContent"></div>
+  </div>
+
+</div>
+
+<style>
+  /* Slide-in from right (enter) */
+  @keyframes quizSlideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  /* Slide-in from bottom (results step) */
+  @keyframes quizFadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* Staggered card entrance */
+  @keyframes quizCardIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .quiz-slide-in {
+    animation: quizSlideIn 0.3s ease-out both;
+  }
+  .quiz-fade-up {
+    animation: quizFadeUp 0.5s ease-out both;
+  }
+  .quiz-card-in {
+    animation: quizCardIn 0.4s ease-out both;
+  }
+
+  /* Option button selected glow */
+  .quiz-opt-selected {
+    border-color: hsl(var(--accent)) !important;
+    background-color: hsl(var(--accent) / 0.05) !important;
+    box-shadow: 0 0 0 4px hsl(40 90% 42% / 0.15);
+  }
+
+  /* Option button base */
+  .quiz-opt {
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.3s, transform 0.1s;
+    box-shadow: 0 0 0 0px hsl(40 90% 42% / 0);
+  }
+  .quiz-opt:active {
+    transform: scale(0.98);
+  }
+
+  /* Progress bar width transition */
+  #QuizProgressBar {
+    transition: width 0.4s ease-out;
+  }
+
+  /* Ornamental divider for results */
+  .ornament-divider-quiz {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .ornament-divider-quiz::before,
+  .ornament-divider-quiz::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.3), transparent);
+  }
+  .ornament-divider-quiz span {
+    color: hsl(var(--accent) / 0.4);
+    font-size: 0.75rem;
+  }
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ══════════════════════════════════════════════════════════
+     QUIZ DATA — copied 1:1 from deities.ts
+     ══════════════════════════════════════════════════════════ */
+
+  var chakraColors = {
+    muladhara:    '#E53E3E',
+    svadhisthana: '#ED8936',
+    manipura:     '#ECC94B',
+    anahata:      '#48BB78',
+    vishuddha:    '#4299E1',
+    ajna:         '#805AD5',
+    sahasrara:    '#D53F8C'
+  };
+
+  var allChakras = [
+    { key: 'muladhara',    name: 'Root (Muladhara)' },
+    { key: 'svadhisthana', name: 'Sacral (Svadhisthana)' },
+    { key: 'manipura',     name: 'Solar Plexus (Manipura)' },
+    { key: 'anahata',      name: 'Heart (Anahata)' },
+    { key: 'vishuddha',    name: 'Throat (Vishuddha)' },
+    { key: 'ajna',         name: 'Third Eye (Ajna)' },
+    { key: 'sahasrara',    name: 'Crown (Sahasrara)' }
+  ];
+
+  var quizQ1 = [
+    { id: 'Q1_A', text: 'Removing obstacles',                  chakra: 'muladhara' },
+    { id: 'Q1_B', text: 'Growing in wealth & career',          chakra: 'manipura' },
+    { id: 'Q1_C', text: 'Finding inner peace',                 chakra: 'sahasrara' },
+    { id: 'Q1_D', text: 'Feeling protected & strong',          chakra: 'manipura' },
+    { id: 'Q1_E', text: 'Creating harmony in relationships',   chakra: 'anahata' },
+    { id: 'Q1_F', text: 'Gaining clarity & knowledge',         chakra: 'vishuddha' },
+    { id: 'Q1_G', text: 'Deepening spiritual practice',        chakra: 'ajna' }
+  ];
+
+  var quizQ2 = [
+    { id: 'Q2_A', text: 'I feel blocked or stuck',               element: 'Earth' },
+    { id: 'Q2_B', text: 'I need stability and direction',        element: 'Earth' },
+    { id: 'Q2_C', text: 'My mind feels noisy',                   element: 'Air' },
+    { id: 'Q2_D', text: 'I feel vulnerable or drained',          element: 'Water' },
+    { id: 'Q2_E', text: 'I want emotional balance',              element: 'Water' },
+    { id: 'Q2_F', text: 'I need focus and clarity',              element: 'Ether' },
+    { id: 'Q2_G', text: 'I feel called toward something higher', element: 'Air' }
+  ];
+
+  var deities = [
+    { name: 'Ganesh',       mantra: 'Om Gam Ganapataye Namaha',      tagline: 'Remover of Obstacles',         chakra: 'Root (Muladhara)',         chakraKey: 'muladhara',    element: 'Earth', vastuPlacement: 'Northeast corner (Ishaan) of home or entrance hall. Face the deity eastward. Ground floor preferred. Use elevated platform.' },
+    { name: 'Vishnu',       mantra: 'Om Namo Bhagavate Vasudevaya',   tagline: 'Preserver of Stability',       chakra: 'Sacral (Svadhisthana)',    chakraKey: 'svadhisthana', element: 'Water', vastuPlacement: 'Northeast or north wall of main living area, facing east.' },
+    { name: 'Shiva',        mantra: 'Om Namah Shivaya',               tagline: 'Force of Transformation',      chakra: 'Third Eye (Ajna)',         chakraKey: 'ajna',         element: 'Ether', vastuPlacement: 'Northeast corner of house, facing south.' },
+    { name: 'Buddha',       mantra: 'Om Mani Padme Hum',              tagline: 'Embodiment of Stillness',      chakra: 'Crown (Sahasrara)',        chakraKey: 'sahasrara',    element: 'Air',   vastuPlacement: 'Northeast section of meditation room or study, facing east.' },
+    { name: 'Shivling',     mantra: 'Om Tryambakam Yajamahe',         tagline: 'Source of Creation',           chakra: 'Third Eye (Ajna)',         chakraKey: 'ajna',         element: 'Fire',  vastuPlacement: 'Northeast corner, dedicated worship room only.' },
+    { name: 'Nandi',        mantra: 'Om Vrishabhaya Namaha',          tagline: 'Symbol of Patience & Strength',chakra: 'Root (Muladhara)',         chakraKey: 'muladhara',    element: 'Earth', vastuPlacement: 'Always facing Shivling directly, or independently facing east.' },
+    { name: 'Shankh',       mantra: 'Om Panchajanyaya Namaha',        tagline: 'Sound of Purity',              chakra: 'Throat (Vishuddha)',       chakraKey: 'vishuddha',    element: 'Air',   vastuPlacement: 'Northeast corner of worship area, facing east.' },
+    { name: 'Ram',          mantra: 'Om Shri Ramaya Namaha',          tagline: 'Ideal Order & Harmony',        chakra: 'Solar Plexus (Manipura)',  chakraKey: 'manipura',     element: 'Fire',  vastuPlacement: 'East wall or northeast of main hall, facing west.' },
+    { name: 'Hanuman',      mantra: 'Om Hanumate Namaha',             tagline: 'Protector & Strength',         chakra: 'Heart (Anahata)',          chakraKey: 'anahata',      element: 'Air',   vastuPlacement: 'South wall facing north, or at main entrance facing inward.' },
+    { name: 'Shiv-Parvati', mantra: 'Om Uma Maheshwaraya Namaha',     tagline: 'Union of Balance',             chakra: 'Crown (Sahasrara)',        chakraKey: 'sahasrara',    element: 'Ether', vastuPlacement: 'Northeast or north section of master bedroom.' },
+    { name: 'Durga',        mantra: 'Om Dum Durgayei Namaha',         tagline: 'Invincible Protection',        chakra: 'Crown (Sahasrara)',        chakraKey: 'sahasrara',    element: 'Fire',  vastuPlacement: 'East or northeast wall of main hall.' },
+    { name: 'Krishna',      mantra: 'Om Kleem Krishnaya Namaha',      tagline: 'Divine Joy & Love',            chakra: 'Heart (Anahata)',          chakraKey: 'anahata',      element: 'Water', vastuPlacement: 'Northeast corner or living room facing east or north.' },
+    { name: 'Saraswati',    mantra: 'Om Aim Saraswatyai Namaha',      tagline: 'Flow of Knowledge',            chakra: 'Throat (Vishuddha)',       chakraKey: 'vishuddha',    element: 'Water', vastuPlacement: 'Northeast corner of study room or library.' }
+  ];
+
+  /* ══════════════════════════════════════════════════════════
+     PRODUCT IMAGES (injected from Liquid)
+     ══════════════════════════════════════════════════════════ */
+  var productImages = {};
+  try {
+    var imgEl = document.getElementById('DeityProductImages');
+    if (imgEl) productImages = JSON.parse(imgEl.textContent);
+  } catch(e) {}
+
+  /* ══════════════════════════════════════════════════════════
+     STATE
+     ══════════════════════════════════════════════════════════ */
+  var state = {
+    step: 1,
+    q1Answer: null,   // full option object
+    q2Answer: null,   // full option object
+    email: '',
+    results: []
+  };
+
+  /* ══════════════════════════════════════════════════════════
+     MATCHING ALGORITHM — identical to getQuizResults()
+     ══════════════════════════════════════════════════════════ */
+  function getQuizResults(chakraKey, element) {
+    var chakraMatches  = deities.filter(function(d) { return d.chakraKey === chakraKey; });
+    var elementMatches = deities.filter(function(d) { return d.element === element; });
+
+    var perfectMatches = chakraMatches.filter(function(d) {
+      return elementMatches.some(function(e) { return e.name === d.name; });
+    });
+    if (perfectMatches.length > 0) return perfectMatches;
+
+    var combined = chakraMatches.slice();
+    for (var i = 0; i < elementMatches.length; i++) {
+      var found = false;
+      for (var j = 0; j < combined.length; j++) {
+        if (combined[j].name === elementMatches[i].name) { found = true; break; }
+      }
+      if (!found) combined.push(elementMatches[i]);
+    }
+    return combined.slice(0, 3);
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     SVG ICONS (inline, matching Lucide icons from React)
+     ══════════════════════════════════════════════════════════ */
+  var ICON_ARROW_RIGHT = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+  var ICON_ARROW_LEFT  = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>';
+  var ICON_SPARKLES    = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>';
+  var ICON_ROTATE_CCW  = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>';
+  var ICON_ARROW_RIGHT_SM = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+
+  /* ══════════════════════════════════════════════════════════
+     DOM REFERENCES
+     ══════════════════════════════════════════════════════════ */
+  var container   = document.getElementById('QuizContent');
+  var progressBar = document.getElementById('QuizProgressBar');
+
+  /* ══════════════════════════════════════════════════════════
+     HELPERS
+     ══════════════════════════════════════════════════════════ */
+  function updateProgress() {
+    var pct = (state.step / 4) * 100;
+    progressBar.style.width = pct + '%';
+  }
+
+  function isValidEmail(e) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim());
+  }
+
+  function findChakraName(key) {
+    for (var i = 0; i < allChakras.length; i++) {
+      if (allChakras[i].key === key) return allChakras[i].name;
+    }
+    return '';
+  }
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     STEP 1 — "What are you seeking right now?"
+     ══════════════════════════════════════════════════════════ */
+  function renderStep1() {
+    var h = '<div class="quiz-slide-in">';
+    h += '<div class="text-center mb-10">';
+    h += '<p class="num-label mb-2">Step 1 of 4</p>';
+    h += '<h2 class="font-display text-2xl text-on-surface mb-2">What are you seeking right now?</h2>';
+    h += '<p class="font-body text-sm text-on-surface-faint">Choose the intention that resonates most.</p>';
+    h += '</div>';
+
+    h += '<div class="space-y-3">';
+    for (var i = 0; i < quizQ1.length; i++) {
+      var opt = quizQ1[i];
+      var color = chakraColors[opt.chakra] || '#888';
+      var chakraName = findChakraName(opt.chakra);
+      var isSelected = state.q1Answer && state.q1Answer.id === opt.id;
+
+      h += '<button type="button" data-idx="' + i + '" class="quiz-opt w-full text-left p-5 rounded-lg border flex items-center gap-4 group';
+      if (isSelected) {
+        h += ' quiz-opt-selected';
+      } else {
+        h += ' border-border hover:border-accent/30 bg-surface-2 hover:bg-surface-3';
+      }
+      h += '">';
+      h += '<div class="w-3 h-8 rounded-full flex-shrink-0" style="background-color:' + color + '"></div>';
+      h += '<div>';
+      h += '<p class="font-body text-sm text-on-surface">' + esc(opt.text) + '</p>';
+      if (chakraName) {
+        h += '<p class="font-body text-on-surface-faint mt-1" style="font-size:10px;">' + esc(chakraName) + '</p>';
+      }
+      h += '</div>';
+      h += '</button>';
+    }
+    h += '</div>';
+    h += '</div>';
+
+    container.innerHTML = h;
+
+    container.querySelectorAll('.quiz-opt').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var idx = parseInt(this.getAttribute('data-idx'));
+        state.q1Answer = quizQ1[idx];
+
+        /* Highlight selected immediately */
+        container.querySelectorAll('.quiz-opt').forEach(function(b) {
+          b.classList.remove('quiz-opt-selected');
+          b.classList.add('border-border', 'bg-surface-2');
+        });
+        this.classList.add('quiz-opt-selected');
+        this.classList.remove('border-border', 'bg-surface-2');
+
+        /* 300ms delay before advancing — matches React setTimeout */
+        setTimeout(function() {
+          state.step = 2;
+          render();
+        }, 300);
+      });
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     STEP 2 — "What best describes your current state?"
+     ══════════════════════════════════════════════════════════ */
+  function renderStep2() {
+    var h = '<div class="quiz-slide-in">';
+    h += '<div class="text-center mb-10">';
+    h += '<p class="num-label mb-2">Step 2 of 4</p>';
+    h += '<h2 class="font-display text-2xl text-on-surface mb-2">What best describes your current state?</h2>';
+    h += '<p class="font-body text-sm text-on-surface-faint">This helps us understand the element you need.</p>';
+    h += '</div>';
+
+    h += '<div class="space-y-3">';
+    for (var i = 0; i < quizQ2.length; i++) {
+      var opt = quizQ2[i];
+      var isSelected = state.q2Answer && state.q2Answer.id === opt.id;
+
+      h += '<button type="button" data-idx="' + i + '" class="quiz-opt w-full text-left p-5 rounded-lg border transition-colors duration-200';
+      if (isSelected) {
+        h += ' quiz-opt-selected';
+      } else {
+        h += ' border-border hover:border-accent/30 bg-surface-2 hover:bg-surface-3';
+      }
+      h += '">';
+      h += '<p class="font-body text-sm text-on-surface">' + esc(opt.text) + '</p>';
+      h += '<p class="font-body text-on-surface-faint mt-1" style="font-size:10px;">' + esc(opt.element) + ' Element</p>';
+      h += '</button>';
+    }
+    h += '</div>';
+
+    /* Back button */
+    h += '<button type="button" class="quiz-back btn-ghost mt-6">' + ICON_ARROW_LEFT + ' Back</button>';
+    h += '</div>';
+
+    container.innerHTML = h;
+
+    container.querySelectorAll('.quiz-opt').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var idx = parseInt(this.getAttribute('data-idx'));
+        state.q2Answer = quizQ2[idx];
+
+        container.querySelectorAll('.quiz-opt').forEach(function(b) {
+          b.classList.remove('quiz-opt-selected');
+          b.classList.add('border-border', 'bg-surface-2');
+        });
+        this.classList.add('quiz-opt-selected');
+        this.classList.remove('border-border', 'bg-surface-2');
+
+        setTimeout(function() {
+          state.step = 3;
+          render();
+        }, 300);
+      });
+    });
+
+    container.querySelector('.quiz-back').addEventListener('click', function() {
+      state.step = 1;
+      render();
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     STEP 3 — Email: "Where should we send your guide?"
+     ══════════════════════════════════════════════════════════ */
+  function renderStep3() {
+    var h = '<div class="quiz-slide-in">';
+    h += '<div class="text-center mb-10">';
+    h += '<p class="num-label mb-2">Step 3 of 4</p>';
+    h += '<h2 class="font-display text-2xl text-on-surface mb-2">Where should we send your guide?</h2>';
+    h += '<p class="font-body text-sm text-on-surface-faint">Get your personalized deity placement guide via email.</p>';
+    h += '</div>';
+
+    h += '<div class="max-w-sm mx-auto">';
+    h += '<input type="email" id="QuizEmail" placeholder="your@email.com" class="input-sacred w-full bg-surface-2 border border-border rounded-lg px-5 py-4 font-body text-sm text-on-surface placeholder:text-on-surface-faint focus:outline-none focus:border-accent transition-colors mb-4" />';
+    h += '<button type="button" id="QuizSubmitBtn" disabled class="btn-primary w-full justify-center disabled:opacity-40 disabled:cursor-not-allowed">';
+    h += 'See My Results ' + ICON_ARROW_RIGHT;
+    h += '</button>';
+    h += '</div>';
+
+    /* Back button */
+    h += '<button type="button" class="quiz-back btn-ghost mt-6">' + ICON_ARROW_LEFT + ' Back</button>';
+    h += '</div>';
+
+    container.innerHTML = h;
+
+    var emailInput = document.getElementById('QuizEmail');
+    var submitBtn  = document.getElementById('QuizSubmitBtn');
+
+    /* Restore email if going back */
+    if (state.email) {
+      emailInput.value = state.email;
+      submitBtn.disabled = !isValidEmail(state.email);
+    }
+
+    emailInput.addEventListener('input', function() {
+      state.email = this.value;
+      submitBtn.disabled = !isValidEmail(this.value);
+    });
+
+    submitBtn.addEventListener('click', function() {
+      if (!isValidEmail(state.email)) return;
+      if (state.q1Answer && state.q1Answer.chakra && state.q2Answer && state.q2Answer.element) {
+        state.results = getQuizResults(state.q1Answer.chakra, state.q2Answer.element);
+      }
+      state.step = 4;
+      render();
+    });
+
+    container.querySelector('.quiz-back').addEventListener('click', function() {
+      state.step = 2;
+      render();
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     STEP 4 — Results: "Your Sacred Forms"
+     ══════════════════════════════════════════════════════════ */
+  function renderStep4() {
+    var results = state.results;
+
+    var h = '<div class="quiz-fade-up">';
+
+    /* Sparkles icon circle */
+    h += '<div class="text-center mb-10">';
+    h += '<div class="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center" style="background-color: hsl(var(--accent) / 0.1);">';
+    h += '<span class="text-accent">' + ICON_SPARKLES + '</span>';
+    h += '</div>';
+    h += '<h2 class="font-display text-3xl text-on-surface mb-2">Your Sacred Forms</h2>';
+    h += '<p class="font-body text-sm text-on-surface-faint max-w-md mx-auto">Based on your intention and inner state, these deities align with your energy.</p>';
+    h += '</div>';
+
+    /* Ornamental divider */
+    h += '<div class="ornament-divider-quiz mb-10 max-w-xs mx-auto"><span>&#10022;</span></div>';
+
+    /* Deity result cards */
+    h += '<div class="space-y-6">';
+    for (var i = 0; i < results.length; i++) {
+      var deity = results[i];
+      var prod = productImages[deity.name];
+      var delay = (i * 0.1) + 's';
+
+      h += '<div class="card-warm p-6 flex gap-6 quiz-card-in" style="animation-delay:' + delay + ';">';
+
+      /* Product image */
+      if (prod && prod.image) {
+        h += '<div class="w-24 h-32 rounded-lg overflow-hidden bg-surface-3 flex-shrink-0">';
+        h += '<img src="' + esc(prod.image) + '" alt="' + esc(deity.name) + '" class="w-full h-full object-cover" loading="lazy" />';
+        h += '</div>';
+      }
+
+      h += '<div class="flex-1">';
+      h += '<h3 class="font-display text-xl text-on-surface mb-1">' + esc(deity.name) + '</h3>';
+      h += '<p class="font-prose text-sm text-accent italic mb-2">' + esc(deity.tagline) + '</p>';
+      h += '<p class="font-body text-xs text-on-surface-faint mb-1"><span class="text-on-surface-muted">Chakra:</span> ' + esc(deity.chakra) + '</p>';
+      h += '<p class="font-body text-xs text-on-surface-faint mb-3"><span class="text-on-surface-muted">Element:</span> ' + esc(deity.element) + '</p>';
+
+      /* "Find Your Murti" link */
+      var linkUrl = '/collections/all?deity=' + encodeURIComponent(deity.name);
+      if (prod && prod.url) linkUrl = prod.url;
+      h += '<a href="' + linkUrl + '" class="inline-flex items-center gap-1.5 font-body text-xs tracking-wider uppercase text-accent hover:text-accent-hover transition-colors">';
+      h += 'Find Your Murti ' + ICON_ARROW_RIGHT_SM;
+      h += '</a>';
+
+      h += '</div>'; /* flex-1 */
+      h += '</div>'; /* card-warm */
+    }
+    h += '</div>'; /* space-y-6 */
+
+    /* Action buttons */
+    var deityParam = results.map(function(d) { return encodeURIComponent(d.name); }).join(',');
+
+    h += '<div class="text-center mt-10 flex flex-col items-center gap-3 max-w-xs mx-auto">';
+    h += '<a href="/collections/all?deity=' + deityParam + '" class="btn-primary w-full justify-center">';
+    h += 'View All Recommendations ' + ICON_ARROW_RIGHT;
+    h += '</a>';
+    h += '<a href="/collections/all" class="btn-outline w-full justify-center">View Full Collection</a>';
+    h += '<button type="button" class="quiz-retake btn-ghost mt-2 text-on-surface-faint">' + ICON_ROTATE_CCW + ' Retake Quiz</button>';
+    h += '</div>';
+
+    h += '</div>'; /* quiz-fade-up */
+
+    container.innerHTML = h;
+
+    container.querySelector('.quiz-retake').addEventListener('click', function() {
+      state.step = 1;
+      state.q1Answer = null;
+      state.q2Answer = null;
+      state.email = '';
+      state.results = [];
+      render();
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     RENDER DISPATCH
+     ══════════════════════════════════════════════════════════ */
+  function render() {
+    updateProgress();
+    switch (state.step) {
+      case 1: renderStep1(); break;
+      case 2: renderStep2(); break;
+      case 3: renderStep3(); break;
+      case 4: renderStep4(); break;
+    }
+    /* Scroll to top of quiz on step change */
+    var el = document.getElementById('DeityQuiz');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     INIT
+     ══════════════════════════════════════════════════════════ */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Deity Quiz",
+  "tag": "section",
+  "class": "deity-quiz-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find Your Deity"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Two questions. Your inner state meets the right sacred form."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deity Quiz"
+    }
+  ]
+}
+{% endschema %}

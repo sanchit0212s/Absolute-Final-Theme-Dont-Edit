@@ -1,0 +1,212 @@
+{%- comment -%}
+  About Chakra — pixel-perfect match to React About.tsx "Chakras & The Five Elements" section
+  Two main cards (Chakras + Panch Tatva) with card-warm p-8
+  NO chakra badges, NO element badges (React omits them)
+  Vastu directions: 4 cards grid-cols-2 md:grid-cols-4 gap-4, card-warm text-center p-5 group
+  Shortened descriptions, group-hover:text-bright-gold on direction name
+{%- endcomment -%}
+
+<style>
+  .about-chakra-fadein {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: aboutChakraFadeIn 0.8s ease forwards;
+  }
+  .about-chakra-card-left {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: aboutChakraCardLeft 0.6s ease forwards;
+  }
+  .about-chakra-card-right {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: aboutChakraCardRight 0.6s ease 0.1s forwards;
+  }
+  .about-vastu-fadein {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: aboutVastuFadeIn 0.8s ease forwards;
+  }
+  .about-vastu-card {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: aboutVastuCard 0.5s ease forwards;
+  }
+  .about-vastu-card:nth-child(1) { animation-delay: 0s; }
+  .about-vastu-card:nth-child(2) { animation-delay: 0.1s; }
+  .about-vastu-card:nth-child(3) { animation-delay: 0.2s; }
+  .about-vastu-card:nth-child(4) { animation-delay: 0.3s; }
+  @keyframes aboutChakraFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes aboutChakraCardLeft {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes aboutChakraCardRight {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes aboutVastuFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes aboutVastuCard {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<section class="section-a py-24" id="chakra">
+  <div class="max-w-4xl mx-auto px-6">
+
+    {%- comment -%} Section heading {%- endcomment -%}
+    <div class="about-chakra-fadein text-center mb-16">
+      <p class="section-label mb-3">{{ section.settings.label | default: "The Framework" }}</p>
+      <h2 class="font-display text-4xl text-on-surface font-light mb-6">
+        {{ section.settings.heading | default: "Chakras & The Five Elements" }}
+      </h2>
+      <p class="font-body text-on-surface-faint leading-relaxed max-w-2xl mx-auto">
+        {{ section.settings.intro | default: "Indian spiritual thought offers two timeless frameworks to understand balance within and around us: Chakras and Panch Tatva (The Five Elements)." }}
+      </p>
+    </div>
+
+    {%- comment -%} Two info cards {%- endcomment -%}
+    <div class="grid md:grid-cols-2 gap-12">
+
+      {%- comment -%} Seven Chakras card {%- endcomment -%}
+      <div class="about-chakra-card-left card-warm p-8">
+        <h3 class="font-display text-2xl text-accent mb-4">{{ section.settings.chakra_title | default: "Seven Chakras" }}</h3>
+        <p class="font-body text-sm text-on-surface-faint leading-relaxed">
+          {{ section.settings.chakra_description | default: "Chakras are described in yogic traditions as seven energy centres within the body — Root, Sacral, Solar Plexus, Heart, Throat, Third Eye, and Crown. Each represents a dimension of human experience: security, emotion, will, love, expression, insight, and awareness." }}
+        </p>
+      </div>
+
+      {%- comment -%} Panch Tatva card {%- endcomment -%}
+      <div class="about-chakra-card-right card-warm p-8">
+        <h3 class="font-display text-2xl text-accent mb-4">{{ section.settings.tatva_title | default: "Panch Tatva" }}</h3>
+        <p class="font-body text-sm text-on-surface-faint leading-relaxed">
+          {{ section.settings.tatva_description | default: "Panch Tatva — the Five Elements — form the foundation of classical Hindu philosophy: Prithvi (Earth), Jal (Water), Agni (Fire), Vayu (Air), and Akash (Ether). These are seen as the building blocks of all existence, present in nature and reflected within." }}
+        </p>
+      </div>
+
+    </div>
+
+    {%- comment -%} Vastu Directions {%- endcomment -%}
+    <div class="about-vastu-fadein mt-16 text-center" id="vastu">
+      <h3 class="font-display text-2xl text-on-surface mb-8">{{ section.settings.vastu_heading | default: "Vastu Shastra" }}</h3>
+      <p class="font-body text-on-surface-faint leading-relaxed max-w-xl mx-auto mb-10">
+        {{ section.settings.vastu_intro | default: "The traditional Indian science of space and structure. Every home is a living field of energy shaped by direction, form, light, and flow." }}
+      </p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="about-vastu-card card-warm text-center p-5 group">
+          <p class="font-display text-xl text-accent mb-2 group-hover:text-bright-gold transition-colors">East</p>
+          <p class="font-body text-on-surface-faint text-xs">{{ section.settings.east_meaning | default: "Light & Beginnings" }}</p>
+        </div>
+        <div class="about-vastu-card card-warm text-center p-5 group">
+          <p class="font-display text-xl text-accent mb-2 group-hover:text-bright-gold transition-colors">North</p>
+          <p class="font-body text-on-surface-faint text-xs">{{ section.settings.north_meaning | default: "Growth & Flow" }}</p>
+        </div>
+        <div class="about-vastu-card card-warm text-center p-5 group">
+          <p class="font-display text-xl text-accent mb-2 group-hover:text-bright-gold transition-colors">South</p>
+          <p class="font-body text-on-surface-faint text-xs">{{ section.settings.south_meaning | default: "Strength & Grounding" }}</p>
+        </div>
+        <div class="about-vastu-card card-warm text-center p-5 group">
+          <p class="font-display text-xl text-accent mb-2 group-hover:text-bright-gold transition-colors">West</p>
+          <p class="font-body text-on-surface-faint text-xs">{{ section.settings.west_meaning | default: "Balance & Rest" }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Chakra",
+  "tag": "section",
+  "class": "about-chakra-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "The Framework"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Chakras & The Five Elements"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Intro paragraph",
+      "default": "Indian spiritual thought offers two timeless frameworks to understand balance within and around us: Chakras and Panch Tatva (The Five Elements)."
+    },
+    {
+      "type": "text",
+      "id": "chakra_title",
+      "label": "Chakra card title",
+      "default": "Seven Chakras"
+    },
+    {
+      "type": "textarea",
+      "id": "chakra_description",
+      "label": "Chakra card description",
+      "default": "Chakras are described in yogic traditions as seven energy centres within the body — Root, Sacral, Solar Plexus, Heart, Throat, Third Eye, and Crown. Each represents a dimension of human experience: security, emotion, will, love, expression, insight, and awareness."
+    },
+    {
+      "type": "text",
+      "id": "tatva_title",
+      "label": "Panch Tatva card title",
+      "default": "Panch Tatva"
+    },
+    {
+      "type": "textarea",
+      "id": "tatva_description",
+      "label": "Panch Tatva card description",
+      "default": "Panch Tatva — the Five Elements — form the foundation of classical Hindu philosophy: Prithvi (Earth), Jal (Water), Agni (Fire), Vayu (Air), and Akash (Ether). These are seen as the building blocks of all existence, present in nature and reflected within."
+    },
+    {
+      "type": "text",
+      "id": "vastu_heading",
+      "label": "Vastu section heading",
+      "default": "Vastu Shastra"
+    },
+    {
+      "type": "textarea",
+      "id": "vastu_intro",
+      "label": "Vastu intro paragraph",
+      "default": "The traditional Indian science of space and structure. Every home is a living field of energy shaped by direction, form, light, and flow."
+    },
+    {
+      "type": "text",
+      "id": "east_meaning",
+      "label": "East meaning",
+      "default": "Light & Beginnings"
+    },
+    {
+      "type": "text",
+      "id": "north_meaning",
+      "label": "North meaning",
+      "default": "Growth & Flow"
+    },
+    {
+      "type": "text",
+      "id": "south_meaning",
+      "label": "South meaning",
+      "default": "Strength & Grounding"
+    },
+    {
+      "type": "text",
+      "id": "west_meaning",
+      "label": "West meaning",
+      "default": "Balance & Rest"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Chakras"
+    }
+  ]
+}
+{% endschema %}

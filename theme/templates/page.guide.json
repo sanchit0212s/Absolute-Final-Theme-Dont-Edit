@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "guide-template",
+      "settings": {
+        "subtitle": "Two questions. Your deity revealed. No guesswork, no generic recommendations."
+      }
+    }
+  },
+  "order": ["main"]
+}

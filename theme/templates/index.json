@@ -1,0 +1,115 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading_line1": "Sanctuary.",
+        "heading_line2": "Delivered.",
+        "subline": "Authentic brass deities for the modern home.",
+        "description": "We curate heavy, hand-cast brass deities from Haridwar — not as decorations, but as generational anchors for your personal sanctuary.",
+        "cta_text": "Explore the Collection"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "item1": { "type": "item", "settings": { "text": "Sourced from Haridwar" } },
+        "item2": { "type": "item", "settings": { "text": "Heavy Solid Brass" } },
+        "item3": { "type": "item", "settings": { "text": "Global Shipping" } },
+        "item4": { "type": "item", "settings": { "text": "Consecrated Upon Request" } },
+        "item5": { "type": "item", "settings": { "text": "Authenticity Certified" } }
+      },
+      "block_order": ["item1", "item2", "item3", "item4", "item5"]
+    },
+    "philosophy": {
+      "type": "philosophy",
+      "settings": {}
+    },
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "Sacred Forms",
+        "description": "Each deity serves a purpose in your space. Not decoration — intention.",
+        "product_count": 8,
+        "cta_text": "View Full Collection"
+      }
+    },
+    "diya_upsell": {
+      "type": "diya-upsell",
+      "settings": {
+        "heading": "Light the Sacred Space",
+        "description": "A hand-cast five-wick brass diya for your daily puja. The traditional way to bring warmth and intention to your altar."
+      }
+    },
+    "brand_story": {
+      "type": "brand-story",
+      "settings": {}
+    },
+    "chakra_preview": {
+      "type": "chakra-preview",
+      "blocks": {
+        "c1": { "type": "chakra", "settings": { "key": "muladhara", "name": "Root", "deity": "Ganesh, Nandi" } },
+        "c2": { "type": "chakra", "settings": { "key": "svadhisthana", "name": "Sacral", "deity": "Vishnu" } },
+        "c3": { "type": "chakra", "settings": { "key": "manipura", "name": "Solar Plexus", "deity": "Ram Darbar" } },
+        "c4": { "type": "chakra", "settings": { "key": "anahata", "name": "Heart", "deity": "Krishna, Hanuman" } },
+        "c5": { "type": "chakra", "settings": { "key": "vishuddha", "name": "Throat", "deity": "Saraswati" } },
+        "c6": { "type": "chakra", "settings": { "key": "ajna", "name": "Third Eye", "deity": "Shiva, Shivling" } },
+        "c7": { "type": "chakra", "settings": { "key": "sahasrara", "name": "Crown", "deity": "Buddha, Durga, Shiv-Parvati" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7"]
+    },
+    "vastu": {
+      "type": "vastu-directions",
+      "blocks": {
+        "d1": { "type": "direction", "settings": { "direction": "East", "meaning": "Light & Beginnings" } },
+        "d2": { "type": "direction", "settings": { "direction": "North", "meaning": "Growth & Flow" } },
+        "d3": { "type": "direction", "settings": { "direction": "South", "meaning": "Strength & Grounding" } },
+        "d4": { "type": "direction", "settings": { "direction": "West", "meaning": "Balance & Rest" } }
+      },
+      "block_order": ["d1", "d2", "d3", "d4"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The weight of the Vishnu statue surprised me. It feels substantial and permanent. It has completely changed the feel of my study.",
+            "author": "Arjun N.",
+            "location": "San Francisco"
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I was worried about shipping to London, but the packing was incredible. The Nandi looks ancient and beautiful.",
+            "author": "John J.",
+            "location": "UK"
+          }
+        }
+      },
+      "block_order": ["t1", "t2"]
+    },
+    "authenticity": {
+      "type": "authenticity",
+      "settings": {}
+    },
+    "guide_cta": {
+      "type": "guide-cta",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "philosophy",
+    "featured_products",
+    "diya_upsell",
+    "brand_story",
+    "chakra_preview",
+    "vastu",
+    "testimonials",
+    "authenticity",
+    "guide_cta"
+  ]
+}

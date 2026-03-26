@@ -1,0 +1,107 @@
+{%- comment -%}
+  About Commitments — pixel-perfect match to React About.tsx commitments section
+  OrnamentalDivider label, card-warm p-8 group cards, num-label with hover,
+  grid md:grid-cols-2 lg:grid-cols-3, staggered fade-in animations
+{%- endcomment -%}
+
+<style>
+  .about-commit-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: aboutCommitFadeIn 0.5s ease forwards;
+  }
+  .about-commit-card:nth-child(1) { animation-delay: 0s; }
+  .about-commit-card:nth-child(2) { animation-delay: 0.08s; }
+  .about-commit-card:nth-child(3) { animation-delay: 0.16s; }
+  @keyframes aboutCommitFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<section class="section-b bg-grain border-t border-border py-20">
+  <div class="max-w-[1400px] mx-auto px-6">
+
+    {%- comment -%} OrnamentalDivider with label {%- endcomment -%}
+    {% render 'ornamental-divider', label: 'Our Commitments' %}
+    <div class="mb-14"></div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
+      {%- for block in section.blocks -%}
+        <div class="about-commit-card card-warm p-8 group" {{ block.shopify_attributes }}>
+          <span class="num-label block mb-4 group-hover:text-accent transition-colors">
+            {{ block.settings.number | default: forloop.index | prepend: '0' | slice: -2, 2 }}
+          </span>
+          <h3 class="font-display text-xl text-on-surface mb-3">{{ block.settings.title }}</h3>
+          <p class="font-body text-sm text-on-surface-faint leading-relaxed">{{ block.settings.description }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Commitments",
+  "tag": "section",
+  "class": "about-commitments-section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "commitment",
+      "name": "Commitment Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number label",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "100% Solid Brass"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "No hollow castings, no alloy substitutes. Weight is the first thing you notice when you hold one."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Commitments",
+      "blocks": [
+        {
+          "type": "commitment",
+          "settings": {
+            "number": "01",
+            "title": "100% Solid Brass",
+            "description": "No hollow castings, no alloy substitutes. Weight is the first thing you notice when you hold one."
+          }
+        },
+        {
+          "type": "commitment",
+          "settings": {
+            "number": "02",
+            "title": "Haridwar Origin",
+            "description": "Our artisans are based in Haridwar — where form and intention have lived together for centuries."
+          }
+        },
+        {
+          "type": "commitment",
+          "settings": {
+            "number": "03",
+            "title": "Consecrated Upon Request",
+            "description": "All murtis can be ritually prepared before shipping. We never ship an unconsecrated form as sacred."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

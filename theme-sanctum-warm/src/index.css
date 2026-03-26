@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --parchment: 40 50% 96%;
+    --antique-ivory: 38 45% 91%;
+    --warm-tan: 36 40% 80%;
+    --temple-gold: 43 87% 38%;
+    --bright-gold: 43 74% 45%;
+    --shimmer-gold: 45 85% 62%;
+    --saffron: 24 100% 38%;
+    --espresso: 22 56% 12%;
+    --mahogany: 20 55% 23%;
+    --walnut: 22 42% 39%;
+    --footer-bg: 22 56% 12%;
+    --radius: 0.25rem;
+  }
+
+  * {
+    @apply border-warm-tan/50;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-parchment text-espresso font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  /* ── Typography ─────────────────────────────── */
+  .text-gold-shimmer {
+    background: linear-gradient(
+      135deg,
+      hsl(43 87% 32%),
+      hsl(45 85% 58%),
+      hsl(43 87% 32%)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 100%;
+  }
+
+  .small-caps {
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+  }
+
+  /* ── Section backgrounds ─────────────────────── */
+  .bg-section-a { background: hsl(var(--parchment)); }
+  .bg-section-b { background: hsl(var(--antique-ivory)); }
+  .bg-section-c { background: hsl(36 40% 80% / 0.35); }
+
+  /* ── Hero gradient ───────────────────────────── */
+  .bg-hero-warm {
+    background: linear-gradient(
+      155deg,
+      hsl(38 45% 91% / 0.97) 0%,
+      hsl(36 55% 78% / 0.80) 45%,
+      hsl(22 56% 12% / 0.55) 100%
+    );
+  }
+
+  /* ── Ornamental divider lines ────────────────── */
+  .ornamental-line {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--temple-gold) / 0.25) 20%,
+      hsl(var(--temple-gold) / 0.65) 50%,
+      hsl(var(--temple-gold) / 0.25) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ── Card interactions ───────────────────────── */
+  .card-hover {
+    @apply border border-warm-tan/70 transition-all duration-300;
+  }
+  .card-hover:hover {
+    @apply border-temple-gold/50 shadow-lg;
+    box-shadow: 0 8px 32px hsl(43 87% 38% / 0.12);
+  }
+
+  /* ── Animations ──────────────────────────────── */
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+  }
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+  .animate-float-delayed {
+    animation: float 5s ease-in-out 1.5s infinite;
+  }
+
+  @keyframes shimmer-sweep {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .gold-shimmer-sweep {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--temple-gold)) 0%,
+      hsl(var(--shimmer-gold)) 50%,
+      hsl(var(--temple-gold)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer-sweep 2.5s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  /* ── Scrollbar ───────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--parchment)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--warm-tan)); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--temple-gold) / 0.6); }
+
+  /* ── Focus ring ──────────────────────────────── */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--temple-gold) / 0.6);
+    outline-offset: 2px;
+  }
+
+  /* ── Image warm overlay ──────────────────────── */
+  .img-warm-overlay {
+    position: relative;
+  }
+  .img-warm-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      hsl(var(--espresso) / 0.25) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* ── Chakra dot colors ───────────────────────── */
+  .chakra-root      { background: #DC2626; }
+  .chakra-sacral    { background: #EA580C; }
+  .chakra-solar     { background: #CA8A04; }
+  .chakra-heart     { background: #16A34A; }
+  .chakra-throat    { background: #2563EB; }
+  .chakra-third-eye { background: #4338CA; }
+  .chakra-crown     { background: #7C3AED; }
+
+  /* ── Tab active state ────────────────────────── */
+  .tab-active {
+    @apply text-temple-gold border-b-2 border-temple-gold;
+  }
+  .tab-inactive {
+    @apply text-walnut border-b-2 border-transparent hover:text-mahogany hover:border-warm-tan;
+  }
+
+  /* ── Filter pill ─────────────────────────────── */
+  .filter-chip {
+    @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-body
+           bg-temple-gold/10 border border-temple-gold text-temple-gold
+           rounded-sm cursor-pointer transition-colors hover:bg-temple-gold/20;
+  }
+
+  /* ── Button variants ─────────────────────────── */
+  .btn-gold {
+    @apply bg-temple-gold text-parchment font-body text-sm tracking-widest uppercase
+           px-6 py-3 transition-all duration-200 hover:bg-bright-gold
+           focus-visible:ring-2 focus-visible:ring-temple-gold/50;
+  }
+  .btn-outline-gold {
+    @apply border border-temple-gold text-temple-gold font-body text-sm tracking-widest uppercase
+           px-6 py-3 transition-all duration-200 hover:bg-temple-gold hover:text-parchment
+           focus-visible:ring-2 focus-visible:ring-temple-gold/50;
+  }
+  .btn-outline-espresso {
+    @apply border border-espresso/30 text-espresso font-body text-sm tracking-widest uppercase
+           px-6 py-3 transition-all duration-200 hover:border-espresso hover:bg-espresso/5;
+  }
+}

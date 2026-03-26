@@ -1,0 +1,187 @@
+<section class="bg-obsidian dark:bg-surface-3 relative overflow-hidden">
+  <div class="absolute inset-0 bg-sacred-circles opacity-10 pointer-events-none"></div>
+  <div class="max-w-[1400px] mx-auto relative">
+    <div class="grid md:grid-cols-2">
+
+      {%- comment -%} Left — Hero review {%- endcomment -%}
+      <div class="px-8 md:px-16 py-20 flex flex-col justify-center">
+
+        {%- comment -%} Stars — 16px filled {%- endcomment -%}
+        <div class="flex gap-1 mb-8">
+          {%- for i in (1..5) -%}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-shimmer-gold fill-shimmer-gold"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          {%- endfor -%}
+        </div>
+
+        <blockquote class="mb-8">
+          <p class="font-display text-2xl md:text-3xl text-white dark:text-on-surface font-light leading-relaxed italic">
+            &ldquo;{{ section.settings.featured_quote }}&rdquo;
+          </p>
+        </blockquote>
+
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-temple-gold/20 flex items-center justify-center">
+            <span class="font-display text-lg text-shimmer-gold">{{ section.settings.featured_initial }}</span>
+          </div>
+          <div>
+            <p class="font-body text-sm text-white/80 dark:text-on-surface font-medium">{{ section.settings.featured_author }}</p>
+            <p class="font-body text-xs text-white/40 dark:text-on-surface-faint">{{ section.settings.featured_location }}</p>
+          </div>
+        </div>
+
+        {%- comment -%} Mini-reviews in 2-column grid {%- endcomment -%}
+        <div class="mt-12 pt-8 border-t border-white/[0.08] dark:border-border grid grid-cols-2 gap-6">
+
+          {%- comment -%} Mini review 1 {%- endcomment -%}
+          <div>
+            <div class="flex gap-0.5 mb-2">
+              {%- for i in (1..5) -%}
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-shimmer-gold/60 fill-shimmer-gold/60"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              {%- endfor -%}
+            </div>
+            <p class="font-prose text-xs text-white/50 dark:text-on-surface-faint italic leading-relaxed mb-2">
+              &ldquo;{{ section.settings.mini_review_1_text }}&rdquo;
+            </p>
+            <p class="font-body text-[10px] text-white/30 dark:text-on-surface-faint">
+              {{ section.settings.mini_review_1_author }} &middot; {{ section.settings.mini_review_1_city }}
+            </p>
+          </div>
+
+          {%- comment -%} Mini review 2 {%- endcomment -%}
+          <div>
+            <div class="flex gap-0.5 mb-2">
+              {%- for i in (1..5) -%}
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-shimmer-gold/60 fill-shimmer-gold/60"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              {%- endfor -%}
+            </div>
+            <p class="font-prose text-xs text-white/50 dark:text-on-surface-faint italic leading-relaxed mb-2">
+              &ldquo;{{ section.settings.mini_review_2_text }}&rdquo;
+            </p>
+            <p class="font-body text-[10px] text-white/30 dark:text-on-surface-faint">
+              {{ section.settings.mini_review_2_author }} &middot; {{ section.settings.mini_review_2_city }}
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      {%- comment -%} Right — Lifestyle image {%- endcomment -%}
+      <div class="relative hidden md:block">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 700 }}"
+            srcset="{{ section.settings.image | image_url: width: 700 }} 700w, {{ section.settings.image | image_url: width: 1400 }} 1400w"
+            sizes="50vw"
+            alt="{{ section.settings.image.alt | default: 'Lifestyle image' | escape }}"
+            width="700"
+            height="900"
+            loading="lazy"
+            class="w-full h-full object-cover"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+        {%- endif -%}
+        <div class="absolute inset-0 bg-gradient-to-l from-transparent to-obsidian/30 dark:to-surface-3/30"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "featured_quote",
+      "label": "Featured quote text",
+      "default": "The weight of it, the texture — you can feel the intention in every detail. This is not a souvenir."
+    },
+    {
+      "type": "text",
+      "id": "featured_author",
+      "label": "Featured author name",
+      "default": "Priya M."
+    },
+    {
+      "type": "text",
+      "id": "featured_initial",
+      "label": "Featured author initial",
+      "default": "P"
+    },
+    {
+      "type": "text",
+      "id": "featured_location",
+      "label": "Featured author location & product",
+      "default": "Mumbai · Ganesh & Krishna Murtis"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Right lifestyle image"
+    },
+    {
+      "type": "header",
+      "content": "Mini review 1"
+    },
+    {
+      "type": "text",
+      "id": "mini_review_1_text",
+      "label": "Review text",
+      "default": "The space feels different now — held."
+    },
+    {
+      "type": "text",
+      "id": "mini_review_1_author",
+      "label": "Author",
+      "default": "Arjun S."
+    },
+    {
+      "type": "text",
+      "id": "mini_review_1_city",
+      "label": "City",
+      "default": "Bangalore"
+    },
+    {
+      "type": "header",
+      "content": "Mini review 2"
+    },
+    {
+      "type": "text",
+      "id": "mini_review_2_text",
+      "label": "Review text",
+      "default": "Beautifully packed, arrived with a handwritten note. You can tell these people care."
+    },
+    {
+      "type": "text",
+      "id": "mini_review_2_author",
+      "label": "Author",
+      "default": "Meera K."
+    },
+    {
+      "type": "text",
+      "id": "mini_review_2_city",
+      "label": "City",
+      "default": "Delhi"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "settings": {
+        "featured_quote": "The weight of it, the texture — you can feel the intention in every detail. This is not a souvenir.",
+        "featured_author": "Priya M.",
+        "featured_initial": "P",
+        "featured_location": "Mumbai · Ganesh & Krishna Murtis",
+        "mini_review_1_text": "The space feels different now — held.",
+        "mini_review_1_author": "Arjun S.",
+        "mini_review_1_city": "Bangalore",
+        "mini_review_2_text": "Beautifully packed, arrived with a handwritten note. You can tell these people care.",
+        "mini_review_2_author": "Meera K.",
+        "mini_review_2_city": "Delhi"
+      }
+    }
+  ]
+}
+{% endschema %}

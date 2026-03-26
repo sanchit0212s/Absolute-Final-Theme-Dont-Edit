@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "trust-marquee": { "type": "trust-marquee", "settings": {} },
+    "featured-collection": { "type": "featured-collection", "settings": {} },
+    "lifestyle": { "type": "lifestyle", "settings": {} },
+    "room-gallery": { "type": "room-gallery", "settings": {} },
+    "testimonials": { "type": "testimonials", "settings": {} },
+    "cta-band": { "type": "cta-band", "settings": {} }
+  },
+  "order": ["hero", "trust-marquee", "featured-collection", "lifestyle", "room-gallery", "testimonials", "cta-band"]
+}

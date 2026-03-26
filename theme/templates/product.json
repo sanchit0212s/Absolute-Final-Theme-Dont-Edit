@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "settings": {
+        "show_related": true
+      },
+      "blocks": {
+        "consecration": {
+          "type": "consecration_upsell",
+          "settings": {
+            "title": "Consecration Service — Shuddhi Poojan",
+            "description": "Before your murti ships, our temple pandit will perform a Prana Pratishtha (Life Infusion) ceremony — the ancient Vedic ritual that transforms brass into a living vessel of divine energy."
+          }
+        },
+        "diya": {
+          "type": "diya_upsell",
+          "settings": {
+            "title": "Traditional Brass Diya"
+          }
+        }
+      },
+      "block_order": ["consecration", "diya"]
+    }
+  },
+  "order": ["main"]
+}

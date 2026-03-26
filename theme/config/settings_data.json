@@ -1,0 +1,32 @@
+{
+  "current": {
+    "color_cream": "#FAF6F0",
+    "color_linen": "#F3EDE3",
+    "color_parchment": "#EDE5D8",
+    "color_copper": "#B8860B",
+    "color_copper_light": "#D4A843",
+    "color_copper_dark": "#8B6914",
+    "color_text": "#3D3529",
+    "color_text_light": "#7A7062",
+    "color_charcoal": "#2C261E",
+    "heading_scale": 100,
+    "body_scale": 100,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_text": "Divine Arts",
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "brand_name": "Divine Arts",
+          "contact_email": "contact@divinearts.store",
+          "show_legal_links": true
+        }
+      }
+    }
+  }
+}

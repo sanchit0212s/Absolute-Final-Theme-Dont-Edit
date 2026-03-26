@@ -1,0 +1,92 @@
+{%- comment -%}
+  Header — Fixed nav with logo, links, cart button.
+  Scrolled state adds glass-effect background.
+{%- endcomment -%}
+
+<header class="da-header" id="site-header" data-section-id="{{ section.id }}">
+  <div class="da-container da-container--wide">
+    <div class="da-header__inner">
+
+      {%- comment -%} Logo {%- endcomment -%}
+      <a href="/" class="da-header__logo">
+        {{ section.settings.logo_text | default: shop.name }}
+      </a>
+
+      {%- comment -%} Desktop nav {%- endcomment -%}
+      <nav class="da-header__nav" aria-label="Main navigation">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}" class="da-header__link"
+            {%- if link.url == request.path %} aria-current="page"{% endif -%}>
+            {{ link.title }}
+          </a>
+        {%- endfor -%}
+
+        {%- comment -%} Cart button {%- endcomment -%}
+        <button class="da-header__cart-btn" id="cart-toggle" aria-label="Open cart" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <span class="da-header__cart-count" id="cart-count"
+            {%- if cart.item_count == 0 %} style="display:none"{% endif -%}>
+            {{ cart.item_count }}
+          </span>
+        </button>
+      </nav>
+
+      {%- comment -%} Mobile: cart + hamburger {%- endcomment -%}
+      <div style="display:flex;align-items:center;gap:1rem;" class="da-header__mobile-actions">
+        <button class="da-header__cart-btn" id="cart-toggle-mobile" aria-label="Open cart" type="button">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <span class="da-header__cart-count cart-count-mobile"
+            {%- if cart.item_count == 0 %} style="display:none"{% endif -%}>
+            {{ cart.item_count }}
+          </span>
+        </button>
+
+        <button class="da-header__hamburger" id="mobile-menu-toggle" aria-label="Toggle menu" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobile full-screen nav {%- endcomment -%}
+<div class="da-mobile-nav" id="mobile-nav" aria-hidden="true">
+  <button class="da-mobile-nav__close" id="mobile-nav-close" aria-label="Close menu" type="button">&times;</button>
+  {%- for link in section.settings.menu.links -%}
+    <a href="{{ link.url }}" class="da-mobile-nav__link">{{ link.title }}</a>
+  {%- endfor -%}
+</div>
+
+<style>
+  .da-header__mobile-actions { display: none; }
+  @media (max-width: 768px) {
+    .da-header__mobile-actions { display: flex; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "da-header-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Divine Arts"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

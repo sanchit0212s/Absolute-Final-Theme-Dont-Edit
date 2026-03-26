@@ -1,0 +1,69 @@
+{%- comment -%}
+  Cart Drawer — AJAX slide-in cart from the right.
+  All cart operations handled by theme.js via Shopify Cart API.
+{%- endcomment -%}
+
+{%- comment -%} Overlay {%- endcomment -%}
+<div class="da-cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+
+{%- comment -%} Drawer {%- endcomment -%}
+<aside class="da-cart-drawer" id="cart-drawer" aria-label="Shopping cart" role="dialog">
+
+  {%- comment -%} Header {%- endcomment -%}
+  <div class="da-cart-drawer__header">
+    <h2 class="da-cart-drawer__title">{{ 'general.cart.title' | t }}</h2>
+    <button class="da-cart-drawer__close" id="cart-close" aria-label="Close cart" type="button">&times;</button>
+  </div>
+
+  {%- comment -%} Body — populated by JS {%- endcomment -%}
+  <div class="da-cart-drawer__body" id="cart-body">
+    {%- if cart.item_count == 0 -%}
+      <div class="da-cart-drawer__empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.3">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <p>{{ 'general.cart.empty' | t }}</p>
+        <a href="/collections/all" class="da-btn da-btn--outline" style="margin-top:1rem;">{{ 'general.cart.continue' | t }}</a>
+      </div>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="da-cart-line" data-line-key="{{ item.key }}">
+          <div class="da-cart-line__image">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 128 }}" alt="{{ item.title | escape }}" loading="lazy" width="64" height="64">
+            {%- endif -%}
+          </div>
+          <div class="da-cart-line__info">
+            <div class="da-cart-line__title">{{ item.product.title }}</div>
+            {%- if item.variant.title != 'Default Title' -%}
+              <div style="font-size:0.75rem;color:var(--da-text-light);">{{ item.variant.title }}</div>
+            {%- endif -%}
+            <div class="da-cart-line__price">{{ item.final_line_price | money }}</div>
+          </div>
+          <div class="da-cart-line__actions">
+            <button class="da-cart-line__remove" data-remove-key="{{ item.key }}" aria-label="Remove {{ item.title }}" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14"/></svg>
+            </button>
+            <div class="da-qty">
+              <button class="da-qty__btn" data-qty-change="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}" type="button" aria-label="Decrease quantity">&minus;</button>
+              <span class="da-qty__value">{{ item.quantity }}</span>
+              <button class="da-qty__btn" data-qty-change="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}" type="button" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Footer {%- endcomment -%}
+  <div class="da-cart-drawer__footer" id="cart-footer" {% if cart.item_count == 0 %}style="display:none"{% endif %}>
+    <div class="da-cart-drawer__total">
+      <span class="da-cart-drawer__total-label">{{ 'general.cart.subtotal' | t }}</span>
+      <span class="da-cart-drawer__total-price" id="cart-total">{{ cart.total_price | money }}</span>
+    </div>
+    <a href="/checkout" class="da-btn da-btn--primary" style="width:100%;text-align:center;" id="cart-checkout-btn">
+      {{ 'general.cart.checkout' | t }}
+    </a>
+  </div>
+</aside>

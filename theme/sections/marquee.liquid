@@ -1,0 +1,52 @@
+{%- comment -%}
+  Trust Marquee — Infinite scrolling text banner.
+{%- endcomment -%}
+
+<section class="da-marquee" data-section-id="{{ section.id }}">
+  <div class="da-marquee__track" aria-label="Trust statements">
+    {%- comment -%} Duplicate items for seamless loop {%- endcomment -%}
+    {%- for i in (1..2) -%}
+      {%- for block in section.blocks -%}
+        <span class="da-marquee__item">
+          <span class="da-marquee__dot"></span>
+          {{ block.settings.text }}
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Marquee",
+  "class": "da-marquee-section",
+  "max_blocks": 8,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Marquee item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Sourced from Haridwar"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Sourced from Haridwar" } },
+        { "type": "item", "settings": { "text": "Heavy Solid Brass" } },
+        { "type": "item", "settings": { "text": "Global Shipping" } },
+        { "type": "item", "settings": { "text": "Consecrated Upon Request" } },
+        { "type": "item", "settings": { "text": "Authenticity Certified" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

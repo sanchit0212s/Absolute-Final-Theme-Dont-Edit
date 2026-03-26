@@ -1,0 +1,65 @@
+{%- comment -%}
+  Product card snippet.
+  Usage: {% render 'product-card', product: product, index: forloop.index0 %}
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign image = product.featured_image
+-%}
+
+<div class="da-product-card da-reveal da-reveal--delay-{{ index | modulo: 4 | plus: 1 }}">
+  <a href="{{ product.url }}">
+    <div class="da-product-card__image-wrap">
+      {%- if image -%}
+        <img
+          class="da-product-card__image"
+          src="{{ image | image_url: width: 600 }}"
+          alt="{{ image.alt | default: product.title | escape }}"
+          loading="lazy"
+          width="600"
+          height="800"
+        >
+      {%- else -%}
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--da-linen);">
+          <span style="color:var(--da-text-light);font-size:0.75rem;">No image</span>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Hover overlay with mantra/meta from metafields {%- endcomment -%}
+      <div class="da-product-card__overlay">
+        {%- if product.metafields.custom.mantra != blank -%}
+          <div class="da-product-card__mantra">{{ product.metafields.custom.mantra }}</div>
+        {%- endif -%}
+        {%- if product.metafields.custom.element != blank or product.metafields.custom.chakra != blank -%}
+          <div class="da-product-card__meta">
+            {{ product.metafields.custom.element }}
+            {%- if product.metafields.custom.element != blank and product.metafields.custom.chakra != blank %} · {% endif -%}
+            {{ product.metafields.custom.chakra }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <h3 class="da-product-card__title">{{ product.title }}</h3>
+
+    {%- if product.metafields.custom.tagline != blank -%}
+      <p class="da-product-card__tagline">{{ product.metafields.custom.tagline }}</p>
+    {%- endif -%}
+  </a>
+
+  <div class="da-product-card__actions">
+    <span class="da-product-card__price">{{ variant.price | money }}</span>
+    {%- if variant.available -%}
+      <button
+        class="da-btn da-btn--ghost da-add-to-cart"
+        data-variant-id="{{ variant.id }}"
+        type="button"
+      >
+        {{ 'general.cart.add_to_altar' | t }}
+      </button>
+    {%- else -%}
+      <span class="da-body-xs">{{ 'products.product.sold_out' | t }}</span>
+    {%- endif -%}
+  </div>
+</div>

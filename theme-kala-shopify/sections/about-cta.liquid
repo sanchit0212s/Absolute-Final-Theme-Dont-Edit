@@ -1,0 +1,106 @@
+{%- comment -%}
+  About CTA — pixel-perfect match to React About.tsx CTA section
+  bg-saffron/8 dark:bg-saffron/10, bg-mandala overlay, ornament divider,
+  btn-primary + btn-outline buttons in flex row layout
+{%- endcomment -%}
+
+<style>
+  .about-cta-fadein {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: aboutCtaFadeIn 0.8s ease forwards;
+  }
+  @keyframes aboutCtaFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<section class="relative bg-saffron/8 dark:bg-saffron/10 py-24 overflow-hidden">
+  <div class="absolute inset-0 bg-mandala pointer-events-none"></div>
+
+  <div class="max-w-3xl mx-auto px-6 text-center relative">
+    <div class="about-cta-fadein space-y-6">
+
+      <p class="section-label mb-2">{{ section.settings.label | default: "Begin Your Journey" }}</p>
+
+      <h2 class="font-display text-3xl md:text-4xl text-on-surface font-light">
+        {{ section.settings.heading | default: "Discover which deity belongs in your space." }}
+      </h2>
+
+      <p class="font-body text-on-surface-faint text-sm max-w-lg mx-auto">
+        {{ section.settings.description | default: "Our guide matches your inner state with the perfect form for your sanctuary." }}
+      </p>
+
+      <div class="flex items-center justify-center gap-3 my-6">
+        <div class="w-10 h-px bg-accent/30"></div>
+        <div class="ornament-diamond"></div>
+        <div class="w-10 h-px bg-accent/30"></div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="{{ section.settings.primary_url | default: '/pages/guide' }}" class="btn-primary">
+          {{ section.settings.primary_text | default: "Take the Guide" }}
+        </a>
+        <a href="{{ section.settings.secondary_url | default: '/collections/all' }}" class="btn-outline">
+          {{ section.settings.secondary_text | default: "View Collection" }}
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About CTA",
+  "tag": "section",
+  "class": "about-cta-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Begin Your Journey"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Discover which deity belongs in your space."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Our guide matches your inner state with the perfect form for your sanctuary."
+    },
+    {
+      "type": "text",
+      "id": "primary_text",
+      "label": "Primary button text",
+      "default": "Take the Guide"
+    },
+    {
+      "type": "url",
+      "id": "primary_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_text",
+      "label": "Secondary button text",
+      "default": "View Collection"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About CTA"
+    }
+  ]
+}
+{% endschema %}

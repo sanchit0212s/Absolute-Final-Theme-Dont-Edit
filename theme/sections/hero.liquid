@@ -1,0 +1,87 @@
+{%- comment -%}
+  Hero — Full-viewport hero with brand headline, parallax background.
+{%- endcomment -%}
+
+<section class="da-hero" data-section-id="{{ section.id }}">
+  {%- comment -%} Background {%- endcomment -%}
+  <div class="da-hero__bg">
+    {%- if section.settings.background_image != blank -%}
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.background_image.alt | default: 'Divine brass deity' | escape }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+    <div class="da-hero__gradient"></div>
+  </div>
+
+  {%- comment -%} Content {%- endcomment -%}
+  <div class="da-hero__content">
+    <h1 class="da-hero__title">
+      {{ section.settings.heading_line1 | default: "Sanctuary." }}
+      <span class="da-shimmer">{{ section.settings.heading_line2 | default: "Delivered." }}</span>
+    </h1>
+    <p class="da-hero__subtitle">{{ section.settings.subline | default: "Authentic brass deities for the modern home." }}</p>
+    <p class="da-hero__description">{{ section.settings.description | default: "We curate heavy, hand-cast brass deities from Haridwar — not as decorations, but as generational anchors for your personal sanctuary." }}</p>
+    {%- if section.settings.cta_text != blank -%}
+      <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="da-btn da-btn--outline">
+        {{ section.settings.cta_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "class": "da-hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "Sanctuary."
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (shimmer)",
+      "default": "Delivered."
+    },
+    {
+      "type": "text",
+      "id": "subline",
+      "label": "Subline",
+      "default": "Authentic brass deities for the modern home."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We curate heavy, hand-cast brass deities from Haridwar — not as decorations, but as generational anchors for your personal sanctuary."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA button text",
+      "default": "Explore the Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

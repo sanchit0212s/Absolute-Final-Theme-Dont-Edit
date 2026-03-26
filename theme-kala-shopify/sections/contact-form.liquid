@@ -1,0 +1,432 @@
+{%- comment -%}
+  Contact Form — pixel-perfect match to React Contact.tsx
+  Header with section-label "Get in Touch"
+  Grid lg:grid-cols-5 (left 2 cols info, right 3 cols form)
+  Contact info with icon circles (inline SVGs for Mail, Phone, MapPin)
+  "Our Promise" card with 3 items
+  Topic chips with filter-chip / filter-chip-active classes
+  Form in card-warm p-8 with input-sacred class
+  Submit button with Send SVG icon + btn-primary
+  FAQ section with 4 FAQs, accordion with CSS animation + ChevronDown SVG
+{%- endcomment -%}
+
+<style>
+  .contact-faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, opacity 0.25s ease;
+    opacity: 0;
+  }
+  .contact-faq-content.is-open {
+    opacity: 1;
+  }
+  .contact-faq-chevron {
+    transition: transform 0.25s ease;
+  }
+  .contact-faq-chevron.is-open {
+    transform: rotate(180deg);
+  }
+  .contact-faq-fadein {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: contactFaqFadeIn 0.5s ease forwards;
+  }
+  .contact-faq-fadein:nth-child(1) { animation-delay: 0s; }
+  .contact-faq-fadein:nth-child(2) { animation-delay: 0.05s; }
+  .contact-faq-fadein:nth-child(3) { animation-delay: 0.1s; }
+  .contact-faq-fadein:nth-child(4) { animation-delay: 0.15s; }
+  @keyframes contactFaqFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+{%- comment -%} Header {%- endcomment -%}
+<section class="section-b border-b border-border py-10">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <p class="section-label mb-2">{{ section.settings.header_label | default: "Get in Touch" }}</p>
+    <h1 class="font-display text-4xl md:text-5xl text-on-surface font-light mb-3">
+      {{ section.settings.heading | default: "Contact Us" }}
+    </h1>
+    <p class="font-body text-sm text-on-surface-faint max-w-md mx-auto">
+      {{ section.settings.subheading | default: "Questions about placement, consecration, or your order? We are here to help." }}
+    </p>
+  </div>
+</section>
+
+{%- comment -%} Main content {%- endcomment -%}
+<div class="max-w-[1200px] mx-auto px-6 py-16">
+  <div class="grid lg:grid-cols-5 gap-14">
+
+    {%- comment -%} Left — Contact info (2 cols) {%- endcomment -%}
+    <div class="lg:col-span-2">
+      <div class="space-y-8">
+
+        {%- comment -%} Reach Us {%- endcomment -%}
+        <div>
+          <p class="section-label mb-4">Reach Us</p>
+          <div class="space-y-4">
+
+            {%- comment -%} Email {%- endcomment -%}
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-body text-[10px] tracking-wider uppercase text-on-surface-faint">Email</p>
+                <p class="font-body text-sm text-on-surface">{{ section.settings.email | default: "namaste@divinearts.store" }}</p>
+              </div>
+            </div>
+
+            {%- comment -%} WhatsApp {%- endcomment -%}
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-body text-[10px] tracking-wider uppercase text-on-surface-faint">WhatsApp</p>
+                <p class="font-body text-sm text-on-surface">{{ section.settings.whatsapp_display | default: "+91 98765 43210" }}</p>
+              </div>
+            </div>
+
+            {%- comment -%} Origin {%- endcomment -%}
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div>
+                <p class="font-body text-[10px] tracking-wider uppercase text-on-surface-faint">Origin</p>
+                <p class="font-body text-sm text-on-surface">{{ section.settings.address | default: "Haridwar, Uttarakhand, India" }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {%- comment -%} Our Promise card {%- endcomment -%}
+        <div class="card-warm p-6">
+          <p class="font-display text-base text-on-surface mb-3">{{ section.settings.promise_title | default: "Our Promise" }}</p>
+          <ul class="space-y-2">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'promise' -%}
+                <li class="flex items-start gap-2" {{ block.shopify_attributes }}>
+                  <span class="w-1 h-1 rounded-full bg-accent mt-2 flex-shrink-0"></span>
+                  <span class="font-body text-sm text-on-surface-faint">{{ block.settings.text }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    {%- comment -%} Right — Form (3 cols) {%- endcomment -%}
+    <div class="lg:col-span-3">
+      <div class="card-warm p-8">
+        <h2 class="font-display text-xl text-on-surface mb-6">Send us a message</h2>
+
+        {% form 'contact', id: 'ContactForm' %}
+          <div class="space-y-5">
+
+            {%- comment -%} Topic selector {%- endcomment -%}
+            <div>
+              <label class="font-body text-xs text-on-surface-faint tracking-wider uppercase block mb-2">Topic</label>
+              <div class="flex flex-wrap gap-2" id="TopicChips">
+                {%- assign topics = "General Inquiry,Order Status,Vastu Consultation,Consecration Details,Bulk / Corporate,Other" | split: "," -%}
+                {%- for topic in topics -%}
+                  <button
+                    type="button"
+                    class="{% if forloop.first %}filter-chip-active{% else %}filter-chip{% endif %}"
+                    data-topic="{{ topic }}"
+                  >
+                    {{ topic }}
+                  </button>
+                {%- endfor -%}
+              </div>
+              <input type="hidden" name="contact[topic]" id="ContactTopic" value="General Inquiry">
+            </div>
+
+            {%- comment -%} Name + Email row {%- endcomment -%}
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="input-group">
+                <label class="font-body text-xs text-on-surface-faint tracking-wider uppercase block mb-2 transition-colors">Name</label>
+                <input
+                  type="text"
+                  name="contact[name]"
+                  required
+                  autocomplete="name"
+                  placeholder="Your name"
+                  class="input-sacred w-full bg-surface border border-border rounded-lg px-4 py-3 font-body text-sm text-on-surface placeholder:text-on-surface-faint focus:outline-none"
+                >
+              </div>
+              <div class="input-group">
+                <label class="font-body text-xs text-on-surface-faint tracking-wider uppercase block mb-2 transition-colors">Email</label>
+                <input
+                  type="email"
+                  name="contact[email]"
+                  required
+                  autocomplete="email"
+                  placeholder="your@email.com"
+                  class="input-sacred w-full bg-surface border border-border rounded-lg px-4 py-3 font-body text-sm text-on-surface placeholder:text-on-surface-faint focus:outline-none"
+                >
+              </div>
+            </div>
+
+            {%- comment -%} Message {%- endcomment -%}
+            <div class="input-group">
+              <label class="font-body text-xs text-on-surface-faint tracking-wider uppercase block mb-2 transition-colors">Message</label>
+              <textarea
+                name="contact[body]"
+                required
+                rows="5"
+                placeholder="Tell us how we can help..."
+                class="input-sacred w-full bg-surface border border-border rounded-lg px-4 py-3 font-body text-sm text-on-surface placeholder:text-on-surface-faint focus:outline-none resize-none"
+              ></textarea>
+            </div>
+
+            {%- comment -%} Submit {%- endcomment -%}
+            <button type="submit" class="btn-primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m22 2-7 20-4-9-9-4Z"></path>
+                <path d="M22 2 11 13"></path>
+              </svg>
+              Send Message
+            </button>
+
+          </div>
+
+          {%- if form.posted_successfully? -%}
+            <p class="text-accent font-body text-sm mt-4 text-center">Thank you! We'll get back to you soon.</p>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <p class="text-red-500 font-body text-sm mt-4 text-center">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+
+        {% endform %}
+      </div>
+    </div>
+
+  </div>
+
+  {%- comment -%} FAQ Section {%- endcomment -%}
+  <div class="mt-20">
+    {% render 'ornamental-divider', label: 'Frequently Asked' %}
+    <div class="mb-10"></div>
+
+    <div class="max-w-2xl mx-auto space-y-3" id="FaqAccordion">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'faq' -%}
+          <div class="contact-faq-fadein card-warm" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="faq-toggle w-full flex items-center justify-between p-5 text-left"
+            >
+              <span class="font-display text-base text-on-surface pr-4">{{ block.settings.question }}</span>
+              <svg class="contact-faq-chevron w-4 h-4 text-on-surface-faint flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+            <div class="contact-faq-content">
+              <div class="px-5 pb-5">
+                <p class="font-body text-sm text-on-surface-faint leading-relaxed">{{ block.settings.answer }}</p>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Inline JS — Topic chips + FAQ accordion {%- endcomment -%}
+<script>
+  (function() {
+    /* Topic chip selection */
+    var chips = document.querySelectorAll('#TopicChips button');
+    var topicInput = document.getElementById('ContactTopic');
+    if (chips.length && topicInput) {
+      chips.forEach(function(chip) {
+        chip.addEventListener('click', function() {
+          chips.forEach(function(c) {
+            c.className = 'filter-chip';
+          });
+          chip.className = 'filter-chip-active';
+          topicInput.value = chip.getAttribute('data-topic');
+        });
+      });
+    }
+
+    /* FAQ accordion */
+    var faqItems = document.querySelectorAll('#FaqAccordion .card-warm');
+    faqItems.forEach(function(item) {
+      var toggle = item.querySelector('.faq-toggle');
+      var content = item.querySelector('.contact-faq-content');
+      var chevron = item.querySelector('.contact-faq-chevron');
+
+      toggle.addEventListener('click', function() {
+        var isOpen = content.classList.contains('is-open');
+
+        /* Close all others */
+        faqItems.forEach(function(other) {
+          var otherContent = other.querySelector('.contact-faq-content');
+          var otherChevron = other.querySelector('.contact-faq-chevron');
+          otherContent.style.maxHeight = '0px';
+          otherContent.classList.remove('is-open');
+          otherChevron.classList.remove('is-open');
+        });
+
+        /* Toggle current */
+        if (!isOpen) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          content.classList.add('is-open');
+          chevron.classList.add('is-open');
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "tag": "section",
+  "class": "contact-form-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header_label",
+      "label": "Header label",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Questions about placement, consecration, or your order? We are here to help."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Contact email",
+      "default": "namaste@divinearts.store"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp number (digits only)",
+      "default": "919876543210"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_display",
+      "label": "WhatsApp display text",
+      "default": "+91 98765 43210"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "Haridwar, Uttarakhand, India"
+    },
+    {
+      "type": "text",
+      "id": "promise_title",
+      "label": "Promise card title",
+      "default": "Our Promise"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "Promise Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Promise text",
+          "default": "Response within 24 hours"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does shipping take?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Standard delivery within India takes 5–7 business days. International shipping typically takes 10–14 business days. All pieces are carefully packed with ritual-grade wrapping."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form",
+      "blocks": [
+        {
+          "type": "promise",
+          "settings": { "text": "Response within 24 hours" }
+        },
+        {
+          "type": "promise",
+          "settings": { "text": "Free Vastu consultation on all orders" }
+        },
+        {
+          "type": "promise",
+          "settings": { "text": "Dedicated support for consecration queries" }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Standard delivery within India takes 5–7 business days. International shipping typically takes 10–14 business days. All pieces are carefully packed with ritual-grade wrapping."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I return a murti?",
+            "answer": "We accept returns within 14 days of delivery if the piece arrives damaged. Consecrated murtis cannot be returned as the ritual is irreversible. Please contact us for any concerns."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What does consecration include?",
+            "answer": "Our Shuddhi Poojan includes full Prana Pratishtha ceremony by our resident pandit, purification with Pancha Amrit, deity-specific mantras, and a handwritten certificate with the ritual date."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Are the murtis really solid brass?",
+            "answer": "Yes — 100% solid brass, no hollow castings, no alloy substitutes. You can feel the weight and quality the moment you hold one."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

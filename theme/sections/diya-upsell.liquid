@@ -1,0 +1,109 @@
+{%- comment -%}
+  Diya Upsell — "Complete Your Altar" standalone upsell section.
+{%- endcomment -%}
+
+<section class="da-section da-bg-parchment da-texture da-diya-section" data-section-id="{{ section.id }}">
+  <div class="da-container">
+    <div class="da-diya-section__inner da-reveal">
+
+      {%- comment -%} Image {%- endcomment -%}
+      <div class="da-diya-section__image">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            alt="{{ section.settings.image.alt | default: 'Traditional Brass Diya' | escape }}"
+            loading="lazy"
+            width="800"
+            height="800"
+          >
+        {%- else -%}
+          {%- comment -%} Fallback: try to find the diya product image {%- endcomment -%}
+          {%- assign diya_product = all_products[section.settings.diya_product] -%}
+          {%- if diya_product and diya_product.featured_image -%}
+            <img
+              src="{{ diya_product.featured_image | image_url: width: 800 }}"
+              alt="{{ diya_product.title | escape }}"
+              loading="lazy"
+              width="800"
+              height="800"
+            >
+          {%- else -%}
+            <div style="width:100%;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;background:var(--da-honey);">
+              <span style="font-size:3rem;">🪔</span>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Content {%- endcomment -%}
+      <div>
+        <p class="da-section-label da-mb-2">{{ section.settings.label | default: "Complete Your Altar" }}</p>
+        <h2 class="da-display da-display-md da-mb-2">{{ section.settings.heading | default: "Light the Sacred Space" }}</h2>
+        <p class="da-body-sm da-mb-3" style="max-width:440px;">
+          {{ section.settings.description | default: "A hand-cast five-wick brass diya for your daily puja. The traditional way to bring warmth and intention to your altar." }}
+        </p>
+
+        {%- assign diya = all_products[section.settings.diya_product] -%}
+        {%- if diya -%}
+          <p class="da-price da-mb-3">{{ diya.price | money }}</p>
+          {%- assign diya_variant = diya.selected_or_first_available_variant -%}
+          {%- if diya_variant.available -%}
+            <button
+              class="da-btn da-btn--primary da-add-to-cart"
+              data-variant-id="{{ diya_variant.id }}"
+              type="button"
+            >
+              Add Diya to Cart — {{ diya.price | money }}
+            </button>
+          {%- endif -%}
+        {%- else -%}
+          <a href="/collections/all" class="da-btn da-btn--primary">
+            Browse Collection
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Diya Upsell",
+  "class": "da-diya-section-wrap",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Complete Your Altar"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Light the Sacred Space"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "A hand-cast five-wick brass diya for your daily puja. The traditional way to bring warmth and intention to your altar."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Diya image"
+    },
+    {
+      "type": "product",
+      "id": "diya_product",
+      "label": "Diya product"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Diya Upsell"
+    }
+  ]
+}
+{% endschema %}

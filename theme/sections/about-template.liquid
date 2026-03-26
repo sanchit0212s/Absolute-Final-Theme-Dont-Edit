@@ -1,0 +1,147 @@
+{%- comment -%}
+  About Template — Brand story, philosophy, purpose, trust points, CTAs.
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream da-pt-6" data-section-id="{{ section.id }}">
+  <div class="da-container">
+
+    {%- comment -%} Hero {%- endcomment -%}
+    <div class="da-text-center da-reveal" style="max-width:700px;margin:0 auto 4rem;">
+      <h1 class="da-display da-display-xl da-mb-3">{{ page.title | default: "Our Story" }}</h1>
+      <p class="da-about-hero__poetry">
+        Between ancient form and modern space.<br>
+        Between inner need and outer environment.<br>
+        Between chaos and center.
+      </p>
+    </div>
+
+    {%- comment -%} Rooted in Haridwar {%- endcomment -%}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:4rem;" class="da-about-grid">
+      <div class="da-reveal">
+        {%- if section.settings.haridwar_image != blank -%}
+          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:var(--da-radius-md);box-shadow:0 8px 40px var(--da-shadow);">
+            <img src="{{ section.settings.haridwar_image | image_url: width: 700 }}" alt="Haridwar" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        {%- else -%}
+          <div style="aspect-ratio:16/9;background:var(--da-linen);border:1px solid var(--da-border);border-radius:var(--da-radius-md);display:flex;align-items:center;justify-content:center;">
+            <div class="da-text-center">
+              <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--da-border-copper);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                <span style="font-family:var(--da-font-display);font-size:1.5rem;color:var(--da-copper);">▶</span>
+              </div>
+              <p class="da-body-xs">Ganga Aarti — Haridwar</p>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="da-reveal da-reveal--delay-1">
+        <h2 class="da-display da-display-md da-mb-2">Rooted in Haridwar</h2>
+        <p class="da-body-sm da-mb-2">
+          Our roots are in a place where form and intention have lived together for centuries — Haridwar. The rhythm of the Ganga, the daily aarti, the quiet discipline of ritual — this environment shapes how these forms come into being and why they continue to matter.
+        </p>
+        <p class="da-body-sm">
+          We curate solid brass deities that are meant to do something — not simply exist on a shelf. Each form is chosen for the role it plays in a home: grounding, protecting, calming, or aligning a space.
+        </p>
+      </div>
+    </div>
+
+    {%- comment -%} Philosophy {%- endcomment -%}
+    <div class="da-bg-linen da-texture da-section" style="margin:0 calc(-1 * var(--da-container-padding));padding-left:var(--da-container-padding);padding-right:var(--da-container-padding);border-radius:0;margin-bottom:4rem;">
+      <div class="da-philosophy da-reveal" style="max-width:600px;margin:0 auto;">
+        {%- render 'ornament' -%}
+        <h2 class="da-display da-display-lg da-mb-3">Our Responsibility</h2>
+        <p class="da-philosophy__line">We do not ask you to know Vastu.</p>
+        <p class="da-philosophy__line">We do not expect you to understand energy.</p>
+        <p class="da-philosophy__highlight">That is our responsibility.</p>
+        <p class="da-body-sm da-mb-1">Your role is simple:</p>
+        <p class="da-philosophy__cta-line">Tell us what you are seeking.</p>
+        <p class="da-philosophy__cta-sub">We will tell you what belongs.</p>
+        {%- render 'ornament' -%}
+      </div>
+    </div>
+
+    {%- comment -%} Not Decoration — Intention {%- endcomment -%}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:4rem;" class="da-about-grid">
+      <div class="da-reveal da-reveal--delay-1">
+        <h2 class="da-display da-display-md da-mb-2">Not Decoration — Intention</h2>
+        <p class="da-body-sm da-mb-2">
+          Every piece you find here is selected with purpose in mind — to become a quiet center in your home, not just an object within it.
+        </p>
+        <p class="da-body-sm da-mb-3">
+          Heavy, hand-cast solid brass from artisan families who have practised this craft for generations. These are not mass-produced souvenirs — they are generational anchors for your personal sanctuary.
+        </p>
+        <div class="da-trust-grid">
+          <div class="da-trust-card">
+            <div class="da-trust-card__label">100% Solid Brass</div>
+            <div class="da-trust-card__desc">No hollow castings</div>
+          </div>
+          <div class="da-trust-card">
+            <div class="da-trust-card__label">Haridwar Origin</div>
+            <div class="da-trust-card__desc">Artisan workshops</div>
+          </div>
+          <div class="da-trust-card">
+            <div class="da-trust-card__label">Authenticity Certified</div>
+            <div class="da-trust-card__desc">Physical certificate</div>
+          </div>
+          <div class="da-trust-card">
+            <div class="da-trust-card__label">Vastu-Guided</div>
+            <div class="da-trust-card__desc">Placement advice included</div>
+          </div>
+        </div>
+      </div>
+      <div class="da-reveal">
+        {%- if section.settings.intention_image != blank -%}
+          <div style="aspect-ratio:16/9;overflow:hidden;border-radius:var(--da-radius-md);box-shadow:0 8px 40px var(--da-shadow);">
+            <img src="{{ section.settings.intention_image | image_url: width: 700 }}" alt="Sacred brass deity" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        {%- else -%}
+          <div style="aspect-ratio:16/9;background:var(--da-linen);border:1px solid var(--da-border);border-radius:var(--da-radius-md);display:flex;align-items:center;justify-content:center;">
+            <div class="da-text-center">
+              <div style="width:64px;height:64px;border-radius:50%;border:2px solid var(--da-border-copper);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                <span style="font-family:var(--da-font-display);font-size:1.5rem;color:var(--da-copper);">▶</span>
+              </div>
+              <p class="da-body-xs">Product Placement — Incense & Diya</p>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} CTA {%- endcomment -%}
+    <div class="da-text-center da-reveal" style="margin-top:2rem;">
+      {%- render 'ornament' -%}
+      <h2 class="da-display da-display-md da-mb-2">Begin Your Journey</h2>
+      <p class="da-body-sm da-mb-3" style="max-width:480px;margin-left:auto;margin-right:auto;">
+        Discover which deity belongs in your space. Our guide matches your inner state with the perfect form for your sanctuary.
+      </p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="/pages/guide" class="da-btn da-btn--primary">Take the Guide</a>
+        <a href="/collections/all" class="da-btn da-btn--outline">View Collection</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    .da-about-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "About Page",
+  "class": "da-about-template",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "haridwar_image",
+      "label": "Haridwar image"
+    },
+    {
+      "type": "image_picker",
+      "id": "intention_image",
+      "label": "Intention / product image"
+    }
+  ]
+}
+{% endschema %}

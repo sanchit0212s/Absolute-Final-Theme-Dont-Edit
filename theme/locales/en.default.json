@@ -1,0 +1,102 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ number }}"
+    },
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "newsletter": {
+      "label": "Email",
+      "placeholder": "Enter your email",
+      "submit": "Subscribe",
+      "success": "Thank you for subscribing!"
+    },
+    "cart": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty",
+      "subtotal": "Subtotal",
+      "checkout": "Proceed to Checkout",
+      "continue": "Continue Browsing",
+      "remove": "Remove",
+      "add_to_altar": "Add to Altar",
+      "added": "Added"
+    },
+    "search": {
+      "placeholder": "Search products, deities, tags..."
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu"
+    },
+    "hero": {
+      "headline": "Sanctuary. Delivered.",
+      "subline": "Authentic brass deities for the modern home.",
+      "description": "We curate heavy, hand-cast brass deities from Haridwar — not as decorations, but as generational anchors for your personal sanctuary.",
+      "cta": "Explore the Collection"
+    },
+    "marquee": {
+      "item_1": "Sourced from Haridwar",
+      "item_2": "Heavy Solid Brass",
+      "item_3": "Global Shipping",
+      "item_4": "Consecrated Upon Request",
+      "item_5": "Authenticity Certified"
+    },
+    "philosophy": {
+      "heading": "Our Responsibility",
+      "line_1": "We do not ask you to know Vastu.",
+      "line_2": "We do not expect you to understand energy.",
+      "line_3": "That is our responsibility.",
+      "line_4": "Your role is simple:",
+      "line_5": "Tell us what you are seeking.",
+      "line_6": "We will tell you what belongs."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Altar",
+      "sold_out": "Sold Out",
+      "price_includes_shipping": "Price includes shipping",
+      "material": "Material",
+      "solid_brass": "Solid Brass",
+      "finish": "Finish",
+      "antique_gold": "Antique Gold",
+      "origin": "Origin",
+      "haridwar": "Haridwar, India",
+      "crafted": "Crafted",
+      "hand_cast": "Hand-Cast"
+    },
+    "tabs": {
+      "vastu": "Vastu & Placement",
+      "chakra": "Chakra",
+      "element": "Element",
+      "care": "Care"
+    }
+  },
+  "collections": {
+    "title": "The Collection",
+    "description": "Every piece is chosen for the role it plays in your space.",
+    "filter_deity": "By Deity",
+    "filter_chakra": "By Chakra",
+    "filter_element": "By Element",
+    "no_results": "No products match the selected filters."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Questions about a piece, custom orders, or just want to learn more about our craft.",
+    "name": "Name",
+    "email": "Email",
+    "topic": "Topic",
+    "message": "Message",
+    "submit": "Send Message",
+    "success": "Message sent! We'll get back to you soon.",
+    "topics": {
+      "order": "Order & Shipping",
+      "consecration": "Consecration",
+      "vastu": "Vastu Consultation",
+      "general": "General"
+    }
+  }
+}

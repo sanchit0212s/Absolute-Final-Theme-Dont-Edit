@@ -1,0 +1,118 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Divine Arts",
+    "theme_version": "1.0.0",
+    "theme_author": "Divine Arts",
+    "theme_documentation_url": "https://divinearts.store",
+    "theme_support_url": "https://divinearts.store/pages/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand palette"
+      },
+      {
+        "type": "color",
+        "id": "color_cream",
+        "label": "Cream (background)",
+        "default": "#FAF6F0"
+      },
+      {
+        "type": "color",
+        "id": "color_linen",
+        "label": "Linen (alt background)",
+        "default": "#F3EDE3"
+      },
+      {
+        "type": "color",
+        "id": "color_parchment",
+        "label": "Parchment (alt background 2)",
+        "default": "#EDE5D8"
+      },
+      {
+        "type": "color",
+        "id": "color_copper",
+        "label": "Copper / Brass accent",
+        "default": "#B8860B"
+      },
+      {
+        "type": "color",
+        "id": "color_copper_light",
+        "label": "Copper light",
+        "default": "#D4A843"
+      },
+      {
+        "type": "color",
+        "id": "color_copper_dark",
+        "label": "Copper dark",
+        "default": "#8B6914"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body text",
+        "default": "#3D3529"
+      },
+      {
+        "type": "color",
+        "id": "color_text_light",
+        "label": "Muted text",
+        "default": "#7A7062"
+      },
+      {
+        "type": "color",
+        "id": "color_charcoal",
+        "label": "Dark charcoal",
+        "default": "#2C261E"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading size scale (%)",
+        "min": 80,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Body size scale (%)",
+        "min": 80,
+        "max": 130,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "Pinterest URL"
+      }
+    ]
+  }
+]

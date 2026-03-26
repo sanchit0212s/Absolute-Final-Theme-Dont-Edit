@@ -1,0 +1,140 @@
+{%- comment -%}
+  Guide Template — 4-step deity quiz.
+  All quiz logic runs client-side in quiz.js.
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream da-pt-6" data-section-id="{{ section.id }}" id="da-guide">
+  <div class="da-container da-container--narrow">
+
+    {%- comment -%} Page header {%- endcomment -%}
+    <div class="da-text-center da-reveal da-mb-4">
+      <h1 class="da-display da-display-lg da-mb-1">{{ page.title | default: "The Guide" }}</h1>
+      <p class="da-body-sm" style="max-width:440px;margin:0 auto;">
+        {{ section.settings.subtitle | default: "Two questions. Your deity revealed. No guesswork, no generic recommendations." }}
+      </p>
+    </div>
+
+    {%- comment -%} Progress indicator {%- endcomment -%}
+    <div class="da-quiz-progress" id="quiz-progress">
+      <div class="da-quiz-step is-active" data-step-indicator="1">1</div>
+      <div class="da-quiz-connector" data-connector="1"></div>
+      <div class="da-quiz-step" data-step-indicator="2">2</div>
+      <div class="da-quiz-connector" data-connector="2"></div>
+      <div class="da-quiz-step" data-step-indicator="3">3</div>
+      <div class="da-quiz-connector" data-connector="3"></div>
+      <div class="da-quiz-step" data-step-indicator="4">✦</div>
+    </div>
+
+    {%- comment -%} ═══ STEP 1: Intention ═══ {%- endcomment -%}
+    <div class="da-quiz-panel" id="quiz-step-1">
+      <h2 class="da-display da-display-md da-text-center da-mb-3">
+        What is the primary shift you want in your life right now?
+      </h2>
+      <div id="quiz-q1-options">
+        <button class="da-quiz-option" data-chakra="muladhara" type="button">Removing obstacles</button>
+        <button class="da-quiz-option" data-chakra="manipura" type="button">Growing in wealth & career</button>
+        <button class="da-quiz-option" data-chakra="sahasrara" type="button">Finding inner peace</button>
+        <button class="da-quiz-option" data-chakra="manipura" type="button">Feeling protected & strong</button>
+        <button class="da-quiz-option" data-chakra="anahata" type="button">Creating harmony in relationships</button>
+        <button class="da-quiz-option" data-chakra="vishuddha" type="button">Gaining clarity & knowledge</button>
+        <button class="da-quiz-option" data-chakra="ajna" type="button">Deepening spiritual practice</button>
+      </div>
+    </div>
+
+    {%- comment -%} ═══ STEP 2: Element ═══ {%- endcomment -%}
+    <div class="da-quiz-panel da-hidden" id="quiz-step-2">
+      <h2 class="da-display da-display-md da-text-center da-mb-3">
+        Which sentence feels closest to your current inner condition?
+      </h2>
+      <div id="quiz-q2-options">
+        <button class="da-quiz-option" data-element="Earth" type="button">I feel blocked or stuck</button>
+        <button class="da-quiz-option" data-element="Earth" type="button">I need stability and direction</button>
+        <button class="da-quiz-option" data-element="Air" type="button">My mind feels noisy</button>
+        <button class="da-quiz-option" data-element="Water" type="button">I feel vulnerable or drained</button>
+        <button class="da-quiz-option" data-element="Water" type="button">I want emotional balance</button>
+        <button class="da-quiz-option" data-element="Ether" type="button">I need focus and clarity</button>
+        <button class="da-quiz-option" data-element="Air" type="button">I feel called toward something higher</button>
+      </div>
+      <button class="da-body-sm da-mt-2" id="quiz-back-1" type="button" style="color:var(--da-text-light);cursor:pointer;">
+        &larr; Go back
+      </button>
+    </div>
+
+    {%- comment -%} ═══ STEP 3: Email ═══ {%- endcomment -%}
+    <div class="da-quiz-panel da-hidden" id="quiz-step-3" style="max-width:420px;margin:0 auto;">
+      <div class="da-text-center">
+        <div class="da-auth-badge" style="margin-bottom:2rem;">
+          <span class="da-auth-badge__symbol">✦</span>
+        </div>
+        <h2 class="da-display da-display-md da-mb-1">Your deity has been revealed</h2>
+        <p class="da-body-sm da-mb-3">
+          Enter your email to receive your personalised guidance — deity-specific mantras, placement tips, and sacred care rituals.
+        </p>
+        <form id="quiz-email-form">
+          <input type="email" class="da-form-input da-mb-2" id="quiz-email" placeholder="your@email.com" style="text-align:center;">
+          <button type="submit" class="da-btn da-btn--primary" style="width:100%;" id="quiz-email-submit">
+            Get My Recommendations &rarr;
+          </button>
+        </form>
+        <button class="da-body-sm da-mt-2" id="quiz-skip-email" type="button" style="color:var(--da-text-light);cursor:pointer;">
+          Skip
+        </button>
+      </div>
+    </div>
+
+    {%- comment -%} ═══ STEP 4: Results ═══ {%- endcomment -%}
+    <div class="da-quiz-panel da-hidden" id="quiz-step-4">
+      <div class="da-text-center">
+        <div class="da-auth-badge" style="margin-bottom:2rem;">
+          <span class="da-auth-badge__symbol">✦</span>
+        </div>
+        <h2 class="da-display da-display-md da-mb-1" id="quiz-results-title">Your Recommended Deities</h2>
+        <p class="da-body-sm da-mb-3" id="quiz-results-desc" style="max-width:500px;margin-left:auto;margin-right:auto;">
+          Your chakra and elemental signals point to multiple forms of sacred energy.
+        </p>
+
+        <div id="quiz-results-grid" class="da-grid da-grid--3 da-mb-3">
+          {%- comment -%} Results injected by JS {%- endcomment -%}
+        </div>
+
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="/collections/all" class="da-btn da-btn--primary" id="quiz-results-cta">
+            Find Murtis That Fit
+          </a>
+          <button class="da-body-sm" id="quiz-retake" type="button" style="color:var(--da-text-light);cursor:pointer;">
+            Retake
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{%- comment -%} Inline deity data for quiz JS {%- endcomment -%}
+<script>
+  window.DivineArtsDeities = [
+    {%- assign deity_data = "Ganesh|Om Gam Ganapataye Namaha|Remover of Obstacles|Root (Muladhara)|muladhara|Earth,Vishnu|Om Namo Bhagavate Vasudevaya|Preserver of Stability|Sacral (Svadhisthana)|svadhisthana|Water,Shiva|Om Namah Shivaya|Force of Transformation|Third Eye (Ajna)|ajna|Ether,Buddha|Om Mani Padme Hum|Embodiment of Stillness|Crown (Sahasrara)|sahasrara|Air,Shivling|Om Tryambakam Yajamahe|Source of Creation|Third Eye (Ajna)|ajna|Fire,Nandi|Om Vrishabhaya Namaha|Symbol of Patience & Strength|Root (Muladhara)|muladhara|Earth,Ram Darbar|Om Shri Ramaya Namaha|Ideal Order & Harmony|Solar Plexus (Manipura)|manipura|Fire,Hanuman|Om Hanumate Namaha|Protector & Strength|Heart (Anahata)|anahata|Air,Shiv-Parvati|Om Uma Maheshwaraya Namaha|Union of Balance|Crown (Sahasrara)|sahasrara|Ether,Durga|Om Dum Durgayei Namaha|Invincible Protection|Crown (Sahasrara)|sahasrara|Fire,Krishna|Om Kleem Krishnaya Namaha|Divine Joy & Love|Heart (Anahata)|anahata|Water,Saraswati|Om Aim Saraswatyai Namaha|Flow of Knowledge|Throat (Vishuddha)|vishuddha|Water" | split: "," -%}
+    {%- for d in deity_data -%}
+      {%- assign fields = d | split: "|" -%}
+      { name: "{{ fields[0] }}", mantra: "{{ fields[1] }}", tagline: "{{ fields[2] }}", chakra: "{{ fields[3] }}", chakraKey: "{{ fields[4] }}", element: "{{ fields[5] }}" }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ];
+</script>
+
+{{ 'quiz.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+  "name": "Guide Quiz",
+  "class": "da-guide-template",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Two questions. Your deity revealed. No guesswork, no generic recommendations."
+    }
+  ]
+}
+{% endschema %}

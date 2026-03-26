@@ -1,0 +1,143 @@
+{%- comment -%}
+  About Hero — pixel-perfect match to React About.tsx hero section
+  2-column grid, text-gradient-gold, custom divider, play button with CSS triangle
+{%- endcomment -%}
+
+<style>
+  .about-hero-fadein {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: aboutHeroFadeIn 0.8s ease forwards;
+  }
+  .about-hero-fadein-right {
+    opacity: 0;
+    transform: translateX(24px);
+    animation: aboutHeroFadeInRight 0.8s ease 0.15s forwards;
+  }
+  @keyframes aboutHeroFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes aboutHeroFadeInRight {
+    to { opacity: 1; transform: translateX(0); }
+  }
+</style>
+
+<section class="relative section-b border-b border-border py-24 overflow-hidden">
+  <div class="absolute inset-0 bg-rangoli pointer-events-none"></div>
+  <div class="absolute right-0 top-0 w-[500px] h-[500px] bg-mandala opacity-30 pointer-events-none"></div>
+
+  <div class="max-w-[1400px] mx-auto px-6 relative">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+      {%- comment -%} Text column {%- endcomment -%}
+      <div class="about-hero-fadein">
+        <p class="section-label mb-4">{{ section.settings.label | default: "Our Story" }}</p>
+
+        <h1 class="font-display text-5xl md:text-6xl text-on-surface font-light leading-tight mb-6">
+          {{ section.settings.heading_line1 | default: "Between ancient form" }}<br>
+          <span class="text-gradient-gold">{{ section.settings.heading_line2 | default: "and modern space." }}</span>
+        </h1>
+
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-px bg-gradient-to-r from-accent/60 to-transparent"></div>
+          <div class="ornament-diamond"></div>
+          <div class="w-12 h-px bg-gradient-to-l from-accent/60 to-transparent"></div>
+        </div>
+
+        <p class="font-display text-xl md:text-2xl text-on-surface-faint italic leading-relaxed mb-6">
+          {{ section.settings.quote_line1 | default: "Between inner need and outer environment." }}<br>
+          {{ section.settings.quote_line2 | default: "Between chaos and center." }}
+        </p>
+
+        <p class="font-body text-on-surface-faint leading-relaxed max-w-lg">
+          {{ section.settings.description | default: "Our roots are in a place where form and intention have lived together for centuries — Haridwar. The rhythm of the Ganga, the daily aarti, the quiet discipline of ritual — this environment shapes how these forms come into being and why they continue to matter." }}
+        </p>
+      </div>
+
+      {%- comment -%} Image / Video column {%- endcomment -%}
+      <div class="about-hero-fadein-right relative">
+        <div class="aspect-video bg-surface-2 border border-border rounded-lg overflow-hidden shadow-lg">
+          {%- if section.settings.hero_image != blank -%}
+            <img
+              src="{{ section.settings.hero_image | image_url: width: 800 }}"
+              alt="{{ section.settings.hero_image.alt | default: section.settings.caption }}"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            >
+          {%- endif -%}
+          <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+            <div class="w-14 h-14 border border-white/60 bg-white/90 rounded-full flex items-center justify-center hover:bg-accent/20 transition-colors cursor-pointer shadow-lg">
+              <div class="w-0 h-0 border-t-[8px] border-b-[8px] border-l-[14px] border-t-transparent border-b-transparent border-l-accent/80 ml-1"></div>
+            </div>
+          </div>
+        </div>
+        <p class="font-body text-[10px] text-on-surface-faint tracking-wider uppercase mt-3 text-center">
+          {{ section.settings.caption | default: "Ganga Aarti — Haridwar" }}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Hero",
+  "tag": "section",
+  "class": "about-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading line 1",
+      "default": "Between ancient form"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading line 2 (gold gradient)",
+      "default": "and modern space."
+    },
+    {
+      "type": "text",
+      "id": "quote_line1",
+      "label": "Italic quote line 1",
+      "default": "Between inner need and outer environment."
+    },
+    {
+      "type": "text",
+      "id": "quote_line2",
+      "label": "Italic quote line 2",
+      "default": "Between chaos and center."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description paragraph",
+      "default": "Our roots are in a place where form and intention have lived together for centuries — Haridwar. The rhythm of the Ganga, the daily aarti, the quiet discipline of ritual — this environment shapes how these forms come into being and why they continue to matter."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image / video thumbnail"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Image caption",
+      "default": "Ganga Aarti — Haridwar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Hero"
+    }
+  ]
+}
+{% endschema %}

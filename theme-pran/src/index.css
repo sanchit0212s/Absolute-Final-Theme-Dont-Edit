@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── PRĀN v2 — cool gallery + antique brass ─────── */
+    --paper:      40 10% 97%;     /* #F8F7F5 — cool gallery white */
+    --ink:        220 10% 12%;    /* #1B1D20 — cool charcoal-black */
+    --graphite:   220 6% 38%;     /* #5A5D63 — secondary text */
+    --clay:       42 45% 42%;     /* #9B8240 — antique brass gold */
+    --clay-light: 42 38% 52%;    /* #B79B50 — hover brass */
+    --ash:        220 5% 82%;     /* #D0D1D3 — borders */
+    --linen:      220 5% 94%;     /* #EFEFF0 — surfaces */
+    --smoke:      220 4% 55%;     /* #888B90 — captions */
+    --warm:       38 30% 94%;     /* #F2EDE4 — warm surface alt */
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-paper text-ink font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 { @apply font-display; }
+
+  ::selection { background: hsl(var(--clay) / 0.2); color: hsl(var(--ink)); }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--ash)); border-radius: 10px; }
+}
+
+@layer utilities {
+
+  /* ── Editorial line ────────────────────────────────── */
+  .editorial-line {
+    width: 48px;
+    height: 1px;
+    background: hsl(var(--clay));
+  }
+
+  /* ── Overline — small label ────────────────────────── */
+  .overline {
+    @apply font-body text-[10px] tracking-[0.4em] uppercase text-smoke font-medium;
+  }
+  .overline-clay {
+    @apply font-body text-[10px] tracking-[0.4em] uppercase text-clay font-medium;
+  }
+
+  /* ── Buttons ───────────────────────────────────────── */
+  .btn-clay {
+    @apply inline-flex items-center justify-center gap-2
+           bg-clay text-white font-body text-[11px] tracking-[0.3em] uppercase
+           px-7 py-3.5 transition-all duration-300 hover:bg-clay-light;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+           border border-ink text-ink font-body text-[11px] tracking-[0.3em] uppercase
+           px-7 py-3.5 transition-all duration-300 hover:bg-ink hover:text-paper;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2
+           text-ink font-body text-[11px] tracking-[0.3em] uppercase
+           py-2 transition-all duration-200 hover:text-clay;
+    border-bottom: 1px solid transparent;
+  }
+  .btn-ghost:hover { border-bottom-color: hsl(var(--clay)); }
+
+  /* ── Horizontal scroll container ───────────────────── */
+  .h-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .h-scroll::-webkit-scrollbar { display: none; }
+  .h-scroll > * { scroll-snap-align: start; flex-shrink: 0; }
+
+  /* ── Tab ───────────────────────────────────────────── */
+  .tab-active   { @apply text-clay border-b border-clay pb-3 font-body text-[11px] tracking-[0.3em] uppercase; }
+  .tab-inactive { @apply text-smoke border-b border-transparent pb-3 font-body text-[11px] tracking-[0.3em] uppercase hover:text-ink transition-colors; }
+
+  /* ── Quiet focus ───────────────────────────────────── */
+  *:focus-visible {
+    outline: 1px solid hsl(var(--clay) / 0.5);
+    outline-offset: 4px;
+  }
+
+  /* ── Occasion card (homepage) ──────────────────────── */
+  .occasion-card {
+    @apply relative overflow-hidden transition-all duration-500 cursor-pointer;
+  }
+
+  /* ── Warm surface ──────────────────────────────────── */
+  .bg-warm { background: hsl(var(--warm)); }
+
+  /* ── Marquee ───────────────────────────────────────── */
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-ticker { animation: ticker 50s linear infinite; }
+
+  /* ── Subtle float ──────────────────────────────────── */
+  @keyframes soft-float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-6px); }
+  }
+  .animate-float { animation: soft-float 5s ease-in-out infinite; }
+
+  /* ── Stat counter shimmer ──────────────────────────── */
+  .stat-num {
+    @apply font-display text-4xl md:text-5xl text-ink tracking-tight;
+  }
+}

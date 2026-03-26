@@ -1,0 +1,231 @@
+{% comment %}
+  Cart Drawer — Slide-in cart panel
+  Usage: {% render 'cart-drawer' %}
+  Toggle open via JS: document.querySelector('[data-cart-drawer]').classList.add('is-open')
+{% endcomment %}
+
+{%- comment -%} Overlay backdrop {%- endcomment -%}
+<div class="cart-drawer-overlay fixed inset-0 bg-obsidian/40 backdrop-blur-sm z-[70] opacity-0 pointer-events-none transition-opacity duration-300" data-cart-overlay></div>
+
+{%- comment -%} Panel {%- endcomment -%}
+<div
+  class="cart-drawer fixed top-0 right-0 bottom-0 w-full max-w-md bg-surface border-l border-border z-[70] flex flex-col translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+  data-cart-drawer
+>
+  {%- comment -%} Header {%- endcomment -%}
+  <div class="flex items-center justify-between px-6 py-4 border-b border-border">
+    <h2 class="font-display text-xl text-on-surface">Your Altar</h2>
+    <button
+      type="button"
+      class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-faint hover:text-on-surface hover:bg-surface-2 transition-colors"
+      data-cart-close
+      aria-label="Close cart"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  {%- comment -%} Items {%- endcomment -%}
+  <div class="flex-1 overflow-y-auto px-6 py-4" data-cart-items>
+    {%- if cart.item_count == 0 -%}
+      <div class="text-center py-16" data-cart-empty>
+        <p class="font-display text-lg text-on-surface-faint mb-2">Your altar is empty</p>
+        <p class="font-body text-sm text-on-surface-faint">Add a sacred form to begin.</p>
+      </div>
+    {%- else -%}
+      <div class="space-y-4" data-cart-line-items>
+        {%- for item in cart.items -%}
+          <div class="flex gap-4 pb-4 border-b border-border/50" data-cart-item data-line="{{ forloop.index }}">
+            {%- comment -%} Item image {%- endcomment -%}
+            <div class="w-20 h-24 rounded-md overflow-hidden bg-surface-2 flex-shrink-0">
+              {%- if item.image -%}
+                <img
+                  src="{{ item.image | image_url: width: 160 }}"
+                  alt="{{ item.title | escape }}"
+                  loading="lazy"
+                  width="80"
+                  height="96"
+                  class="w-full h-full object-cover"
+                />
+              {%- endif -%}
+            </div>
+
+            {%- comment -%} Item details {%- endcomment -%}
+            <div class="flex-1 min-w-0">
+              <p class="font-display text-sm text-on-surface truncate">{{ item.product.title }}</p>
+              {%- if item.variant.title != 'Default Title' -%}
+                <p class="font-body text-[11px] text-on-surface-faint mt-0.5">{{ item.variant.title }}</p>
+              {%- endif -%}
+              <p class="font-body text-sm text-accent mt-1">{{ item.final_line_price | money }}</p>
+
+              {%- comment -%} Quantity controls {%- endcomment -%}
+              <div class="flex items-center gap-3 mt-2">
+                <div class="flex items-center border border-border rounded-md">
+                  <button
+                    type="button"
+                    class="w-7 h-7 flex items-center justify-center text-on-surface-faint hover:text-on-surface transition-colors"
+                    aria-label="Decrease quantity"
+                    data-qty-minus
+                    data-line="{{ forloop.index }}"
+                    data-qty="{{ item.quantity }}"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </button>
+                  <span class="w-8 text-center font-body text-xs text-on-surface" data-qty-value>{{ item.quantity }}</span>
+                  <button
+                    type="button"
+                    class="w-7 h-7 flex items-center justify-center text-on-surface-faint hover:text-on-surface transition-colors"
+                    aria-label="Increase quantity"
+                    data-qty-plus
+                    data-line="{{ forloop.index }}"
+                    data-qty="{{ item.quantity }}"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </button>
+                </div>
+
+                {%- comment -%} Remove button {%- endcomment -%}
+                <button
+                  type="button"
+                  class="text-on-surface-faint hover:text-vermilion transition-colors"
+                  aria-label="Remove {{ item.title | escape }}"
+                  data-qty-remove
+                  data-line="{{ forloop.index }}"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Footer {%- endcomment -%}
+  {%- if cart.item_count > 0 -%}
+    <div class="border-t border-border px-6 py-5" data-cart-footer>
+      <div class="flex items-center justify-between mb-4">
+        <span class="font-body text-sm text-on-surface-muted">Subtotal</span>
+        <span class="font-display text-xl text-accent" data-cart-subtotal>{{ cart.total_price | money }}</span>
+      </div>
+      <a href="{{ routes.cart_url }}" class="btn-primary w-full justify-center block text-center">
+        Proceed to Checkout
+      </a>
+      <p class="font-body text-[10px] text-on-surface-faint text-center mt-3">
+        Shipping calculated at checkout
+      </p>
+    </div>
+  {%- endif -%}
+</div>
+
+<style>
+  /* Slide-in animation via CSS transform */
+  .cart-drawer {
+    will-change: transform;
+  }
+  .cart-drawer.is-open {
+    transform: translateX(0);
+  }
+  .cart-drawer-overlay {
+    will-change: opacity;
+  }
+  .cart-drawer.is-open ~ .cart-drawer-overlay,
+  .cart-drawer-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  (function () {
+    const drawer = document.querySelector('[data-cart-drawer]');
+    const overlay = document.querySelector('[data-cart-overlay]');
+    if (!drawer) return;
+
+    /* Open / close helpers */
+    function openCartDrawer() {
+      drawer.classList.add('is-open');
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCartDrawer() {
+      drawer.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    /* Listen for external open events */
+    document.addEventListener('cart:open', openCartDrawer);
+    document.addEventListener('cart:updated', () => {
+      refreshCartDrawer();
+      openCartDrawer();
+    });
+
+    /* Close button */
+    drawer.querySelector('[data-cart-close]').addEventListener('click', closeCartDrawer);
+    overlay.addEventListener('click', closeCartDrawer);
+
+    /* Quantity buttons */
+    drawer.addEventListener('click', (e) => {
+      const minusBtn = e.target.closest('[data-qty-minus]');
+      const plusBtn = e.target.closest('[data-qty-plus]');
+      const removeBtn = e.target.closest('[data-qty-remove]');
+
+      if (minusBtn) {
+        const line = parseInt(minusBtn.dataset.line);
+        const qty = parseInt(minusBtn.dataset.qty);
+        updateCartLine(line, Math.max(0, qty - 1));
+      }
+
+      if (plusBtn) {
+        const line = parseInt(plusBtn.dataset.line);
+        const qty = parseInt(plusBtn.dataset.qty);
+        updateCartLine(line, qty + 1);
+      }
+
+      if (removeBtn) {
+        const line = parseInt(removeBtn.dataset.line);
+        updateCartLine(line, 0);
+      }
+    });
+
+    /* Shopify Cart AJAX API */
+    function updateCartLine(line, quantity) {
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ line: line, quantity: quantity }),
+      })
+        .then((res) => res.json())
+        .then(() => refreshCartDrawer())
+        .catch((err) => console.error('Cart update error:', err));
+    }
+
+    /* Refresh cart drawer contents via section rendering API */
+    function refreshCartDrawer() {
+      fetch('/?sections=cart-drawer')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data['cart-drawer']) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = data['cart-drawer'];
+
+            const newItems = tmp.querySelector('[data-cart-items]');
+            const newFooter = tmp.querySelector('[data-cart-footer]');
+            const currentItems = drawer.querySelector('[data-cart-items]');
+            const currentFooter = drawer.querySelector('[data-cart-footer]');
+
+            if (newItems && currentItems) currentItems.innerHTML = newItems.innerHTML;
+            if (newFooter && currentFooter) {
+              currentFooter.innerHTML = newFooter.innerHTML;
+            } else if (!newFooter && currentFooter) {
+              currentFooter.remove();
+            }
+          }
+        })
+        .catch((err) => console.error('Cart refresh error:', err));
+    }
+  })();
+</script>

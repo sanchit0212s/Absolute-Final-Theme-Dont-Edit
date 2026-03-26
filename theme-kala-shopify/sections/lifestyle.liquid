@@ -1,0 +1,129 @@
+<section class="py-0 overflow-hidden">
+  <div class="grid md:grid-cols-2">
+
+    <!-- Image half -->
+    <div class="relative aspect-square md:aspect-auto">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="{{ section.settings.image.alt | default: 'Sacred brass in a home setting' | escape }}"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+        >
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+      {%- endif -%}
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface/20 dark:to-surface/40"></div>
+    </div>
+
+    <!-- Text half -->
+    <div class="flex items-center bg-surface-2 bg-jali relative">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent"></div>
+
+      <div class="px-10 md:px-16 py-20">
+        <p class="section-label mb-6" data-animate>{{ section.settings.label | default: 'The Approach' }}</p>
+
+        <h2 class="font-display text-3xl md:text-4xl text-on-surface font-light leading-snug mb-8" data-animate>
+          {{ section.settings.heading_line_1 | default: 'Not decoration.' }}<br>
+          <span class="text-gradient-gold">{{ section.settings.heading_line_2 | default: 'Intention.' }}</span>
+        </h2>
+
+        <div class="space-y-5 mb-10" data-animate>
+          <p class="font-body text-on-surface-muted leading-relaxed">
+            {{ section.settings.paragraph_1 | default: 'Every piece in our collection was selected to become the anchor of a room — not an afterthought. Heavy, hand-cast solid brass from artisan families in Haridwar.' }}
+          </p>
+          <p class="font-body text-on-surface-faint leading-relaxed">
+            {{ section.settings.paragraph_2 | default: 'A Ganesh at the entrance. A Nataraja in the living room. A Buddha where you read. Each form transforms the energy of a space — the weight alone tells you something permanent has arrived.' }}
+          </p>
+        </div>
+
+        <div class="flex items-center gap-8" data-animate>
+          <div>
+            <p class="font-display text-3xl text-accent">{{ section.settings.stat_1_value | default: '1.2–3.2' }}</p>
+            <p class="font-body text-[10px] text-on-surface-faint tracking-wider uppercase">{{ section.settings.stat_1_label | default: 'kg per piece' }}</p>
+          </div>
+          <div class="w-px h-10 bg-border"></div>
+          <div>
+            <p class="font-display text-3xl text-accent">{{ section.settings.stat_2_value | default: '5–12"' }}</p>
+            <p class="font-body text-[10px] text-on-surface-faint tracking-wider uppercase">{{ section.settings.stat_2_label | default: 'hand-cast height' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lifestyle",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "The Approach"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "Not decoration."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2 (gold)",
+      "default": "Intention."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_1",
+      "label": "Paragraph 1",
+      "default": "Every piece in our collection was selected to become the anchor of a room — not an afterthought. Heavy, hand-cast solid brass from artisan families in Haridwar."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_2",
+      "label": "Paragraph 2",
+      "default": "A Ganesh at the entrance. A Nataraja in the living room. A Buddha where you read. Each form transforms the energy of a space — the weight alone tells you something permanent has arrived."
+    },
+    {
+      "type": "text",
+      "id": "stat_1_value",
+      "label": "Stat 1 value",
+      "default": "1.2–3.2"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Stat 1 label",
+      "default": "kg per piece"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_value",
+      "label": "Stat 2 value",
+      "default": "5–12\""
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 label",
+      "default": "hand-cast height"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lifestyle"
+    }
+  ]
+}
+{% endschema %}

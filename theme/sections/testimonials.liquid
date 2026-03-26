@@ -1,0 +1,88 @@
+{%- comment -%}
+  Testimonials — Customer quotes.
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream" data-section-id="{{ section.id }}">
+  <div class="da-container" style="max-width:1000px;">
+    <div class="da-text-center da-reveal da-mb-4">
+      <h2 class="da-display da-display-md">{{ section.settings.heading | default: "What Other Devotees Say" }}</h2>
+    </div>
+
+    <div class="da-grid da-grid--2">
+      {%- for block in section.blocks -%}
+        <div class="da-testimonial da-reveal da-reveal--delay-{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <p class="da-testimonial__quote">"{{ block.settings.quote }}"</p>
+          <p class="da-testimonial__author">
+            {{ block.settings.author }},
+            <span class="da-testimonial__location">{{ block.settings.location }}</span>
+          </p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "class": "da-testimonials-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What Other Devotees Say"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "The weight of the Vishnu statue surprised me. It feels substantial and permanent."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Arjun N."
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "San Francisco"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The weight of the Vishnu statue surprised me. It feels substantial and permanent. It has completely changed the feel of my study.",
+            "author": "Arjun N.",
+            "location": "San Francisco"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I was worried about shipping to London, but the packing was incredible. The Nandi looks ancient and beautiful.",
+            "author": "John J.",
+            "location": "UK"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

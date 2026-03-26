@@ -1,0 +1,57 @@
+{%- comment -%}
+  Brand Story — "Rooted in Haridwar" + "Not Decoration — Intention"
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream" data-section-id="{{ section.id }}">
+  <div class="da-container da-container--narrow">
+    <div class="da-reveal da-text-center" style="max-width:600px;margin:0 auto;">
+      {%- render 'ornament' -%}
+
+      <p class="da-about-hero__poetry da-mb-3">
+        {{ section.settings.poetry | default: "Between ancient form and modern space.<br>Between inner need and outer environment.<br>Between chaos and center." }}
+      </p>
+
+      <p class="da-body-sm da-mb-2" style="max-width:520px;margin-left:auto;margin-right:auto;">
+        {{ section.settings.body_text | default: "Our roots are in a place where form and intention have lived together for centuries — Haridwar. We curate solid brass deities that are meant to do something — not simply exist on a shelf." }}
+      </p>
+
+      <p class="da-body-xs">
+        {{ section.settings.closing | default: "Tell us what you are seeking. We will tell you what belongs." }}
+      </p>
+
+      {%- render 'ornament' -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "class": "da-brand-story-section",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "poetry",
+      "label": "Poetry / headline",
+      "default": "<p>Between ancient form and modern space.<br>Between inner need and outer environment.<br>Between chaos and center.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "Our roots are in a place where form and intention have lived together for centuries — Haridwar. We curate solid brass deities that are meant to do something — not simply exist on a shelf."
+    },
+    {
+      "type": "text",
+      "id": "closing",
+      "label": "Closing line",
+      "default": "Tell us what you are seeking. We will tell you what belongs."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story"
+    }
+  ]
+}
+{% endschema %}

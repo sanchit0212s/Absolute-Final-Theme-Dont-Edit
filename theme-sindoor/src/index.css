@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ── Sindoor palette — vivid, warm, unmistakably Indian ── */
+    --saffron:  32 100% 53%;   /* #FF8C00 — the hero: marigold orange */
+    --marigold: 43  90% 56%;   /* #F0B020 — warm gold-yellow */
+    --kumkum:    4  80% 40%;   /* #C41C10 — deep vermillion */
+    --ivory:    42  70% 97%;   /* #FEFAF0 — main bg */
+    --cream:    36  38% 91%;   /* #EBE1CE — card surface */
+    --sand:     33  30% 78%;   /* #CDBFA3 — borders, dividers */
+    --espresso: 18  70% 10%;   /* #2B1404 — primary text */
+    --mahogany: 14  52% 22%;   /* #532918 — secondary text */
+    --bark:     24  28% 52%;   /* #9B7D5E — muted text */
+    --gold:     43  85% 42%;   /* #C49000 — accent gold */
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply bg-ivory text-espresso font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 { @apply font-display; }
+
+  ::selection { background: hsl(var(--saffron) / 0.3); color: hsl(var(--espresso)); }
+}
+
+@layer utilities {
+
+  /* ── Backgrounds ───────────────────────────────────── */
+  .bg-section-a { background: hsl(var(--ivory)); }
+  .bg-section-b { background: hsl(var(--cream)); }
+  .bg-section-c { background: hsl(36 30% 87%); }
+  .bg-saffron-block { background: hsl(var(--saffron)); }
+  .bg-kumkum-block  { background: hsl(var(--kumkum)); }
+
+  /* ── Diagonal section cuts ─────────────────────────── */
+  .clip-down { clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+  .clip-up   { clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%); }
+
+  /* ── Hero split ────────────────────────────────────── */
+  /* Left saffron block + right image — no gradient, hard cut */
+  .hero-split-left {
+    background: hsl(var(--saffron));
+  }
+
+  /* ── Typography utilities ──────────────────────────── */
+  .text-display-hero {
+    @apply font-display font-light text-white;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+  .text-section-giant {
+    @apply font-display font-light;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 1;
+  }
+  .overline-label {
+    @apply font-body text-[11px] tracking-[0.35em] uppercase font-medium;
+  }
+  .pull-quote {
+    @apply font-display italic;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    line-height: 1.2;
+  }
+
+  /* ── Buttons ───────────────────────────────────────── */
+  .btn-saffron {
+    @apply bg-saffron text-white font-body text-xs tracking-[0.25em] uppercase
+           px-8 py-4 transition-all duration-300 hover:bg-marigold;
+  }
+  .btn-kumkum {
+    @apply bg-kumkum text-white font-body text-xs tracking-[0.25em] uppercase
+           px-8 py-4 transition-all duration-300 hover:opacity-90;
+  }
+  .btn-outline-espresso {
+    @apply border-2 border-espresso text-espresso font-body text-xs tracking-[0.25em] uppercase
+           px-8 py-4 transition-all duration-300 hover:bg-espresso hover:text-ivory;
+  }
+  .btn-outline-white {
+    @apply border-2 border-white text-white font-body text-xs tracking-[0.25em] uppercase
+           px-8 py-4 transition-all duration-300 hover:bg-white hover:text-saffron;
+  }
+  .btn-outline-saffron {
+    @apply border-2 border-saffron text-saffron font-body text-xs tracking-[0.25em] uppercase
+           px-8 py-4 transition-all duration-300 hover:bg-saffron hover:text-white;
+  }
+
+  /* ── Product card (square format) ──────────────────── */
+  .card-sindoor {
+    @apply bg-cream transition-all duration-300 overflow-hidden;
+  }
+  .card-sindoor:hover {
+    @apply shadow-xl;
+    transform: translateY(-4px);
+  }
+
+  /* ── Lotus SVG rule ────────────────────────────────── */
+  .lotus-rule {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .lotus-rule::before,
+  .lotus-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--saffron) / 0.5), transparent);
+  }
+
+  /* ── Tab ───────────────────────────────────────────── */
+  .tab-active   { @apply text-saffron border-b-2 border-saffron pb-3 font-body text-xs tracking-widest uppercase; }
+  .tab-inactive { @apply text-bark border-b-2 border-transparent pb-3 font-body text-xs tracking-widest uppercase hover:text-espresso transition-colors; }
+
+  /* ── Section number ────────────────────────────────── */
+  .section-num {
+    @apply font-display text-saffron/20 font-light select-none;
+    font-size: clamp(6rem, 12vw, 11rem);
+    line-height: 1;
+  }
+
+  /* ── Filter chip ───────────────────────────────────── */
+  .chip-active   { @apply bg-saffron text-white border-2 border-saffron font-body text-xs tracking-widest uppercase px-4 py-2 transition-all; }
+  .chip-inactive { @apply bg-transparent text-mahogany border-2 border-sand font-body text-xs tracking-widest uppercase px-4 py-2 transition-all hover:border-saffron hover:text-saffron; }
+
+  /* ── Scrollbar ─────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--cream)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--saffron) / 0.4); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--saffron) / 0.7); }
+
+  /* ── Marquee ───────────────────────────────────────── */
+  @keyframes marquee-sindoor {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee-sindoor 40s linear infinite; }
+
+  /* ── Float ─────────────────────────────────────────── */
+  @keyframes float-up {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+  }
+  .animate-float       { animation: float-up 5s ease-in-out infinite; }
+  .animate-float-delay { animation: float-up 5s ease-in-out 1.5s infinite; }
+
+  /* ── Focus ─────────────────────────────────────────── */
+  *:focus-visible { outline: 2px solid hsl(var(--saffron) / 0.7); outline-offset: 3px; }
+}

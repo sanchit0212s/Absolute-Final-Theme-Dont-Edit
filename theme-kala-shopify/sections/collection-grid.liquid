@@ -1,0 +1,181 @@
+{%- comment -%}
+  Collection Grid with Filters -- Divine Arts theme-kala
+  Matches Collection.tsx lines 100-267.
+  Sticky filter bar with deity/chakra/element chips, sort, and product grid.
+  All filtering is client-side via data attributes on product cards.
+{%- endcomment -%}
+
+{%- liquid
+  assign deity_names = ''
+  assign chakra_names = ''
+  assign element_names = ''
+
+  for product in collection.products
+    for tag in product.tags
+      if tag contains 'deity:'
+        assign deity_val = tag | remove: 'deity:'
+        unless deity_names contains deity_val
+          if deity_names == ''
+            assign deity_names = deity_val
+          else
+            assign deity_names = deity_names | append: '||' | append: deity_val
+          endif
+        endunless
+      endif
+
+      if tag contains 'chakra:'
+        assign chakra_val = tag | remove: 'chakra:'
+        unless chakra_names contains chakra_val
+          if chakra_names == ''
+            assign chakra_names = chakra_val
+          else
+            assign chakra_names = chakra_names | append: '||' | append: chakra_val
+          endif
+        endunless
+      endif
+
+      if tag contains 'element:'
+        assign element_val = tag | remove: 'element:'
+        unless element_names contains element_val
+          if element_names == ''
+            assign element_names = element_val
+          else
+            assign element_names = element_names | append: '||' | append: element_val
+          endif
+        endunless
+      endif
+    endfor
+  endfor
+
+  assign deity_arr = deity_names | split: '||'
+  assign chakra_arr = chakra_names | split: '||'
+  assign element_arr = element_names | split: '||'
+-%}
+
+{%- comment -%} Sticky filter bar {%- endcomment -%}
+<div class="sticky top-16 z-40 bg-surface/95 backdrop-blur-md border-b border-border">
+  <div class="max-w-[1400px] mx-auto px-6">
+
+    {%- comment -%} Row 1: Count + Controls {%- endcomment -%}
+    <div class="flex items-center justify-between py-3 border-b border-border/40">
+      <p class="font-body text-xs text-on-surface-faint">
+        <span data-product-count>{{ collection.products_count }} forms</span>
+        <button data-clear-filters class="hidden ml-3 text-accent hover:text-accent/80 transition-colors">Clear filters</button>
+      </p>
+
+      <div class="flex items-center gap-4">
+        <button
+          type="button"
+          data-toggle-filters
+          class="flex items-center gap-1.5 font-body text-xs tracking-wider text-on-surface-faint hover:text-on-surface-muted transition-colors"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+          <span>Filters</span>
+          <svg data-filter-chevron width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="w-px h-4 bg-border/60"></div>
+
+        <select data-sort class="font-body text-xs bg-transparent text-on-surface-faint border border-border rounded-md px-3 py-1.5 focus:outline-none focus:border-accent">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price: Low &rarr; High</option>
+          <option value="price-desc">Price: High &rarr; Low</option>
+        </select>
+      </div>
+    </div>
+
+    {%- comment -%} Row 2: Deity chips -- horizontal scroll {%- endcomment -%}
+    <div class="py-3 -mx-6 px-6 overflow-x-auto scrollbar-hide">
+      <div class="flex items-center gap-2 min-w-max">
+        <button
+          type="button"
+          class="filter-chip-active"
+          data-deity-filter=""
+        >
+          All Deities
+        </button>
+        <div class="w-px h-5 bg-border/50 mx-1"></div>
+        {%- for deity in deity_arr -%}
+          <button
+            type="button"
+            class="filter-chip"
+            data-deity-filter="{{ deity }}"
+          >
+            {{ deity }}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- comment -%} Expandable: Chakra + Element filters {%- endcomment -%}
+    <div data-filter-panel class="hidden">
+      <div class="grid sm:grid-cols-2 gap-5 pb-4 pt-1 border-t border-border/40">
+        {%- comment -%} Chakra filters {%- endcomment -%}
+        <div>
+          <span class="font-body text-[10px] tracking-wider uppercase text-on-surface-faint block mb-2 mt-3">Chakra</span>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="filter-chip" data-chakra-filter="root">Root</button>
+            <button type="button" class="filter-chip" data-chakra-filter="sacral">Sacral</button>
+            <button type="button" class="filter-chip" data-chakra-filter="solarplexus">Solar Plexus</button>
+            <button type="button" class="filter-chip" data-chakra-filter="heart">Heart</button>
+            <button type="button" class="filter-chip" data-chakra-filter="throat">Throat</button>
+            <button type="button" class="filter-chip" data-chakra-filter="thirdeye">Third Eye</button>
+            <button type="button" class="filter-chip" data-chakra-filter="crown">Crown</button>
+          </div>
+        </div>
+
+        {%- comment -%} Element filters {%- endcomment -%}
+        <div>
+          <span class="font-body text-[10px] tracking-wider uppercase text-on-surface-faint block mb-2 mt-3">Element</span>
+          <div class="flex gap-2 flex-wrap">
+            <button type="button" class="filter-chip" data-element-filter="Earth">Earth</button>
+            <button type="button" class="filter-chip" data-element-filter="Water">Water</button>
+            <button type="button" class="filter-chip" data-element-filter="Fire">Fire</button>
+            <button type="button" class="filter-chip" data-element-filter="Air">Air</button>
+            <button type="button" class="filter-chip" data-element-filter="Ether">Ether</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{%- comment -%} Product grid {%- endcomment -%}
+<section class="py-12 bg-grain">
+  <div class="max-w-[1400px] mx-auto px-6">
+
+    <div data-product-grid class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Empty state {%- endcomment -%}
+    <div data-empty-state class="text-center py-20 hidden">
+      <p class="font-display text-2xl text-on-surface-faint mb-3">No forms match your filters</p>
+      <button data-clear-filters class="btn-outline">Clear Filters</button>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "tag": "div",
+  "class": "collection-grid-section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Grid"
+    }
+  ]
+}
+{% endschema %}

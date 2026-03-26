@@ -1,0 +1,43 @@
+{%- comment -%}
+  Authenticity Callout — Certificate badge section.
+{%- endcomment -%}
+
+<section class="da-section da-bg-parchment da-texture" data-section-id="{{ section.id }}">
+  <div class="da-container da-container--narrow">
+    <div class="da-text-center da-reveal">
+      <div class="da-auth-badge">
+        <span class="da-auth-badge__symbol">✦</span>
+      </div>
+      <h2 class="da-display da-display-md da-mb-2">{{ section.settings.heading | default: "Authenticity Matters" }}</h2>
+      <p class="da-body-sm" style="max-width:500px;margin:0 auto;">
+        {{ section.settings.description | default: "Every piece ships with an Authenticity Certificate, guaranteeing that the piece is made of 100% original Brass. Hand-cast by artisans in Haridwar." }}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Authenticity",
+  "class": "da-authenticity-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Authenticity Matters"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every piece ships with an Authenticity Certificate, guaranteeing that the piece is made of 100% original Brass. Hand-cast by artisans in Haridwar."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Authenticity"
+    }
+  ]
+}
+{% endschema %}

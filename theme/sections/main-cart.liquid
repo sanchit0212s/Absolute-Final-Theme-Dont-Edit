@@ -1,0 +1,51 @@
+{%- comment -%}
+  Cart page fallback (most interactions go through the AJAX cart drawer).
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream da-pt-6">
+  <div class="da-container" style="max-width:800px;">
+    <h1 class="da-display da-display-lg da-text-center da-mb-3">{{ 'general.cart.title' | t }}</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="da-text-center" style="padding:4rem 0;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto 1rem;display:block;opacity:0.3;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <p class="da-body-sm">{{ 'general.cart.empty' | t }}</p>
+        <a href="/collections/all" class="da-btn da-btn--outline da-mt-2">{{ 'general.cart.continue' | t }}</a>
+      </div>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="da-cart-line">
+          <div class="da-cart-line__image">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 128 }}" alt="{{ item.title | escape }}" width="64" height="64" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div class="da-cart-line__info">
+            <a href="{{ item.url }}" class="da-cart-line__title" style="display:block;">{{ item.product.title }}</a>
+            <div class="da-cart-line__price">{{ item.final_line_price | money }}</div>
+          </div>
+          <div class="da-cart-line__actions">
+            <span class="da-body-xs">Qty: {{ item.quantity }}</span>
+          </div>
+        </div>
+      {%- endfor -%}
+
+      <div style="border-top:1px solid var(--da-border);padding-top:1.5rem;margin-top:1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+          <span class="da-body-sm" style="text-transform:uppercase;letter-spacing:0.1em;">Subtotal</span>
+          <span class="da-price">{{ cart.total_price | money }}</span>
+        </div>
+        <a href="/checkout" class="da-btn da-btn--primary" style="width:100%;text-align:center;">
+          {{ 'general.cart.checkout' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}

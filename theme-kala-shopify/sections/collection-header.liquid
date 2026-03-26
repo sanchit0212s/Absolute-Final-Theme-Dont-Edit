@@ -1,0 +1,56 @@
+{%- comment -%}
+  Collection Header -- Divine Arts theme-kala
+  Matches Collection.tsx lines 88-98.
+{%- endcomment -%}
+
+<section class="section-b border-b border-border py-10">
+  <div class="max-w-[1400px] mx-auto px-6 text-center">
+    <p class="section-label mb-2">
+      {{ section.settings.label | default: 'The Collection' }}
+    </p>
+    <h1 class="font-display text-4xl md:text-5xl text-on-surface font-light">
+      {{ section.settings.heading | default: collection.title | default: 'Sacred Forms' }}
+    </h1>
+    <p class="font-body text-sm text-on-surface-faint mt-3 max-w-md mx-auto">
+      {{ section.settings.description | default: collection.description | default: 'Hand-cast brass deity murtis from Haridwar. Each form chosen with intention.' }}
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Header",
+  "tag": "div",
+  "class": "collection-header-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Section label",
+      "default": "The Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sacred Forms"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Hand-cast brass deity murtis from Haridwar. Each form chosen with intention."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Header",
+      "settings": {
+        "label": "The Collection",
+        "heading": "Sacred Forms",
+        "description": "Hand-cast brass deity murtis from Haridwar. Each form chosen with intention."
+      }
+    }
+  ]
+}
+{% endschema %}

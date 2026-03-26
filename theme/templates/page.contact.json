@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-template",
+      "settings": {},
+      "blocks": {
+        "faq1": {
+          "type": "faq",
+          "settings": {
+            "question": "How heavy are the statues?",
+            "answer": "Our murtis range from 1.2 kg (Shivling) to 3.2 kg (Ram Darbar). Every piece is solid brass — no hollow castings. The weight is part of the experience."
+          }
+        },
+        "faq2": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you ship internationally?",
+            "answer": "Yes. We ship globally with full tracking. India delivery takes 5–7 business days. International delivery (USA, UK, Europe) takes 10–15 business days."
+          }
+        },
+        "faq3": {
+          "type": "faq",
+          "settings": {
+            "question": "What is the Shuddhi Poojan service?",
+            "answer": "Shuddhi Poojan (Prana Pratishtha) is a traditional Vedic consecration ceremony performed by a temple pandit before your murti ships. It includes mantra chanting, Ganga Jal abhishekam, and offerings. You receive a personalized video of the ceremony."
+          }
+        },
+        "faq4": {
+          "type": "faq",
+          "settings": {
+            "question": "How should I care for brass?",
+            "answer": "Dust with a soft cotton cloth. Brass naturally develops a beautiful patina over time. To restore shine, gently rub with a paste of lemon juice and baking soda, then rinse and dry."
+          }
+        }
+      },
+      "block_order": ["faq1", "faq2", "faq3", "faq4"]
+    }
+  },
+  "order": ["main"]
+}

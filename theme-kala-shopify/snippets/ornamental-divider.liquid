@@ -1,0 +1,25 @@
+{%- comment -%}
+  Ornamental Divider — 1:1 match of OrnamentalDivider.tsx
+  Usage: {% render 'ornamental-divider', label: 'Sacred Forms', extra_class: 'mb-12' %}
+{%- endcomment -%}
+
+{%- liquid
+  case symbol
+    when 'lotus'
+      assign sym = '❋'
+    when 'dot'
+      assign sym = '·'
+    else
+      assign sym = '◆'
+  endcase
+-%}
+
+<div class="flex items-center gap-4 {{ extra_class }}" data-animate>
+  <div class="flex-1 ornament-line"></div>
+  {%- if label != blank -%}
+    <span class="section-label whitespace-nowrap">{{ label }}</span>
+  {%- else -%}
+    <span class="text-accent text-[8px] opacity-50">{{ sym }}</span>
+  {%- endif -%}
+  <div class="flex-1 ornament-line"></div>
+</div>

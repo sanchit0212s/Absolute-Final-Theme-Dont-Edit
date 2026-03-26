@@ -1,0 +1,93 @@
+<footer class="bg-obsidian text-white/80">
+  <div class="max-w-[1400px] mx-auto px-6 py-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
+
+      <!-- Brand -->
+      <div class="col-span-2 md:col-span-4 lg:col-span-2 lg:pr-8">
+        <a href="/" class="font-display text-2xl text-shimmer-gold tracking-wide">{{ section.settings.logo_text }}</a>
+        <p class="font-body text-sm text-white/50 leading-relaxed mt-4 max-w-sm">
+          {{ section.settings.description }}
+        </p>
+
+        <!-- Newsletter -->
+        <div class="mt-6">
+          <p class="font-body text-xs text-white/40 uppercase tracking-wider mb-2">Join our journey</p>
+          {% form 'customer' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="flex gap-2">
+              <input type="email" name="contact[email]" placeholder="your@email.com" class="flex-1 bg-white/5 border border-white/10 rounded-md px-4 py-2.5 font-body text-sm text-white/80 placeholder:text-white/25 focus:outline-none focus:border-shimmer-gold/50 transition-colors" required>
+              <button type="submit" class="px-5 py-2.5 bg-temple-gold text-obsidian font-body text-xs tracking-wider uppercase rounded-md hover:bg-bright-gold transition-colors">Join</button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+
+      <!-- Collection Column -->
+      <div>
+        <h4 class="font-display text-base text-white/70 mb-4">Collection</h4>
+        <ul class="space-y-3">
+          <li><a href="/collections/all" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">All Sacred Forms</a></li>
+          <li><a href="/collections/all?deity=Ganesh" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Ganesh</a></li>
+          <li><a href="/collections/all?deity=Shiva" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Shiva</a></li>
+          <li><a href="/collections/all?deity=Krishna" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Krishna</a></li>
+          <li><a href="/collections/all?deity=Buddha" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Buddha</a></li>
+        </ul>
+      </div>
+
+      <!-- Guidance Column -->
+      <div>
+        <h4 class="font-display text-base text-white/70 mb-4">Guidance</h4>
+        <ul class="space-y-3">
+          <li><a href="/pages/guide" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Find Your Deity</a></li>
+          <li><a href="/pages/about" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Our Story</a></li>
+          <li><a href="/pages/about#vastu" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Vastu & Placement</a></li>
+          <li><a href="/pages/about#chakra" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Chakra System</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Column -->
+      <div>
+        <h4 class="font-display text-base text-white/70 mb-4">Support</h4>
+        <ul class="space-y-3">
+          <li><a href="/pages/contact" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Contact Us</a></li>
+          <li><a href="/pages/contact" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Shipping Info</a></li>
+          <li><a href="/pages/contact" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">Returns & Care</a></li>
+          <li><a href="/pages/contact" class="footer-link font-body text-sm text-white/40 hover:text-shimmer-gold">FAQ</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-white/[0.08] py-5">
+    <div class="max-w-[1400px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="font-body text-[11px] text-white/30">&copy; 2026 Divine Arts. All rights reserved.</p>
+      <div class="flex items-center gap-4">
+        <span class="font-body text-[11px] text-white/20">Haridwar, India</span>
+        <span class="text-white/10">&middot;</span>
+        <span class="font-body text-[11px] text-white/20">Ships Worldwide</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Divine Arts"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Sacred brass forms, hand-cast in Haridwar. Not decoration — intention. Each piece selected to become a quiet center in your home."
+    }
+  ]
+}
+{% endschema %}

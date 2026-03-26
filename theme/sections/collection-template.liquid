@@ -1,0 +1,129 @@
+{%- comment -%}
+  Collection Template Section — Filterable product grid.
+  Uses client-side JS for deity/chakra/element filtering.
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream da-pt-6" data-section-id="{{ section.id }}">
+  <div class="da-container">
+
+    {%- comment -%} Page header {%- endcomment -%}
+    <div class="da-text-center da-reveal da-mb-4">
+      <h1 class="da-display da-display-lg da-mb-1">{{ collection.title | default: "The Collection" }}</h1>
+      {%- if collection.description != blank -%}
+        <p class="da-body-sm" style="max-width:500px;margin:0 auto;">{{ collection.description }}</p>
+      {%- else -%}
+        <p class="da-body-sm" style="max-width:500px;margin:0 auto;">Every piece is chosen for the role it plays in your space.</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Search bar {%- endcomment -%}
+    <div class="da-search-bar da-reveal">
+      <svg class="da-search-bar__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input class="da-search-bar__input" type="text" id="collection-search" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off">
+      <button class="da-search-bar__clear" id="collection-search-clear" type="button" aria-label="Clear search">&times;</button>
+    </div>
+
+    {%- comment -%} Filter dropdowns {%- endcomment -%}
+    <div class="da-filter-bar da-reveal" id="collection-filters">
+      {%- comment -%} By Deity {%- endcomment -%}
+      <div class="da-filter-dropdown" data-filter="deity">
+        <button class="da-filter-dropdown__btn" type="button">
+          <span>By Deity</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <div class="da-filter-dropdown__menu">
+          <button class="da-filter-dropdown__clear" data-clear="deity" type="button">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            Clear filter
+          </button>
+          {%- assign deity_names = "Ganesh,Vishnu,Shiva,Buddha,Shivling,Nandi,Ram Darbar,Hanuman,Shiv-Parvati,Durga,Krishna,Saraswati" | split: "," -%}
+          {%- for name in deity_names -%}
+            <button class="da-filter-dropdown__item" data-filter-value="{{ name }}" type="button">{{ name }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- comment -%} By Chakra {%- endcomment -%}
+      <div class="da-filter-dropdown" data-filter="chakra">
+        <button class="da-filter-dropdown__btn" type="button">
+          <span>By Chakra</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <div class="da-filter-dropdown__menu">
+          <button class="da-filter-dropdown__clear" data-clear="chakra" type="button">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            Clear filter
+          </button>
+          {%- assign chakra_list = "Root (Muladhara),Sacral (Svadhisthana),Solar Plexus (Manipura),Heart (Anahata),Throat (Vishuddha),Third Eye (Ajna),Crown (Sahasrara)" | split: "," -%}
+          {%- for ch in chakra_list -%}
+            <button class="da-filter-dropdown__item" data-filter-value="{{ ch }}" type="button">{{ ch }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {%- comment -%} By Element {%- endcomment -%}
+      <div class="da-filter-dropdown" data-filter="element">
+        <button class="da-filter-dropdown__btn" type="button">
+          <span>By Element</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <div class="da-filter-dropdown__menu">
+          <button class="da-filter-dropdown__clear" data-clear="element" type="button">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            Clear filter
+          </button>
+          {%- assign elements = "Earth,Water,Fire,Air,Ether" | split: "," -%}
+          {%- for el in elements -%}
+            <button class="da-filter-dropdown__item" data-filter-value="{{ el }}" type="button">{{ el }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Product grid {%- endcomment -%}
+    <div class="da-grid da-grid--4" id="collection-grid">
+      {%- paginate collection.products by 24 -%}
+        {%- for product in collection.products -%}
+          {%- unless product.tags contains 'addon' -%}
+            <div class="da-collection-item"
+              data-title="{{ product.title | downcase }}"
+              data-tags="{{ product.tags | join: ',' | downcase }}"
+              data-deity="{{ product.metafields.custom.deity_name | default: '' }}"
+              data-chakra="{{ product.metafields.custom.chakra | default: '' }}"
+              data-element="{{ product.metafields.custom.element | default: '' }}"
+            >
+              {% render 'product-card', product: product, index: forloop.index0 %}
+            </div>
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endpaginate -%}
+    </div>
+
+    {%- comment -%} Empty state {%- endcomment -%}
+    <div class="da-text-center da-hidden" id="collection-empty" style="padding:4rem 0;">
+      <p class="da-body-sm">{{ 'collections.no_results' | t }}</p>
+    </div>
+
+    {%- comment -%} Pagination {%- endcomment -%}
+    {%- paginate collection.products by 24 -%}
+      {%- if paginate.pages > 1 -%}
+        <div class="da-text-center da-mt-4">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="da-btn da-btn--ghost">&larr; Previous</a>
+          {%- endif -%}
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="da-btn da-btn--ghost">Next &rarr;</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Template",
+  "class": "da-collection-template",
+  "settings": []
+}
+{% endschema %}

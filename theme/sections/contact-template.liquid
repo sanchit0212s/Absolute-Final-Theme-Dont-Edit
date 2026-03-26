@@ -1,0 +1,170 @@
+{%- comment -%}
+  Contact Template — Contact form with topic selector, sidebar info, FAQ.
+{%- endcomment -%}
+
+<section class="da-section da-bg-cream da-pt-6" data-section-id="{{ section.id }}">
+  <div class="da-container" style="max-width:1000px;">
+
+    {%- comment -%} Page header {%- endcomment -%}
+    <div class="da-text-center da-reveal da-mb-4">
+      <h1 class="da-display da-display-lg da-mb-1">{{ page.title | default: "Contact Us" }}</h1>
+      <p class="da-body-sm" style="max-width:480px;margin:0 auto;">
+        {{ section.settings.subtitle | default: "Questions about a piece, custom orders, or just want to learn more about our craft." }}
+      </p>
+    </div>
+
+    <div class="da-contact-grid da-reveal">
+
+      {%- comment -%} Form {%- endcomment -%}
+      <div>
+        {%- form 'contact', id: 'contact-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="da-form-success">
+              <div class="da-auth-badge" style="margin-bottom:1rem;">
+                <span class="da-auth-badge__symbol">✓</span>
+              </div>
+              <p class="da-display" style="font-size:1.25rem;margin-bottom:0.5rem;">{{ 'contact.success' | t }}</p>
+            </div>
+          {%- else -%}
+
+            {%- comment -%} Topic selector {%- endcomment -%}
+            <div class="da-form-group">
+              <label class="da-form-label" for="contact-topic">{{ 'contact.topic' | t }}</label>
+              <select class="da-form-select" name="contact[topic]" id="contact-topic">
+                <option value="Order & Shipping">{{ 'contact.topics.order' | t }}</option>
+                <option value="Consecration">{{ 'contact.topics.consecration' | t }}</option>
+                <option value="Vastu Consultation">{{ 'contact.topics.vastu' | t }}</option>
+                <option value="General">{{ 'contact.topics.general' | t }}</option>
+              </select>
+            </div>
+
+            <div class="da-form-group">
+              <label class="da-form-label" for="contact-name">{{ 'contact.name' | t }}</label>
+              <input class="da-form-input" type="text" name="contact[name]" id="contact-name" required>
+            </div>
+
+            <div class="da-form-group">
+              <label class="da-form-label" for="contact-email">{{ 'contact.email' | t }}</label>
+              <input class="da-form-input" type="email" name="contact[email]" id="contact-email" required>
+            </div>
+
+            <div class="da-form-group">
+              <label class="da-form-label" for="contact-message">{{ 'contact.message' | t }}</label>
+              <textarea class="da-form-textarea" name="contact[body]" id="contact-message" rows="5" required></textarea>
+            </div>
+
+            {%- if form.errors -%}
+              <div style="color:var(--da-saffron);font-size:0.875rem;margin-bottom:1rem;">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            <button type="submit" class="da-btn da-btn--primary" style="width:100%;">
+              {{ 'contact.submit' | t }}
+            </button>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+      {%- comment -%} Sidebar {%- endcomment -%}
+      <div>
+        <div class="da-mb-3">
+          <h3 class="da-display da-display-sm da-text-copper da-mb-1">Visit Our Store</h3>
+          <p class="da-body-sm">
+            {{ section.settings.address | default: "Jwalapur, Haridwar, Uttarakhand 249407, India" }}
+          </p>
+          <p class="da-body-xs da-mt-1">{{ section.settings.hours | default: "Mon–Sat, 9am–6pm IST" }}</p>
+        </div>
+
+        <div class="da-mb-3">
+          <h3 class="da-display da-display-sm da-text-copper da-mb-1">Email</h3>
+          <p class="da-body-sm">
+            <a href="mailto:{{ section.settings.email | default: 'contact@divinearts.store' }}" style="color:var(--da-copper);">
+              {{ section.settings.email | default: "contact@divinearts.store" }}
+            </a>
+          </p>
+        </div>
+
+        <div>
+          <h3 class="da-display da-display-sm da-text-copper da-mb-1">Trust & Authenticity</h3>
+          <div class="da-body-sm" style="line-height:2;">
+            <p><span style="color:var(--da-copper);">✦</span> GST Registered Business</p>
+            <p><span style="color:var(--da-copper);">✦</span> Physical Storefront in Haridwar</p>
+            <p><span style="color:var(--da-copper);">✦</span> Certificate of Authenticity with every piece</p>
+            <p><span style="color:var(--da-copper);">✦</span> Secure global shipping with full tracking</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} FAQ section {%- endcomment -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="da-mt-4" style="max-width:700px;margin-left:auto;margin-right:auto;">
+        {%- render 'ornament' -%}
+        <h2 class="da-display da-display-md da-text-center da-mb-3">Frequently Asked Questions</h2>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq' -%}
+            <details style="border-bottom:1px solid var(--da-border);padding:1rem 0;" {{ block.shopify_attributes }}>
+              <summary style="font-family:var(--da-font-display);font-size:1.0625rem;color:var(--da-charcoal);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+                {{ block.settings.question }}
+                <span style="color:var(--da-copper);font-size:1.25rem;transition:transform 0.3s;">+</span>
+              </summary>
+              <p class="da-body-sm" style="margin-top:0.75rem;">{{ block.settings.answer }}</p>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Page",
+  "class": "da-contact-template",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Questions about a piece, custom orders, or just want to learn more about our craft."
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "Jwalapur, Haridwar, Uttarakhand 249407, India"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Hours",
+      "default": "Mon–Sat, 9am–6pm IST"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "contact@divinearts.store"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

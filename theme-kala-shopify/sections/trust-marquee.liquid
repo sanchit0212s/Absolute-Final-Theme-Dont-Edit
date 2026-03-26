@@ -1,0 +1,63 @@
+<style>
+  @keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee-scroll 40s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+<section class="section-b border-y border-border py-4 overflow-hidden">
+  <div class="marquee-track" aria-label="Trust statements">
+    {%- for copy in (1..4) -%}
+      <span class="flex items-center gap-10 px-10 whitespace-nowrap">
+        {%- for block in section.blocks -%}
+          <span class="flex items-center gap-2.5" {{ block.shopify_attributes }}>
+            <span class="w-1.5 h-1.5 rounded-full bg-accent/60 flex-shrink-0"></span>
+            <span class="font-body text-[11px] tracking-[0.2em] uppercase text-on-surface-muted">{{ block.settings.text }}</span>
+          </span>
+        {%- endfor -%}
+      </span>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Marquee",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Marquee item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "100% Solid Brass"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "100% Solid Brass" } },
+        { "type": "item", "settings": { "text": "Hand-Cast in Haridwar" } },
+        { "type": "item", "settings": { "text": "Ships Worldwide" } },
+        { "type": "item", "settings": { "text": "Consecration Available" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

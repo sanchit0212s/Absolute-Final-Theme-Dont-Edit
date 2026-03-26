@@ -1,0 +1,556 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════
+   KALA DESIGN SYSTEM — Dual Mode (Light default, Dark toggle)
+   Higher saturation, more vibrance, elegant creativity
+   ═══════════════════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    /* ── Surface (Light) — warm, rich parchment ── */
+    --parchment:    36 55% 93%;
+    --cream:        34 52% 87%;
+    --linen:        32 46% 82%;
+    --warm-tan:     30 42% 72%;
+
+    /* ── Dark surfaces ── */
+    --obsidian:     20 30% 6%;
+    --charcoal:     20 25% 11%;
+    --slate:        20 18% 18%;
+
+    /* ── Brand — rich, deep golds ── */
+    --temple-gold:  38 92% 38%;
+    --bright-gold:  40 90% 48%;
+    --shimmer-gold: 42 88% 58%;
+    --saffron:      22 100% 42%;
+    --vermilion:    6 88% 46%;
+    --sindoor:      0 82% 42%;
+
+    /* ── Text — deep, warm browns ── */
+    --espresso:     18 65% 10%;
+    --mahogany:     16 58% 20%;
+    --walnut:       18 42% 36%;
+
+    /* ── Semantic (light mode) ── */
+    --surface:      36 55% 93%;
+    --surface-2:    34 52% 87%;
+    --surface-3:    32 46% 82%;
+    --on-surface:   18 65% 10%;
+    --on-surface-muted: 16 58% 20%;
+    --on-surface-faint: 18 42% 36%;
+    --accent:       38 92% 38%;
+    --accent-hover: 40 90% 48%;
+    --border:       30 38% 76%;
+    --border-strong: 28 42% 62%;
+  }
+
+  .dark {
+    --surface:      20 30% 6%;
+    --surface-2:    20 25% 11%;
+    --surface-3:    20 18% 18%;
+    --on-surface:   40 40% 92%;
+    --on-surface-muted: 38 30% 72%;
+    --on-surface-faint: 32 20% 52%;
+    --accent:       42 92% 52%;
+    --accent-hover: 44 95% 60%;
+    --border:       22 20% 20%;
+    --border-strong: 22 25% 30%;
+
+    /* Boost brand saturation in dark mode */
+    --temple-gold:  42 95% 50%;
+    --bright-gold:  44 92% 58%;
+    --shimmer-gold: 46 95% 66%;
+    --saffron:      24 100% 52%;
+    --vermilion:    8 90% 55%;
+  }
+
+  * { border-color: hsl(var(--border)); }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-body;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.2);
+    color: hsl(var(--on-surface));
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   TEXTURE BACKGROUNDS
+   ═══════════════════════════════════════════════════════════ */
+
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+.dark .bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+/* Rangoli dot pattern */
+.bg-rangoli {
+  background-image: radial-gradient(circle, hsl(var(--accent) / 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dark .bg-rangoli {
+  background-image: radial-gradient(circle, hsl(var(--accent) / 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Jali lattice pattern */
+.bg-jali {
+  background-image:
+    linear-gradient(45deg, hsl(var(--accent) / 0.04) 25%, transparent 25%),
+    linear-gradient(-45deg, hsl(var(--accent) / 0.04) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, hsl(var(--accent) / 0.04) 75%),
+    linear-gradient(-45deg, transparent 75%, hsl(var(--accent) / 0.04) 75%);
+  background-size: 32px 32px;
+  background-position: 0 0, 0 16px, 16px -16px, -16px 0;
+}
+
+/* Warm gradient wash */
+.bg-warm-wash {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--surface)) 0%,
+    hsl(var(--surface-2)) 40%,
+    hsl(var(--accent) / 0.05) 100%
+  );
+}
+
+/* Mandala watermark */
+.bg-mandala {
+  background-image: radial-gradient(
+    ellipse at center,
+    hsl(var(--accent) / 0.04) 0%,
+    hsl(var(--accent) / 0.02) 30%,
+    transparent 70%
+  );
+}
+
+/* Sacred geometry — concentric circles */
+.bg-sacred-circles {
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 20%, hsl(var(--accent) / 0.03) 20.5%, hsl(var(--accent) / 0.03) 21%, transparent 21.5%),
+    radial-gradient(circle at 50% 50%, transparent 35%, hsl(var(--accent) / 0.025) 35.5%, hsl(var(--accent) / 0.025) 36%, transparent 36.5%),
+    radial-gradient(circle at 50% 50%, transparent 50%, hsl(var(--accent) / 0.02) 50.5%, hsl(var(--accent) / 0.02) 51%, transparent 51.5%);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION SURFACES
+   ═══════════════════════════════════════════════════════════ */
+
+.section-a { @apply bg-surface; }
+.section-b { @apply bg-surface-2; }
+.section-c { @apply bg-surface-3; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════════════════════════════ */
+
+.section-label {
+  @apply font-body text-[10px] tracking-[0.3em] uppercase;
+  color: hsl(var(--accent));
+}
+
+.text-gradient-gold {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, hsl(var(--temple-gold)), hsl(var(--bright-gold)), hsl(var(--shimmer-gold)));
+  background-size: 200% 200%;
+}
+
+.num-label {
+  @apply font-display text-sm italic;
+  color: hsl(var(--accent) / 0.5);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   CARD STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+.card-kala {
+  @apply bg-surface-2 border border-border rounded-lg overflow-hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-kala:hover {
+  border-color: hsl(var(--accent) / 0.4);
+  box-shadow: 0 8px 32px hsl(var(--accent) / 0.08);
+  transform: translateY(-2px);
+}
+
+.card-warm {
+  @apply bg-surface-2 border border-border rounded-lg;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-warm:hover {
+  border-color: hsl(var(--accent) / 0.3);
+  box-shadow: 0 4px 20px hsl(var(--accent) / 0.06);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════ */
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-3.5 font-body text-xs tracking-[0.2em] uppercase rounded-md;
+  background: linear-gradient(135deg, hsl(var(--temple-gold)), hsl(var(--bright-gold)));
+  color: hsl(var(--obsidian));
+  box-shadow: 0 2px 12px hsl(var(--temple-gold) / 0.3);
+  transition: all 0.3s ease;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, hsl(var(--bright-gold)), hsl(var(--shimmer-gold)));
+  box-shadow: 0 4px 20px hsl(var(--temple-gold) / 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-3.5 font-body text-xs tracking-[0.2em] uppercase rounded-md;
+  border: 1.5px solid hsl(var(--accent));
+  color: hsl(var(--accent));
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background: hsl(var(--accent) / 0.08);
+  border-color: hsl(var(--accent-hover));
+  color: hsl(var(--accent-hover));
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 px-6 py-2.5 font-body text-xs tracking-[0.15em] uppercase rounded-md;
+  color: hsl(var(--on-surface-muted));
+  transition: all 0.2s ease;
+}
+.btn-ghost:hover {
+  color: hsl(var(--accent));
+  background: hsl(var(--accent) / 0.06);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   TAB STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+.tab-active {
+  @apply pb-3 relative;
+  color: hsl(var(--accent));
+}
+.tab-inactive {
+  @apply pb-3 relative;
+  color: hsl(var(--on-surface-faint));
+  transition: color 0.2s ease;
+}
+.tab-inactive:hover {
+  color: hsl(var(--on-surface-muted));
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   ORNAMENTAL ELEMENTS
+   ═══════════════════════════════════════════════════════════ */
+
+.ornament-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--accent) / 0.4) 20%,
+    hsl(var(--accent) / 0.6) 50%,
+    hsl(var(--accent) / 0.4) 80%,
+    transparent 100%
+  );
+}
+
+.ornament-diamond {
+  @apply w-2 h-2 rotate-45;
+  background: hsl(var(--accent) / 0.5);
+}
+
+.ornament-lotus::before {
+  content: "❋";
+  color: hsl(var(--accent) / 0.4);
+  font-size: 12px;
+}
+
+/* Diya flame effect */
+.diya-flame {
+  position: relative;
+}
+.diya-flame::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 12px;
+  background: radial-gradient(ellipse at bottom, hsl(var(--shimmer-gold)), hsl(var(--saffron) / 0.6), transparent);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: flame 2s ease-in-out infinite;
+}
+
+/* Shimmer bar */
+.shimmer-bar {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--accent) / 0.1) 0%,
+    hsl(var(--accent) / 0.3) 50%,
+    hsl(var(--accent) / 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   DEITY CHIP
+   ═══════════════════════════════════════════════════════════ */
+
+.deity-chip {
+  @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-body text-[10px] tracking-wider uppercase;
+  background: hsl(var(--saffron) / 0.1);
+  color: hsl(var(--saffron));
+  border: 1px solid hsl(var(--saffron) / 0.2);
+}
+.dark .deity-chip {
+  background: hsl(var(--saffron) / 0.15);
+  border-color: hsl(var(--saffron) / 0.3);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   FILTER CHIP
+   ═══════════════════════════════════════════════════════════ */
+
+.filter-chip {
+  @apply px-4 py-2 rounded-full font-body text-xs tracking-wider transition-all duration-200;
+  border: 1.5px solid hsl(var(--border));
+  color: hsl(var(--on-surface-muted));
+}
+.filter-chip:hover {
+  border-color: hsl(var(--accent) / 0.4);
+  color: hsl(var(--accent));
+}
+.filter-chip-active {
+  @apply px-4 py-2 rounded-full font-body text-xs tracking-wider;
+  background: hsl(var(--accent) / 0.1);
+  border: 1.5px solid hsl(var(--accent));
+  color: hsl(var(--accent));
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: hsl(var(--surface)); }
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--accent) / 0.2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--accent) / 0.35); }
+
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHTBOX OVERLAY
+   ═══════════════════════════════════════════════════════════ */
+
+.lightbox-overlay {
+  @apply fixed inset-0 z-[100] flex items-center justify-center;
+  background: hsl(var(--obsidian) / 0.92);
+  backdrop-filter: blur(12px);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   LINK UNDERLINE ANIMATION
+   ═══════════════════════════════════════════════════════════ */
+
+.link-animated {
+  position: relative;
+  display: inline-block;
+}
+.link-animated::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: hsl(var(--accent));
+  transition: width 0.3s ease;
+}
+.link-animated:hover::after {
+  width: 100%;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   TRUST MARQUEE
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 25s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: running;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE HELPERS
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .hide-mobile { display: none; }
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOGO SHIMMER ON HOVER
+   ═══════════════════════════════════════════════════════════ */
+.logo-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--temple-gold)) 0%,
+    hsl(var(--bright-gold)) 35%,
+    hsl(var(--shimmer-gold)) 50%,
+    hsl(var(--bright-gold)) 65%,
+    hsl(var(--temple-gold)) 100%
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-position: 0% center;
+  transition: background-position 0s;
+}
+.logo-shimmer:hover {
+  animation: logo-sweep 0.8s ease forwards;
+}
+@keyframes logo-sweep {
+  0%   { background-position: 100% center; }
+  100% { background-position: -100% center; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FORM INPUT SACRED GLOW
+   ═══════════════════════════════════════════════════════════ */
+.input-sacred {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-sacred:focus {
+  border-color: hsl(var(--accent));
+  box-shadow: 0 0 0 3px hsl(var(--accent) / 0.1), 0 0 20px hsl(var(--accent) / 0.05);
+}
+.input-group:focus-within label {
+  color: hsl(var(--accent)) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER LINK ARROW NUDGE
+   ═══════════════════════════════════════════════════════════ */
+.footer-link {
+  @apply inline-flex items-center transition-all;
+  transition-duration: 250ms;
+  position: relative;
+  padding-left: 0;
+}
+.footer-link::before {
+  content: "›";
+  font-size: 0.75rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: all 0.25s ease;
+  color: hsl(var(--shimmer-gold));
+  position: absolute;
+  left: -12px;
+}
+.footer-link:hover {
+  transform: translateX(6px);
+}
+.footer-link:hover::before {
+  opacity: 0.7;
+  transform: translateX(0);
+}
+
+/* Holy mantra sparkle — cursor-following sparkles */
+.mantra-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+.mantra-wrap .mantra-text {
+  @apply font-body tracking-widest italic cursor-default;
+  color: hsl(var(--on-surface-faint));
+  transition: color 0.4s ease;
+}
+.mantra-wrap:hover .mantra-text {
+  color: hsl(var(--temple-gold));
+  filter: drop-shadow(0 0 6px hsl(var(--shimmer-gold) / 0.2));
+}
+
+/* Individual sparkle particle */
+.sparkle-particle {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  animation: sparkle-pop var(--dur, 0.7s) ease-out forwards;
+}
+/* 4-point star shape via clip-path for some particles */
+.sparkle-star {
+  position: absolute;
+  pointer-events: none;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%,
+    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+    2% 35%, 39% 35%
+  );
+  animation: sparkle-pop-star var(--dur, 0.85s) ease-out forwards;
+}
+
+@keyframes sparkle-pop {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(0) translateY(0); }
+  30%  { opacity: 1; transform: translate(-50%, -50%) scale(1) translateY(-4px); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) translateY(-18px); }
+}
+@keyframes sparkle-pop-star {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+  25%  { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(20deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(60deg) translateY(-14px); }
+}
+
+/* Hide scrollbar for horizontal scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,106 @@
+<section class="section-a py-24 relative overflow-hidden" data-animate>
+  <div class="absolute inset-0 bg-mandala pointer-events-none opacity-20"></div>
+  <div class="max-w-4xl mx-auto px-6 text-center relative">
+    <div>
+
+      {%- comment -%} Top divider — w-20 gradient lines with diamond {%- endcomment -%}
+      <div class="flex items-center justify-center gap-4 mb-10">
+        <div class="w-20 h-px bg-gradient-to-r from-transparent to-accent/40"></div>
+        <div class="ornament-diamond"></div>
+        <div class="w-20 h-px bg-gradient-to-l from-transparent to-accent/40"></div>
+      </div>
+
+      <p class="font-display text-3xl md:text-4xl lg:text-5xl text-on-surface font-light leading-snug mb-8">
+        {{ section.settings.heading_line_1 }}
+        <br class="hidden md:block">
+        {{ ' ' }}<span class="text-accent italic">{{ section.settings.heading_line_2 }}</span>
+      </p>
+
+      <p class="font-body text-on-surface-faint text-sm max-w-xl mx-auto leading-relaxed mb-10">
+        {{ section.settings.description }}
+      </p>
+
+      {%- comment -%} Bottom divider — w-10 lines with diamond {%- endcomment -%}
+      <div class="flex items-center justify-center gap-3 mb-10">
+        <div class="w-10 h-px bg-accent/20"></div>
+        <div class="ornament-diamond"></div>
+        <div class="w-10 h-px bg-accent/20"></div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="{{ section.settings.primary_cta_url }}" class="btn-primary">
+          {{ section.settings.primary_cta_text }}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="{{ section.settings.secondary_cta_url }}" class="btn-outline">
+          {{ section.settings.secondary_cta_text }}
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA Band",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "A room with a brass murti in it"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2 (italic accent)",
+      "default": "is not the same room without one."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "You notice it when you walk in. Something grounding, something still — a centre of gravity that the rest of the room organizes around. That is what solid brass does to a space."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Primary button text",
+      "default": "Explore the Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_url",
+      "label": "Primary button URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Secondary button text",
+      "default": "Find Your Deity"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Secondary button URL",
+      "default": "/pages/guide"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Band",
+      "settings": {
+        "heading_line_1": "A room with a brass murti in it",
+        "heading_line_2": "is not the same room without one.",
+        "description": "You notice it when you walk in. Something grounding, something still — a centre of gravity that the rest of the room organizes around. That is what solid brass does to a space.",
+        "primary_cta_text": "Explore the Collection",
+        "primary_cta_url": "/collections/all",
+        "secondary_cta_text": "Find Your Deity",
+        "secondary_cta_url": "/pages/guide"
+      }
+    }
+  ]
+}
+{% endschema %}
